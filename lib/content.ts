@@ -59,7 +59,6 @@ export type Dict = {
     primary: string;
     secondary: string;
     caption: string;
-    status: string;
     chips: string[];
   };
   services: {
@@ -106,6 +105,13 @@ export type Dict = {
       invalid: string;
     };
   };
+  plate: {
+    title: string;
+    text: string;
+    hint: string;
+    alt: string;
+    close: string;
+  };
   footer: {
     role: string;
     nifLabel: string;
@@ -127,7 +133,6 @@ export const DICT: Record<Lang, Dict> = {
       primary: "Leave a request",
       secondary: "See services",
       caption: "Ildar Lomov, Lisbon",
-      status: "Open for new projects",
       chips: ["Telegram", "WhatsApp", "Bitrix24", "amoCRM", "Tilda", "AI agents"],
     },
     services: {
@@ -269,6 +274,14 @@ export const DICT: Record<Lang, Dict> = {
         invalid: "Please add your name and a way to reach you.",
       },
     },
+    plate: {
+      title: "Not a vibe coder",
+      text:
+        "I actually studied this. Master's degree in Applied Mathematics and Computer Science, HSE, 2020.",
+      hint: "Click the diploma to enlarge",
+      alt: "Master's diploma, HSE, 2020",
+      close: "Close",
+    },
     footer: {
       role: "Independent professional (Trabalhador Independente)",
       nifLabel: "NIF",
@@ -289,7 +302,6 @@ export const DICT: Record<Lang, Dict> = {
       primary: "Оставить заявку",
       secondary: "Смотреть услуги",
       caption: "Ильдар Ломов, Лиссабон",
-      status: "Открыт к новым проектам",
       chips: ["Telegram", "WhatsApp", "Битрикс24", "amoCRM", "Tilda", "ИИ-агенты"],
     },
     services: {
@@ -430,6 +442,14 @@ export const DICT: Record<Lang, Dict> = {
         error: "Что-то пошло не так. Напишите мне, пожалуйста, в WhatsApp.",
         invalid: "Укажите, пожалуйста, имя и способ связи.",
       },
+    },
+    plate: {
+      title: "Не вайбкодер",
+      text:
+        "Я этому реально учился. Диплом магистра по направлению «Прикладная математика и информатика», НИУ ВШЭ, 2020.",
+      hint: "Нажмите на диплом, чтобы увеличить",
+      alt: "Диплом магистра, НИУ ВШЭ, 2020",
+      close: "Закрыть",
     },
     footer: {
       role: "Самозанятый специалист (Trabalhador Independente)",

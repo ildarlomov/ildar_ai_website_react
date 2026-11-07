@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { DICT, FACTS, SERVICE_KEYS, type Lang } from "@/lib/content";
 import LeadForm from "@/components/LeadForm";
+import DiplomaPlate from "@/components/DiplomaPlate";
 
 const STORAGE_KEY = "ildar-ai-lang";
 
@@ -114,15 +115,7 @@ export default function Landing() {
 
           <div className="relative mx-auto flex max-w-6xl flex-col px-5 md:h-[100svh] md:max-h-[940px] md:min-h-[680px] md:flex-row md:items-center">
             <div className="relative z-10 pb-4 pt-32 md:w-[56%] md:py-0 md:pt-16">
-              <span className="inline-flex items-center gap-2.5 rounded-full border border-white/12 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-cream/80">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-                </span>
-                {t.hero.status}
-              </span>
-
-              <h1 className="font-display mt-6 text-[2.6rem] font-bold leading-[1.04] sm:text-6xl lg:text-[4.1rem]">
+              <h1 className="font-display text-[2.6rem] font-bold leading-[1.04] sm:text-6xl lg:text-[4.1rem]">
                 {t.hero.title} <span className="text-accent">{t.hero.titleAccent}</span>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream/70">{t.hero.text}</p>
@@ -152,16 +145,21 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* Portrait: fades into the section on the sides; sits under the text on phones */}
-          <div className="relative h-[460px] [mask-image:linear-gradient(to_bottom,transparent,#000_28%)] md:absolute md:inset-y-0 md:right-0 md:h-auto md:w-[58%] md:[mask-image:linear-gradient(to_right,transparent_0%,#000_32%,#000_86%,transparent_100%)]">
-            <Image
-              src="/hero.jpg"
-              alt={t.hero.caption}
-              fill
-              priority
-              sizes="(min-width: 768px) 58vw, 100vw"
-              className="object-cover object-[50%_0%]"
-            />
+          {/* Portrait: fades into the section on the sides; sits under the text on phones.
+              The inner box starts below the floating header (top-*), leaving headroom above
+              the head. Its top fade is deliberately short (5%) so it only dissolves the empty
+              door above the head and never shades the head itself. */}
+          <div className="relative h-[500px] [mask-image:linear-gradient(to_right,transparent_0%,#000_12%,#000_88%,transparent_100%)] md:absolute md:inset-y-0 md:right-0 md:h-auto md:w-[58%] md:[mask-image:linear-gradient(to_right,transparent_0%,#000_32%,#000_86%,transparent_100%)]">
+            <div className="absolute inset-x-0 bottom-0 top-10 [mask-image:linear-gradient(to_bottom,transparent_0%,#000_5%)] md:top-24">
+              <Image
+                src="/hero.jpg"
+                alt={t.hero.caption}
+                fill
+                priority
+                sizes="(min-width: 768px) 58vw, 100vw"
+                className="object-cover object-[50%_0%]"
+              />
+            </div>
           </div>
 
           <div className="absolute bottom-16 left-5 z-10 rounded-2xl border border-white/15 bg-black/35 px-4 py-3 backdrop-blur-md md:bottom-20 md:left-auto md:right-[12%]">
@@ -352,6 +350,11 @@ export default function Landing() {
               <LeadForm lang={lang} />
             </div>
           </div>
+        </section>
+
+        {/* ───── "Not a vibe coder" plate (sand) ───── */}
+        <section className={`${PANEL} bg-cream-2 px-5 py-14 md:py-16`}>
+          <DiplomaPlate lang={lang} />
         </section>
       </main>
 
