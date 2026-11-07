@@ -277,7 +277,7 @@ export const DICT: Record<Lang, Dict> = {
     plate: {
       title: "Not a vibe coder",
       text:
-        "I actually studied this. Master's degree in Applied Mathematics and Computer Science, HSE, 2020.",
+        "I have a Master's degree in Applied Mathematics and Computer Science, HSE, 2020.",
       hint: "Click the diploma to enlarge",
       alt: "Master's diploma, HSE, 2020",
       close: "Close",

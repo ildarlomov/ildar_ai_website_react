@@ -29,15 +29,14 @@ export default function DiplomaPlate({ lang }: { lang: Lang }) {
 
   return (
     <>
-      <div className="flex max-w-sm items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+      <div className="flex max-w-md items-center gap-4 lg:max-w-sm">
         <button
           type="button"
           onClick={() => setOpen(true)}
           aria-label={`${t.alt} — ${t.hint}`}
-          className="group relative w-16 shrink-0 cursor-zoom-in overflow-hidden rounded-lg border border-white/15 shadow-md transition hover:-translate-y-0.5 hover:border-white/40 sm:w-20"
-          style={{ aspectRatio: `${W} / ${H}` }}
+          className="group relative h-[80px] w-36 shrink-0 cursor-zoom-in overflow-hidden rounded-lg border border-white/15 shadow-md transition hover:-translate-y-0.5 hover:border-white/40 lg:h-[97px] lg:w-45"
         >
-          <Image src="/diploma.jpg" alt={t.alt} width={W} height={H} sizes="80px" className="h-full w-full object-cover" />
+          <Image src="/diploma.jpg" alt={t.alt} width={W} height={H} sizes="180px" className="h-full w-full object-cover" />
           <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/25 group-hover:opacity-100">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-white">
               <circle cx="11" cy="11" r="6.5" stroke="currentColor" strokeWidth="2" />
@@ -47,11 +46,10 @@ export default function DiplomaPlate({ lang }: { lang: Lang }) {
         </button>
 
         <div>
-          <p className="font-display text-lg font-bold text-cream">
+          <p className="text-sm font-semibold text-cream">
             {t.title} <span aria-hidden="true">🙂</span>
           </p>
-          <p className="mt-1.5 text-xs leading-relaxed text-cream/65">{t.text}</p>
-          <p className="mt-2 text-[11px] font-medium text-cream/40">{t.hint}</p>
+          <p className="mt-1 text-sm leading-relaxed text-cream/65">{t.text}</p>
         </div>
       </div>
 

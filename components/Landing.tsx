@@ -355,7 +355,7 @@ export default function Landing() {
 
       {/* ───── Footer (dark) ───── */}
       <footer className={`${PANEL} ${DARK} py-12`}>
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 md:flex-row md:items-end md:justify-between">
+        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="font-display text-xl font-bold">
               Ildar Lomov<span className="text-accent">.</span>
