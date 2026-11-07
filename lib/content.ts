@@ -261,7 +261,7 @@ export const DICT: Record<Lang, Dict> = {
         name: "Your name",
         namePh: "Jane Smith",
         contact: "How can I reach you?",
-        contactPh: "Telegram, WhatsApp or email",
+        contactPh: "WhatsApp or email",
         service: "What do you need?",
         servicePh: "Choose a service (optional)",
         message: "Tell me about the task",
