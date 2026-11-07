@@ -351,11 +351,6 @@ export default function Landing() {
             </div>
           </div>
         </section>
-
-        {/* ───── "Not a vibe coder" plate (sand) ───── */}
-        <section className={`${PANEL} bg-cream-2 px-5 py-14 md:py-16`}>
-          <DiplomaPlate lang={lang} />
-        </section>
       </main>
 
       {/* ───── Footer (dark) ───── */}
@@ -370,6 +365,10 @@ export default function Landing() {
               {t.footer.nifLabel}: <span className="font-semibold text-cream">{FACTS.nif}</span>
             </p>
           </div>
+
+          {/* "Not a vibe coder" — sits between the identity block and the address */}
+          <DiplomaPlate lang={lang} />
+
           <address className="text-sm not-italic leading-relaxed text-cream/65">
             {FACTS.addressLines.map((l) => (
               <span key={l} className="block">{l}</span>
