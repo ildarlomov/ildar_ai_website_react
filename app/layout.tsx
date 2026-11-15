@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Inter_Tight } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { DESCRIPTION, SITE_NAME, SITE_URL, TITLE } from "@/lib/site";
 import "./globals.css";
 
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={`${inter.variable} ${interTight.variable} min-h-screen antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
