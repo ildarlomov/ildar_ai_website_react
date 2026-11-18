@@ -9,7 +9,9 @@ export default function PrivacyPolicy({ lang }: { lang: Lang }) {
   const other: Lang = lang === "en" ? "ru" : "en";
 
   return (
-    <div className="min-h-screen bg-cream">
+    // lang on the wrapper enables correct hyphenation (the root <html> is always lang="en").
+    <div lang={lang} className="min-h-screen bg-cream hyphens-auto">
+
       <header className="mx-auto flex max-w-3xl items-center justify-between px-5 pt-8">
         <a href={LANG_PATH[lang]} className="font-display text-[1.05rem] font-bold tracking-tight text-ink">
           Ildar Lomov<span className="text-accent">.</span>
@@ -24,7 +26,7 @@ export default function PrivacyPolicy({ lang }: { lang: Lang }) {
       </header>
 
       <main className="mx-auto max-w-3xl px-5 pb-20 pt-12">
-        <h1 className="font-display text-4xl font-bold leading-tight sm:text-5xl">{t.title}</h1>
+        <h1 className="font-display text-3xl font-bold leading-tight [overflow-wrap:anywhere] sm:text-5xl">{t.title}</h1>
         <p className="mt-3 text-sm text-ink-3">{t.updated}</p>
         <p className="mt-8 text-lg leading-relaxed text-ink-2">{t.intro}</p>
 

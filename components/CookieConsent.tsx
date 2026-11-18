@@ -39,7 +39,8 @@ const SLIDE_MS = 500;
 // - sm+: a single h-14 pill. md+: auto width in the bottom-right corner; its right offset mirrors
 //   the hero text's left edge (container `max-w-6xl px-5`: max(1.25rem, (100% - 72rem)/2 + 1.25rem)).
 const BOX =
-  "fixed z-[60] flex border border-white/10 bg-[#171514]/70 text-cream shadow-[0_8px_30px_rgba(0,0,0,0.3)] backdrop-blur-xl " +
+  // Denser tint on phones, where the strip sits over busy content; header-identical /70 from sm up.
+  "fixed z-[60] flex border border-white/10 bg-[#171514]/90 sm:bg-[#171514]/70 text-cream shadow-[0_8px_30px_rgba(0,0,0,0.3)] backdrop-blur-xl " +
   "transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:translate-x-0 motion-reduce:translate-y-0 motion-reduce:transition-opacity " +
   "inset-x-3 bottom-3 flex-col gap-3 rounded-[1.75rem] py-3 pl-5 pr-3 " +
   "sm:h-14 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:rounded-full sm:py-0 sm:pr-2 sm:bottom-4 " +
