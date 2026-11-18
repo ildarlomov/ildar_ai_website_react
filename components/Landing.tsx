@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { DICT, FACTS, SERVICE_KEYS, type Lang, type SocialKey } from "@/lib/content";
 import LeadForm from "@/components/LeadForm";
 import DiplomaPlate from "@/components/DiplomaPlate";
+import CaseSlides from "@/components/CaseSlides";
 
 const STORAGE_KEY = "ildar-ai-lang";
 
@@ -31,6 +32,13 @@ function SocialIcon({ name }: { name: SocialKey }) {
         <svg {...common}>
           <path d="M21 4 3 11l6 2.5L11.5 20l3-4.5L19 19z" />
           <path d="m9 13.5 12-9.5" />
+        </svg>
+      );
+    case "whatsapp":
+      return (
+        <svg {...common}>
+          <path d="M3.5 20.5 5 16A8.5 8.5 0 1 1 8 19z" />
+          <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z" />
         </svg>
       );
     case "instagram":
@@ -109,6 +117,7 @@ export default function Landing() {
 
           <nav className="hidden items-center gap-1 text-sm md:flex">
             {[
+              ["#cases", t.nav.cases],
               ["#services", t.nav.services],
               ["#projects", t.nav.projects],
               ["#about", t.nav.about],
@@ -177,10 +186,10 @@ export default function Landing() {
               </div>
 
               <ul className="mt-10 flex flex-wrap gap-2">
-                {FACTS.socials.map((s) => (
+                {FACTS.socials.filter((s) => !s.hideIn?.includes(lang)).map((s) => (
                   <li key={s.key}>
                     <a
-                      href={s.url}
+                      href={typeof s.url === "string" ? s.url : s.url[lang]}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 rounded-full border border-white/12 px-3.5 py-1.5 text-xs font-medium text-cream/65 transition hover:border-white/30 hover:bg-white/10 hover:text-cream"
@@ -212,6 +221,17 @@ export default function Landing() {
             </div>
           </div>
 
+        </section>
+
+        {/* ───── Cases (sand): one-project slide deck ───── */}
+        <section id="cases" className={`${PANEL} bg-cream-2 py-20 md:py-28`}>
+          <div className="mx-auto max-w-6xl px-5">
+            <Eyebrow>{t.cases.eyebrow}</Eyebrow>
+            <h2 className="font-display max-w-3xl text-3xl font-bold leading-tight sm:text-5xl">
+              {t.cases.title}
+            </h2>
+            <CaseSlides t={t.cases} />
+          </div>
         </section>
 
         {/* ───── Services (light) ───── */}
