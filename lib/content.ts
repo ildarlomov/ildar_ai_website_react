@@ -86,6 +86,11 @@ export type Dict = {
     secondary: string;
     caption: string;
   };
+  popup: {
+    title: string;
+    text: string;
+    close: string;
+  };
   cases: {
     eyebrow: string;
     prev: string;
@@ -178,6 +183,11 @@ export const DICT: Record<Lang, Dict> = {
       primary: "Leave a request",
       secondary: "See services",
       caption: "Ildar Lomov, Lisbon",
+    },
+    popup: {
+      title: "Got a project in mind?",
+      text: "Message me directly and tell me what you need.",
+      close: "Close",
     },
     cases: {
       eyebrow: "Case study",
@@ -396,11 +406,16 @@ export const DICT: Record<Lang, Dict> = {
       titleAccent: "для вашего бизнеса.",
       text: [
         "Беру вашу идею и превращаю ее в работающее техническое решение для вашего бизнеса.",
-        "Бывший руководитель AI в Островке. В моем \"меню\" широкий список услуг, среди которых: создание ботов в телеграм, telegram mini apps, вебсайт, SEO and GEO продвижение, приложения для IOS/Android, PWA, подключение CRM-систем, подключение ИИ-агентов, в том числе менеджеров по продажам и специалистов колл-центров которые работают в чатах и с ip-телефонией, также предлагаю услуги продвижения вашего бизнеса в соц сети Threads через нейрокомментинг. За мной можно следить в социальных сетях по ссылкам внизу.",
+        "Бывший руководитель AI в Островке. В моем \"меню\" широкий список услуг, среди которых: создание ботов в телеграм, telegram mini apps, вебсайты на React, Wordpress и Tilda, SEO and GEO продвижение, приложения для IOS/Android, PWA, подключение CRM-систем, подключение ИИ-агентов, в том числе менеджеров по продажам и специалистов колл-центров которые работают в чатах и с ip-телефонией, также предлагаю услуги продвижения вашего бизнеса в соц сети Threads через нейрокомментинг. За мной можно следить в социальных сетях по ссылкам внизу.",
       ],
       primary: "Оставить заявку",
       secondary: "Смотреть услуги",
       caption: "Ильдар Ломов, Лиссабон",
+    },
+    popup: {
+      title: "Есть задача? Напишите мне",
+      text: "Расскажите, что нужно, и обсудим в мессенджере.",
+      close: "Закрыть",
     },
     cases: {
       eyebrow: "Кейс",

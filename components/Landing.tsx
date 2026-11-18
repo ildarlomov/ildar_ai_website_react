@@ -7,6 +7,7 @@ import { LANG_COOKIE, LANG_PATH, PRIVACY_PATH } from "@/lib/site";
 import LeadForm from "@/components/LeadForm";
 import DiplomaPlate from "@/components/DiplomaPlate";
 import CaseSlides from "@/components/CaseSlides";
+import ContactPopup from "@/components/ContactPopup";
 
 // Dark panels share one tone so the hero photo melts into the page.
 const DARK = "bg-[#171514] text-cream";
@@ -464,6 +465,7 @@ export default function Landing({ lang }: { lang: Lang }) {
           </a>
         </p>
       </footer>
+      <ContactPopup lang={lang} />
     </div>
   );
 }
