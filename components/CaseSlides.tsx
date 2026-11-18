@@ -133,15 +133,7 @@ function IntroSlide({ active, t }: SlideProps) {
     <Slide active={active} bg={C.heroBg}>
       <div className="grid items-center gap-9 lg:grid-cols-[0.78fr_1.22fr] lg:gap-12">
         <TextBlock s={t.slides[0]}>
-          <div className="cs-in mt-6 flex flex-wrap gap-2" style={d(0.34)}>
-            {t.tags.map((tag) => (
-              <span key={tag} style={{ padding: "6px 14px", borderRadius: 999, background: "#1a1a1a", color: "#faf2e8", fontSize: 11, fontWeight: 600, letterSpacing: "0.14em" }}>{tag}</span>
-            ))}
-            {t.ui.works.map((w) => (
-              <span key={w} style={{ padding: "6px 14px", borderRadius: 999, background: "rgba(255,255,255,0.6)", border: "1px solid rgba(0,0,0,0.08)", color: C.fgBody, fontSize: 11, fontWeight: 500, letterSpacing: "0.1em" }}>{w}</span>
-            ))}
-          </div>
-          <div className="cs-in mt-8" style={d(0.46)}>
+          <div className="cs-in mt-8" style={d(0.34)}>
             <Pill href={SITE}>{t.ui.open} <Arrow size={14} /></Pill>
           </div>
         </TextBlock>

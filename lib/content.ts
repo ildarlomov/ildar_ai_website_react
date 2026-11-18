@@ -91,11 +91,9 @@ export type Dict = {
     hint: string;
     prev: string;
     next: string;
-    tags: string[];
     slides: { tag: string; title: string; text: string }[];
     ui: {
       open: string;
-      works: string[];
       addChrome: string;
       chromeNote: string;
       recording: string;
@@ -147,6 +145,8 @@ export type Dict = {
       successSub: string;
       error: string;
       invalid: string;
+      consent: string;
+      consentLink: string;
     };
   };
   plate: {
@@ -160,6 +160,7 @@ export type Dict = {
     role: string;
     nifLabel: string;
     rights: string;
+    privacy: string;
   };
 };
 
@@ -183,7 +184,6 @@ export const DICT: Record<Lang, Dict> = {
       hint: "Swipe or use the arrows",
       prev: "Previous slide",
       next: "Next slide",
-      tags: ["B2B", "AI", "SaaS"],
       slides: [
         {
           tag: "Memcircle · the product",
@@ -221,7 +221,6 @@ export const DICT: Record<Lang, Dict> = {
       ],
       ui: {
         open: "Open memcircle.com",
-        works: ["Zoom", "Google Meet", "Teams", "In person"],
         addChrome: "Add to Chrome",
         chromeNote: "Free · works in Chrome, Edge, Arc and Brave on desktop",
         recording: "Recording",
@@ -368,6 +367,8 @@ export const DICT: Record<Lang, Dict> = {
         successSub: "I'll get back to you soon.",
         error: "Something went wrong. Please message me on WhatsApp instead.",
         invalid: "Please add your name and a way to reach you.",
+        consent: "By sending the request you agree to the processing of your data under the",
+        consentLink: "privacy policy",
       },
     },
     plate: {
@@ -382,6 +383,7 @@ export const DICT: Record<Lang, Dict> = {
       role: "Independent professional (Trabalhador Independente)",
       nifLabel: "NIF",
       rights: "All rights reserved.",
+      privacy: "Privacy policy",
     },
   },
 
@@ -404,7 +406,6 @@ export const DICT: Record<Lang, Dict> = {
       hint: "Листайте или жмите стрелки",
       prev: "Предыдущий слайд",
       next: "Следующий слайд",
-      tags: ["B2B", "AI", "SaaS"],
       slides: [
         {
           tag: "Memcircle · о проекте",
@@ -442,7 +443,6 @@ export const DICT: Record<Lang, Dict> = {
       ],
       ui: {
         open: "Открыть memcircle.com",
-        works: ["Zoom", "Google Meet", "Teams", "Офлайн-встречи"],
         addChrome: "Добавить в Chrome",
         chromeNote: "Бесплатно · работает в Chrome, Edge, Arc и Brave на компьютере",
         recording: "Запись",
@@ -589,6 +589,8 @@ export const DICT: Record<Lang, Dict> = {
         successSub: "Скоро с вами свяжусь.",
         error: "Что-то пошло не так. Напишите мне, пожалуйста, в WhatsApp.",
         invalid: "Укажите, пожалуйста, имя и способ связи.",
+        consent: "Отправляя заявку, вы соглашаетесь на обработку данных в соответствии с",
+        consentLink: "политикой конфиденциальности",
       },
     },
     plate: {
@@ -603,6 +605,7 @@ export const DICT: Record<Lang, Dict> = {
       role: "Самозанятый специалист (Trabalhador Independente)",
       nifLabel: "NIF",
       rights: "Все права защищены.",
+      privacy: "Политика конфиденциальности",
     },
   },
 };
