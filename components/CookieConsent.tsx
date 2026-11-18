@@ -36,6 +36,11 @@ const TEXT = {
 
 type Consent = "granted" | "denied" | null;
 
+// The banner waits a moment after load, then slides up from the bottom; on a choice it slides
+// back down and only then unmounts. Reduced-motion users get a plain fade (see motion-reduce:).
+const SHOW_DELAY_MS = 1200;
+const SLIDE_MS = 500;
+
 export default function CookieConsent() {
   const pathname = usePathname();
   const t = pathname?.startsWith("/ru") ? TEXT.ru : TEXT.en;
@@ -53,6 +58,14 @@ export default function CookieConsent() {
     setConsent(saved);
   }, []);
 
+  // `shown` drives the slide-in/out transition; the banner stays mounted while it slides out.
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    if (consent !== null) return;
+    const timer = setTimeout(() => setShown(true), SHOW_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [consent]);
+
   const choose = (value: "granted" | "denied") => {
     console.log("[consent]", value);
     try {
@@ -60,7 +73,8 @@ export default function CookieConsent() {
     } catch {
       /* ignore */
     }
-    setConsent(value);
+    setShown(false);
+    setTimeout(() => setConsent(value), SLIDE_MS);
   };
 
   return (
@@ -75,7 +89,10 @@ export default function CookieConsent() {
           role="dialog"
           aria-live="polite"
           aria-label="Cookies"
-          className="fixed inset-x-3 bottom-3 z-[60] mx-auto flex max-w-xl flex-col gap-3 rounded-3xl border border-white/10 bg-[#171514]/95 p-4 text-sm text-cream shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:bottom-4 sm:flex-row sm:items-center sm:gap-4 sm:pl-6"
+          aria-hidden={!shown}
+          className={`fixed inset-x-3 bottom-3 z-[60] mx-auto flex max-w-xl flex-col gap-3 rounded-3xl border border-white/10 bg-[#171514]/95 p-4 text-sm text-cream shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:translate-y-0 motion-reduce:transition-opacity sm:bottom-4 sm:flex-row sm:items-center sm:gap-4 sm:pl-6 ${
+            shown ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-[calc(100%+2rem)] opacity-0"
+          }`}
         >
           <p className="flex-1 leading-snug text-cream/80">{t.body}</p>
           <div className="flex shrink-0 gap-2">
