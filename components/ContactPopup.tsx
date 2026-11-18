@@ -10,9 +10,8 @@ const SHOW_AFTER_MS = 8000;
 const SNOOZE_MS = 3 * 24 * 60 * 60 * 1000; // stay quiet for 3 days after the visitor closes it
 const STORAGE_KEY = "ildar-ai-popup-closed";
 
-// EN → Portuguese number (WhatsApp only, Telegram is hidden on EN); RU → Kazakhstan number.
-const WHATSAPP = { en: "https://wa.me/351912094137", ru: "https://wa.me/77058275089" };
-// Opens a Telegram chat by phone number (the same KZ number as WhatsApp).
+// EN → WhatsApp on the Portuguese number. RU → Telegram, opened by the KZ phone number.
+const WHATSAPP_EN = "https://wa.me/351912094137";
 const TELEGRAM_RU = "https://t.me/+77058275089";
 
 function WhatsAppLogo() {
@@ -66,6 +65,8 @@ export default function ContactPopup({ lang }: { lang: Lang }) {
   const t = DICT[lang].popup;
   const [open, setOpen] = useState(false);
   const interacted = useRef(false);
+  // The cookie banner is fixed in the same corner: stack above it while it is on screen.
+  const [dock, setDock] = useState<{ bottom: number; right: number } | null>(null);
 
   // Browsers only allow sound after a user gesture: remember if we've had one.
   useEffect(() => {
@@ -91,6 +92,25 @@ export default function ContactPopup({ lang }: { lang: Lang }) {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const sync = () => {
+      const banner = document.querySelector('[role="dialog"][aria-label="Cookies"]');
+      if (!banner) return setDock((d) => (d ? null : d));
+      const r = banner.getBoundingClientRect();
+      const bottom = Math.round(window.innerHeight - r.top + 12);
+      const right = Math.max(16, Math.round(window.innerWidth - r.right));
+      setDock((d) => (d && d.bottom === bottom && d.right === right ? d : { bottom, right }));
+    };
+    sync();
+    const id = setInterval(sync, 400);
+    window.addEventListener("resize", sync);
+    return () => {
+      clearInterval(id);
+      window.removeEventListener("resize", sync);
+    };
+  }, [open]);
+
   const close = useCallback(() => {
     setOpen(false);
     try {
@@ -102,18 +122,19 @@ export default function ContactPopup({ lang }: { lang: Lang }) {
 
   if (!open) return null;
 
-  const channels = [
-    { key: "whatsapp", label: "WhatsApp", href: WHATSAPP[lang], bg: "#25D366", shadow: "rgba(37,211,102,0.45)", logo: <WhatsAppLogo /> },
-    ...(lang === "ru"
+  // EN visitors get WhatsApp only, RU visitors get Telegram only (never both at once).
+  const channels =
+    lang === "ru"
       ? [{ key: "telegram", label: "Telegram", href: TELEGRAM_RU, bg: "#229ED9", shadow: "rgba(34,158,217,0.45)", logo: <TelegramLogo /> }]
-      : []),
-  ];
+      : [{ key: "whatsapp", label: "WhatsApp", href: WHATSAPP_EN, bg: "#25D366", shadow: "rgba(37,211,102,0.45)", logo: <WhatsAppLogo /> }];
 
   return (
     <aside
       aria-label={t.title}
       className="cp-card fixed bottom-4 right-4 z-[60] w-[calc(100vw-2rem)] max-w-[330px] rounded-3xl p-5 text-ink sm:bottom-6 sm:right-6"
       style={{
+        ...(dock ? { bottom: dock.bottom, right: dock.right } : null),
+        transition: "bottom 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), right 0.35s cubic-bezier(0.2, 0.7, 0.2, 1)",
         background: "rgba(255,255,255,0.88)",
         backdropFilter: "blur(18px) saturate(180%)",
         WebkitBackdropFilter: "blur(18px) saturate(180%)",

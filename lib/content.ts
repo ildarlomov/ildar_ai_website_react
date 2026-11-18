@@ -463,7 +463,7 @@ export const DICT: Record<Lang, Dict> = {
         recording: "Запись",
         noBot: "Бота на встрече нет",
         privacy: "Аудио удаляется сразу после расшифровки, а ваши встречи никогда не используются для обучения ИИ.",
-        linkTitles: ["Веб-приложение", "Сайт", "Десктоп", "iPhone", "Chrome-расширение"],
+        linkTitles: ["Веб-версия", "Сайт", "Десктоп", "iPhone", "Chrome-расширение"],
         linkSubs: ["app.memcircle.com", "memcircle.com", "macOS · Windows", "iOS-приложение", "Chrome · Edge · Arc · Brave"],
       },
     },

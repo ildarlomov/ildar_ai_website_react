@@ -43,7 +43,7 @@ const eyebrow: React.CSSProperties = { color: C.accent, fontSize: 11, fontWeight
 const h3: React.CSSProperties = { fontFamily: FD, fontSize: "clamp(30px, 4.2vw, 52px)", fontWeight: 500, letterSpacing: "-0.028em", lineHeight: 1.08, margin: "16px 0 0", color: C.fg };
 const body: React.CSSProperties = { color: C.fgBody, fontSize: 17, lineHeight: 1.55, margin: "20px 0 0", maxWidth: 480 };
 const card: React.CSSProperties = { background: C.cardBg, borderRadius: 14, padding: 24, border: `1px solid ${C.cardBorder}`, boxShadow: C.cardShadow, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" };
-const split = "grid items-center gap-9 md:grid-cols-[0.8fr_1.2fr] md:gap-14";
+const split = "grid grid-cols-[minmax(0,1fr)] items-center gap-8 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-14";
 
 // Reveal helper: elements fade up when their slide becomes active (.cs-in in globals.css).
 const d = (sec: number) => ({ "--d": `${sec}s` }) as React.CSSProperties;
@@ -103,12 +103,12 @@ function Slide({ active, bg = C.pageBg, children }: { active: boolean; bg?: stri
     <div
       data-active={active}
       aria-hidden={!active}
-      className="cs-slide relative flex w-full shrink-0 snap-center flex-col justify-center overflow-hidden px-5 pb-28 pt-24 md:px-14 md:pt-28"
-      style={{ background: bg, minHeight: "100svh" }}
+      className="cs-slide relative flex w-full min-w-0 max-w-full shrink-0 snap-center flex-col justify-center overflow-hidden px-5 pb-20 pt-[88px] md:min-h-[100svh] md:px-14 md:pb-28 md:pt-28"
+      style={{ background: bg }}
     >
       {/* soft sun glow behind every slide */}
       <div style={{ position: "absolute", top: -60, right: "-8%", width: 520, height: 520, borderRadius: "50%", background: "radial-gradient(circle, rgba(255,217,176,0.75) 0%, rgba(255,217,176,0) 68%)", filter: "blur(14px)", pointerEvents: "none" }} />
-      <div className="relative z-[1] mx-auto w-full max-w-[1200px]">{children}</div>
+      <div className="relative z-[1] mx-auto w-full min-w-0 max-w-[1200px]">{children}</div>
     </div>
   );
 }
@@ -131,14 +131,19 @@ type SlideProps = { active: boolean; t: T };
 function IntroSlide({ active, t }: SlideProps) {
   return (
     <Slide active={active} bg={C.heroBg}>
-      <div className="grid items-center gap-9 lg:grid-cols-[0.78fr_1.22fr] lg:gap-12">
+      <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-12">
         <TextBlock s={t.slides[0]}>
           <div className="cs-in mt-8" style={d(0.34)}>
             <Pill href={SITE}>{t.ui.open} <Arrow size={14} /></Pill>
           </div>
         </TextBlock>
-        <div className="cs-in cs-vis" style={d(0.25)}>
-          <Fit w={1280} h={720}><HomeV2Preview height={720} /></Fit>
+        <div className="cs-in cs-vis min-w-0" style={d(0.25)}>
+          <div className="mx-auto w-[66%] max-w-[250px] md:hidden">
+            <Fit w={340} h={720}><AppPreviewMobile /></Fit>
+          </div>
+          <div className="hidden md:block">
+            <Fit w={1280} h={720}><HomeV2Preview height={720} /></Fit>
+          </div>
         </div>
       </div>
     </Slide>
@@ -472,8 +477,8 @@ function LinksSlide({ active, t }: SlideProps) {
   ];
   return (
     <Slide active={active} bg={C.heroBg}>
-      <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-        <div>
+      <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-x-14 gap-y-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <div className="lg:col-start-1 lg:row-start-1 lg:self-end">
           <p className="cs-in" style={{ ...eyebrow, ...d(0) }}>{t.slides[5].tag}</p>
           <h3 className="cs-in" style={{ ...h3, ...d(0.1) }}>{t.slides[5].title}</h3>
           <p className="cs-in" style={{ ...body, ...d(0.2) }}>{t.slides[5].text}</p>
@@ -486,33 +491,10 @@ function LinksSlide({ active, t }: SlideProps) {
             ))}
           </div>
 
-          <div className="mt-7 grid gap-3 sm:grid-cols-2">
-            {LINKS.map((href, i) => (
-              <a
-                key={href}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cs-in group/link flex items-center gap-3 rounded-2xl p-3 transition hover:-translate-y-0.5"
-                style={{ ...d(0.38 + i * 0.07), background: "rgba(255,250,243,0.85)", border: "1px solid rgba(0,0,0,0.05)", boxShadow: "0 10px 26px rgba(120,80,40,0.08)", textDecoration: "none" }}
-              >
-                <span style={{ width: 38, height: 38, borderRadius: 10, background: "#fff", border: "1px solid rgba(0,0,0,0.05)", display: "grid", placeItems: "center", flexShrink: 0 }}>{icons[i]}</span>
-                <span style={{ flex: 1, minWidth: 0 }}>
-                  <span style={{ display: "block", fontFamily: FD, fontSize: 15, fontWeight: 500, color: C.fg }}>{t.ui.linkTitles[i]}</span>
-                  <span style={{ display: "block", fontSize: 11.5, color: C.fgMuted, marginTop: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{t.ui.linkSubs[i]}</span>
-                </span>
-                <span className="transition group-hover/link:translate-x-0.5" style={{ color: C.accent }}><Arrow size={15} /></span>
-              </a>
-            ))}
-          </div>
-
-          <p className="cs-in mt-6" style={{ ...d(0.8), maxWidth: 480, fontSize: 12.5, lineHeight: 1.6, color: C.fgMuted }}>
-            <Icon name="check" size={12} color="#2f8a5b" /> {t.ui.privacy}
-          </p>
         </div>
 
         {/* devices scene */}
-        <div className="cs-in cs-vis relative mx-auto w-full max-w-[660px] pb-16 pt-10" style={d(0.25)}>
+        <div className="cs-in cs-vis relative mx-auto w-full max-w-[660px] pb-14 pt-8 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:pt-10" style={d(0.25)}>
           <div className="mx-auto w-[88%]">
             <Laptop>
               <Fit w={1280} h={720}><HomeV2Preview height={720} /></Fit>
@@ -527,7 +509,32 @@ function LinksSlide({ active, t }: SlideProps) {
           <OsBadge className="left-[2%] top-0" delay={0}><AppleIcon size={24} /></OsBadge>
           <OsBadge className="right-[10%] top-0" delay={0.8}><WindowsIcon size={22} /></OsBadge>
           <OsBadge className="-left-1 top-[34%] hidden sm:block" delay={1.4}><ChromeIcon size={26} /></OsBadge>
-          <OsBadge className="-right-1 top-[30%]" delay={2}><GlobeIcon size={24} /></OsBadge>
+          <OsBadge className="-right-1 top-[30%] hidden sm:block" delay={2}><GlobeIcon size={24} /></OsBadge>
+        </div>
+        <div className="lg:col-start-1 lg:row-start-2 lg:self-start">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+            {LINKS.map((href, i) => (
+              <a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`cs-in group/link flex min-w-0 items-center gap-2.5 rounded-2xl p-2.5 transition hover:-translate-y-0.5 sm:gap-3 sm:p-3 ${i === LINKS.length - 1 ? "col-span-2 sm:col-span-1" : ""}`}
+                style={{ ...d(0.38 + i * 0.07), background: "rgba(255,250,243,0.85)", border: "1px solid rgba(0,0,0,0.05)", boxShadow: "0 10px 26px rgba(120,80,40,0.08)", textDecoration: "none" }}
+              >
+                <span style={{ width: 38, height: 38, borderRadius: 10, background: "#fff", border: "1px solid rgba(0,0,0,0.05)", display: "grid", placeItems: "center", flexShrink: 0 }}>{icons[i]}</span>
+                <span style={{ flex: 1, minWidth: 0 }}>
+                  <span style={{ display: "block", fontFamily: FD, fontSize: 15, fontWeight: 500, color: C.fg }}>{t.ui.linkTitles[i]}</span>
+                  <span style={{ display: "block", fontSize: 11.5, color: C.fgMuted, marginTop: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{t.ui.linkSubs[i]}</span>
+                </span>
+                <span className="hidden transition group-hover/link:translate-x-0.5 sm:inline" style={{ color: C.accent }}><Arrow size={15} /></span>
+              </a>
+            ))}
+          </div>
+
+          <p className="cs-in mt-6" style={{ ...d(0.8), maxWidth: 480, fontSize: 12.5, lineHeight: 1.6, color: C.fgMuted }}>
+            <Icon name="check" size={12} color="#2f8a5b" /> {t.ui.privacy}
+          </p>
         </div>
       </div>
     </Slide>
@@ -554,6 +561,8 @@ const SLIDES = [IntroSlide, DevicesSlide, SummarySlide, TasksSlide, ChromeSlide,
 export default function CaseSlides({ t }: { t: T }) {
   const track = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const [heights, setHeights] = useState<number[]>([]);
+  const [mobile, setMobile] = useState(false);
   const count = SLIDES.length;
 
   const go = useCallback(
@@ -574,6 +583,24 @@ export default function CaseSlides({ t }: { t: T }) {
     return () => el.removeEventListener("scroll", onScroll);
   }, []);
 
+  // On phones every slide hugs its own content: the deck is as tall as the active slide (no empty bands).
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+    const mq = window.matchMedia("(max-width: 767px)");
+    const syncMq = () => setMobile(mq.matches);
+    syncMq();
+    mq.addEventListener("change", syncMq);
+    const measure = () => setHeights(Array.from(el.children).map((c) => (c as HTMLElement).offsetHeight));
+    measure();
+    const ro = new ResizeObserver(measure);
+    Array.from(el.children).forEach((c) => ro.observe(c));
+    return () => {
+      mq.removeEventListener("change", syncMq);
+      ro.disconnect();
+    };
+  }, []);
+
   return (
     <div className="group relative" style={{ background: C.pageBg, color: C.fg }} role="region" aria-roledescription="carousel" aria-label={t.eyebrow}>
       {/* case header: project mark + case label (no site navigation) */}
@@ -591,7 +618,8 @@ export default function CaseSlides({ t }: { t: T }) {
           if (e.key === "ArrowRight") { e.preventDefault(); go(active + 1); }
           if (e.key === "ArrowLeft") { e.preventDefault(); go(active - 1); }
         }}
-        className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto scroll-smooth outline-none"
+        className="no-scrollbar flex snap-x snap-mandatory items-start overflow-x-auto overflow-y-hidden scroll-smooth outline-none md:items-stretch"
+        style={{ height: mobile && heights[active] ? heights[active] : undefined, transition: "height 0.45s cubic-bezier(0.2, 0.7, 0.2, 1)" }}
       >
         {SLIDES.map((S, i) => (
           <S key={i} active={i === active} t={t} />
