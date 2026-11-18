@@ -91,6 +91,19 @@ export type Dict = {
     hint: string;
     prev: string;
     next: string;
+    tags: string[];
+    slides: { tag: string; title: string; text: string }[];
+    ui: {
+      open: string;
+      works: string[];
+      addChrome: string;
+      chromeNote: string;
+      recording: string;
+      noBot: string;
+      privacy: string;
+      linkTitles: string[];
+      linkSubs: string[];
+    };
   };
   services: {
     eyebrow: string;
@@ -166,10 +179,57 @@ export const DICT: Record<Lang, Dict> = {
       caption: "Ildar Lomov, Lisbon",
     },
     cases: {
-      eyebrow: "Case study: Memcircle",
+      eyebrow: "Case study",
       hint: "Swipe or use the arrows",
       prev: "Previous slide",
       next: "Next slide",
+      tags: ["B2B", "AI", "SaaS"],
+      slides: [
+        {
+          tag: "Memcircle · the product",
+          title: "An app that records your meetings and writes the notes for you",
+          text:
+            "Zoom, Google Meet, Teams or face to face: Memcircle listens, then hands you a transcript, a short summary and a to-do list. No bot joins the call.",
+        },
+        {
+          tag: "Record",
+          title: "Records any meeting, on any device",
+          text: "Mac, Windows, your browser or your phone. Nobody sees a recorder join, so people just talk.",
+        },
+        {
+          tag: "Transcript & summary",
+          title: "Everything said, boiled down to one page",
+          text:
+            "When the call ends, the app writes out the whole conversation and turns it into a short recap you can share with one link.",
+        },
+        {
+          tag: "Action items",
+          title: "Tasks with owners and deadlines, found for you",
+          text: "It picks out who promised what and by when, and links back to the exact moment in the call.",
+        },
+        {
+          tag: "Chrome extension",
+          title: "One click in Google Meet",
+          text:
+            "Click the icon on a Meet tab and the call is recorded with no bot joining. Transcript, summary and tasks land in your library.",
+        },
+        {
+          tag: "Try it",
+          title: "Available everywhere",
+          text: "Web, desktop, phone and browser: pick the one you use.",
+        },
+      ],
+      ui: {
+        open: "Open memcircle.com",
+        works: ["Zoom", "Google Meet", "Teams", "In person"],
+        addChrome: "Add to Chrome",
+        chromeNote: "Free · works in Chrome, Edge, Arc and Brave on desktop",
+        recording: "Recording",
+        noBot: "No bot in the meeting",
+        privacy: "Audio is deleted as soon as it is transcribed, and your meetings are never used to train AI.",
+        linkTitles: ["Web app", "Website", "Desktop", "iPhone", "Chrome extension"],
+        linkSubs: ["app.memcircle.com", "memcircle.com", "macOS · Windows", "iOS app", "Chrome · Edge · Arc · Brave"],
+      },
     },
     services: {
       eyebrow: "Services",
@@ -340,10 +400,57 @@ export const DICT: Record<Lang, Dict> = {
       caption: "Ильдар Ломов, Лиссабон",
     },
     cases: {
-      eyebrow: "Кейс: Memcircle",
+      eyebrow: "Кейс",
       hint: "Листайте или жмите стрелки",
       prev: "Предыдущий слайд",
       next: "Следующий слайд",
+      tags: ["B2B", "AI", "SaaS"],
+      slides: [
+        {
+          tag: "Memcircle · о проекте",
+          title: "Приложение, которое записывает ваши встречи и само пишет конспект",
+          text:
+            "Zoom, Google Meet, Teams или живая встреча: Memcircle слушает, а потом отдаёт расшифровку, короткое резюме и список задач. В звонок не заходит бот.",
+        },
+        {
+          tag: "Запись",
+          title: "Записывает любую встречу, на любом устройстве",
+          text: "Mac, Windows, браузер или телефон. Никто не видит, что в звонок зашёл «рекордер», поэтому все говорят естественно.",
+        },
+        {
+          tag: "Расшифровка и резюме",
+          title: "Всё сказанное, сжатое до одной страницы",
+          text:
+            "Когда звонок заканчивается, приложение записывает весь разговор и собирает короткий конспект, которым можно поделиться по одной ссылке.",
+        },
+        {
+          tag: "Задачи",
+          title: "Задачи с ответственными и сроками находятся сами",
+          text: "Оно выделяет, кто что пообещал и к какому сроку, и ведёт к точному моменту в записи.",
+        },
+        {
+          tag: "Chrome-расширение",
+          title: "Один клик в Google Meet",
+          text:
+            "Нажимаете на иконку на вкладке с Meet, и звонок записывается без бота. Расшифровка, резюме и задачи попадают в вашу библиотеку.",
+        },
+        {
+          tag: "Попробовать",
+          title: "Доступно везде",
+          text: "Веб, десктоп, телефон и браузер: выбирайте, чем пользуетесь.",
+        },
+      ],
+      ui: {
+        open: "Открыть memcircle.com",
+        works: ["Zoom", "Google Meet", "Teams", "Офлайн-встречи"],
+        addChrome: "Добавить в Chrome",
+        chromeNote: "Бесплатно · работает в Chrome, Edge, Arc и Brave на компьютере",
+        recording: "Запись",
+        noBot: "Бота на встрече нет",
+        privacy: "Аудио удаляется сразу после расшифровки, а ваши встречи никогда не используются для обучения ИИ.",
+        linkTitles: ["Веб-приложение", "Сайт", "Десктоп", "iPhone", "Chrome-расширение"],
+        linkSubs: ["app.memcircle.com", "memcircle.com", "macOS · Windows", "iOS-приложение", "Chrome · Edge · Arc · Brave"],
+      },
     },
     services: {
       eyebrow: "Услуги",

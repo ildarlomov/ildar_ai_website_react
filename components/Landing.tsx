@@ -224,7 +224,7 @@ export default function Landing() {
         </section>
 
         {/* ───── Cases (sand): one-project slide deck ───── */}
-        <section id="cases" className={`${PANEL} overflow-hidden`} style={{ background: "#f6e3cf" }}>
+        <section id="cases" className={`${PANEL} overflow-hidden pb-10 md:pb-12`} style={{ background: "#f6e3cf" }}>
           <CaseSlides t={t.cases} />
         </section>
 
