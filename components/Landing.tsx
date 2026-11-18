@@ -71,6 +71,32 @@ function SocialIcon({ name }: { name: SocialKey }) {
   }
 }
 
+// Brand colours for the hero social badges: the line glyph sits in a filled brand-coloured disc.
+const SOCIAL_BRAND: Record<SocialKey, { bg: string; fg: string }> = {
+  threads: { bg: "#ffffff", fg: "#000000" },
+  telegram: { bg: "#229ED9", fg: "#ffffff" },
+  whatsapp: { bg: "#25D366", fg: "#ffffff" },
+  instagram: {
+    bg: "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)",
+    fg: "#ffffff",
+  },
+  youtube: { bg: "#FF0000", fg: "#ffffff" },
+  linkedin: { bg: "#0A66C2", fg: "#ffffff" },
+};
+
+function SocialBadgeIcon({ name }: { name: SocialKey }) {
+  const brand = SOCIAL_BRAND[name];
+  return (
+    <span
+      className="-ml-1.5 grid h-6 w-6 shrink-0 place-items-center rounded-full [&_svg]:h-3.5 [&_svg]:w-3.5"
+      style={{ background: brand.bg, color: brand.fg }}
+      aria-hidden="true"
+    >
+      <SocialIcon name={name} />
+    </span>
+  );
+}
+
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">{children}</p>
@@ -182,7 +208,7 @@ export default function Landing({ lang }: { lang: Lang }) {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 rounded-full border border-white/12 px-3.5 py-1.5 text-xs font-medium text-cream/65 transition hover:border-white/30 hover:bg-white/10 hover:text-cream"
                     >
-                      <SocialIcon name={s.key} />
+                      <SocialBadgeIcon name={s.key} />
                       {s.label}
                       {s.followers && <span className="text-cream/40">{s.followers}</span>}
                     </a>

@@ -23,11 +23,13 @@ ym(${YM_ID}, "init", {ssr:true, webvisor:true, clickmap:true, referrer: document
 
 const TEXT = {
   en: {
+    title: "Cookies",
     body: "We use cookies (Yandex Metrika) to understand how visitors use the site.",
     accept: "Accept",
     decline: "Decline",
   },
   ru: {
+    title: "Cookie",
     body: "Сайт использует cookie (Яндекс Метрика), чтобы понимать, как посетители пользуются сайтом.",
     accept: "Принять",
     decline: "Отклонить",
@@ -36,10 +38,43 @@ const TEXT = {
 
 type Consent = "granted" | "denied" | null;
 
-// The banner waits a moment after load, then slides up from the bottom; on a choice it slides
-// back down and only then unmounts. Reduced-motion users get a plain fade (see motion-reduce:).
+// The banner waits a moment after load, then slides in (up on phones, from the right on desktop);
+// on a choice it slides back out and only then unmounts. Reduced-motion users get a plain fade.
 const SHOW_DELAY_MS = 1200;
 const SLIDE_MS = 500;
+
+// Layout:
+// - phones: a compact strip along the bottom.
+// - md+: a small portrait card (A4 ratio 1:1.414) in the bottom-right corner. Its right offset
+//   mirrors the hero text's left edge (container `max-w-6xl px-5`: max(1.25rem, (100% - 72rem)/2
+//   + 1.25rem)), and its width is capped so the height never exceeds half the viewport.
+const BOX =
+  "fixed z-[60] flex rounded-3xl border border-white/10 bg-[#171514]/95 text-cream shadow-[0_12px_40px_rgba(0,0,0,0.4)] backdrop-blur-xl " +
+  "transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:translate-x-0 motion-reduce:translate-y-0 motion-reduce:transition-opacity " +
+  // phones
+  "inset-x-3 bottom-3 flex-col gap-3 p-4 text-sm sm:flex-row sm:items-center sm:gap-4 sm:pl-6 " +
+  // desktop card
+  "md:inset-x-auto md:bottom-6 md:right-[max(1.25rem,calc((100%_-_72rem)/2_+_1.25rem))] md:w-[min(15rem,calc(50vh/1.414))] md:aspect-[1/1.414] " +
+  "md:flex-col md:items-stretch md:justify-between md:gap-0 md:p-5";
+
+const HIDDEN = "pointer-events-none opacity-0 translate-y-[calc(100%+2rem)] md:translate-y-0 md:translate-x-16";
+const SHOWN = "opacity-100 translate-y-0 md:translate-x-0";
+
+function CookieGlyph() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <path
+        d="M16 3a13 13 0 1 0 13 13 4 4 0 0 1-4.6-4.6A4 4 0 0 1 19.8 7 4 4 0 0 1 16 3z"
+        fill="#c46a44"
+        fillOpacity="0.9"
+      />
+      <circle cx="11" cy="14" r="1.8" fill="#171514" />
+      <circle cx="17" cy="20" r="1.6" fill="#171514" />
+      <circle cx="11.5" cy="21.5" r="1.2" fill="#171514" />
+      <circle cx="21.5" cy="15.5" r="1.1" fill="#171514" />
+    </svg>
+  );
+}
 
 export default function CookieConsent() {
   const pathname = usePathname();
@@ -90,25 +125,29 @@ export default function CookieConsent() {
           aria-live="polite"
           aria-label="Cookies"
           aria-hidden={!shown}
-          className={`fixed inset-x-3 bottom-3 z-[60] mx-auto flex max-w-xl flex-col gap-3 rounded-3xl border border-white/10 bg-[#171514]/95 p-4 text-sm text-cream shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:translate-y-0 motion-reduce:transition-opacity sm:bottom-4 sm:flex-row sm:items-center sm:gap-4 sm:pl-6 ${
-            shown ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-[calc(100%+2rem)] opacity-0"
-          }`}
+          className={`${BOX} ${shown ? SHOWN : HIDDEN}`}
         >
-          <p className="flex-1 leading-snug text-cream/80">{t.body}</p>
-          <div className="flex shrink-0 gap-2">
-            <button
-              type="button"
-              onClick={() => choose("denied")}
-              className="flex-1 rounded-full bg-white/10 px-4 py-2.5 text-xs font-semibold text-cream transition hover:bg-white/20 sm:flex-none"
-            >
-              {t.decline}
-            </button>
+          <div className="flex-1 md:flex-none">
+            <div className="hidden md:block">
+              <CookieGlyph />
+              <p className="font-display mt-4 text-lg font-bold tracking-tight">{t.title}</p>
+            </div>
+            <p className="leading-snug text-cream/80 md:mt-2 md:text-[13px] md:leading-relaxed md:text-cream/65">{t.body}</p>
+          </div>
+          <div className="flex shrink-0 gap-2 md:flex-col">
             <button
               type="button"
               onClick={() => choose("granted")}
-              className="flex-1 rounded-full bg-accent px-4 py-2.5 text-xs font-semibold text-white transition hover:brightness-110 sm:flex-none"
+              className="order-2 flex-1 rounded-full bg-accent px-4 py-2.5 text-xs font-semibold text-white transition hover:brightness-110 sm:flex-none md:order-1 md:w-full"
             >
               {t.accept}
+            </button>
+            <button
+              type="button"
+              onClick={() => choose("denied")}
+              className="order-1 flex-1 rounded-full bg-white/10 px-4 py-2.5 text-xs font-semibold text-cream transition hover:bg-white/20 sm:flex-none md:order-2 md:w-full"
+            >
+              {t.decline}
             </button>
           </div>
         </div>
