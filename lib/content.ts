@@ -2,6 +2,8 @@
 
 export type Lang = "en" | "ru";
 
+export type SocialKey = "threads" | "telegram" | "instagram" | "youtube" | "linkedin";
+
 // Facts that are the same in both languages.
 export const FACTS = {
   name: "Ildar Lomov",
@@ -10,6 +12,14 @@ export const FACTS = {
   whatsappHref: "https://wa.me/351912094137",
   email: "ildarlomov.f@gmail.com",
   linkedin: "https://www.linkedin.com/in/ildarlomov/",
+  // Hero social badges. TODO: Threads/Instagram/YouTube URLs are placeholders (Telegram + LinkedIn are real); empty followers = no count shown — replace with the real ones.
+  socials: [
+    { key: "threads", label: "Threads", url: "https://www.threads.net/@ildar.lomov", followers: "1 650" },
+    { key: "telegram", label: "Telegram", url: "https://t.me/+GFsl8836IWQzZWIy", followers: "415" },
+    { key: "instagram", label: "Instagram", url: "https://www.instagram.com/ildar.lomov", followers: "" },
+    { key: "youtube", label: "YouTube", url: "https://www.youtube.com/@ildarlomov", followers: "" },
+    { key: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/ildarlomov/", followers: "" },
+  ] as { key: SocialKey; label: string; url: string; followers: string }[],
   nif: "316456124",
   addressLines: ["Rua Martins Barata 3", "1400-247 Lisbon, Portugal"],
   // Same order as `projects.items` in both languages below.
@@ -59,7 +69,6 @@ export type Dict = {
     primary: string;
     secondary: string;
     caption: string;
-    chips: string[];
   };
   services: {
     eyebrow: string;
@@ -133,7 +142,6 @@ export const DICT: Record<Lang, Dict> = {
       primary: "Leave a request",
       secondary: "See services",
       caption: "Ildar Lomov, Lisbon",
-      chips: ["Telegram", "WhatsApp", "Bitrix24", "amoCRM", "Tilda", "AI agents"],
     },
     services: {
       eyebrow: "Services",
@@ -302,7 +310,6 @@ export const DICT: Record<Lang, Dict> = {
       primary: "Оставить заявку",
       secondary: "Смотреть услуги",
       caption: "Ильдар Ломов, Лиссабон",
-      chips: ["Telegram", "WhatsApp", "Битрикс24", "amoCRM", "Tilda", "ИИ-агенты"],
     },
     services: {
       eyebrow: "Услуги",

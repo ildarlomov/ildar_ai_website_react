@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { DICT, FACTS, SERVICE_KEYS, type Lang } from "@/lib/content";
+import { DICT, FACTS, SERVICE_KEYS, type Lang, type SocialKey } from "@/lib/content";
 import LeadForm from "@/components/LeadForm";
 import DiplomaPlate from "@/components/DiplomaPlate";
 
@@ -21,6 +21,47 @@ function Arrow({ className = "" }: { className?: string }) {
       <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
+}
+
+function SocialIcon({ name }: { name: SocialKey }) {
+  const common = { width: 14, height: 14, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
+  switch (name) {
+    case "telegram":
+      return (
+        <svg {...common}>
+          <path d="M21 4 3 11l6 2.5L11.5 20l3-4.5L19 19z" />
+          <path d="m9 13.5 12-9.5" />
+        </svg>
+      );
+    case "instagram":
+      return (
+        <svg {...common}>
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" />
+        </svg>
+      );
+    case "youtube":
+      return (
+        <svg {...common}>
+          <rect x="2.5" y="5.5" width="19" height="13" rx="4" />
+          <path d="m10 9.5 5 2.5-5 2.5z" fill="currentColor" />
+        </svg>
+      );
+    case "linkedin":
+      return (
+        <svg {...common}>
+          <rect x="3" y="3" width="18" height="18" rx="3" />
+          <path d="M8 10.5V16M8 7.8v.1M12 16v-5.5M12 13c0-1.7 1-2.6 2.3-2.6S16.5 11.3 16.5 13V16" />
+        </svg>
+      );
+    case "threads":
+      return (
+        <svg {...common}>
+          <path d="M16.5 8.500C15.8 6.3 14.2 5 12 5c-3 0-5 2.4-5 7s2 7 5 7c2.6 0 4.5-1.5 4.5-3.8 0-2.3-2-3.4-4.3-3.4-1.5 0-2.7.7-2.7 1.9 0 1 .9 1.7 2 1.7 1.9 0 2.9-1.5 2.9-4.3" />
+        </svg>
+      );
+  }
 }
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
@@ -136,9 +177,18 @@ export default function Landing() {
               </div>
 
               <ul className="mt-10 flex flex-wrap gap-2">
-                {t.hero.chips.map((chip) => (
-                  <li key={chip} className="rounded-full border border-white/12 px-3.5 py-1.5 text-xs font-medium text-cream/65">
-                    {chip}
+                {FACTS.socials.map((s) => (
+                  <li key={s.key}>
+                    <a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-white/12 px-3.5 py-1.5 text-xs font-medium text-cream/65 transition hover:border-white/30 hover:bg-white/10 hover:text-cream"
+                    >
+                      <SocialIcon name={s.key} />
+                      {s.label}
+                      {s.followers && <span className="text-cream/40">{s.followers}</span>}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -162,10 +212,6 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="absolute bottom-16 left-5 z-10 rounded-2xl border border-white/15 bg-black/35 px-4 py-3 backdrop-blur-md md:bottom-20 md:left-auto md:right-[12%]">
-            <p className="font-display text-sm font-bold">Ildar Lomov</p>
-            <p className="mt-0.5 text-xs text-cream/65">Lisbon · AI &amp; automation</p>
-          </div>
         </section>
 
         {/* ───── Services (light) ───── */}
