@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { DICT, FACTS, SERVICE_KEYS, type Lang, type SocialKey } from "@/lib/content";
+import { LANG_COOKIE, LANG_PATH } from "@/lib/site";
 import LeadForm from "@/components/LeadForm";
 import DiplomaPlate from "@/components/DiplomaPlate";
 import CaseSlides from "@/components/CaseSlides";
-
-const STORAGE_KEY = "ildar-ai-lang";
 
 // Dark panels share one tone so the hero photo melts into the page.
 const DARK = "bg-[#171514] text-cream";
@@ -78,27 +77,15 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function Landing() {
-  // English is the default; a visitor's explicit choice is remembered.
-  const [lang, setLang] = useState<Lang>("en");
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved === "en" || saved === "ru") setLang(saved);
-    } catch {
-      /* storage can be blocked — stay on the default */
-    }
-  }, []);
-
-  const chooseLang = useCallback((next: Lang) => {
-    setLang(next);
-    try {
-      localStorage.setItem(STORAGE_KEY, next);
-    } catch {
-      /* ignore */
-    }
-  }, []);
+export default function Landing({ lang }: { lang: Lang }) {
+  // Each language has its own URL ("/" and "/ru"); middleware.ts sends first-time
+  // Russian-speaking visitors to /ru. The switcher remembers an explicit choice in a
+  // cookie so the auto-redirect never overrides it.
+  const switchTo: Lang = lang === "en" ? "ru" : "en";
+  const rememberChoice = useCallback(() => {
+    console.log("[lang] switch", { from: lang, to: switchTo });
+    document.cookie = `${LANG_COOKIE}=${switchTo}; path=/; max-age=31536000; samesite=lax`;
+  }, [lang, switchTo]);
 
   const t = DICT[lang];
 
@@ -135,14 +122,15 @@ export default function Landing() {
 
           <div className="flex items-center gap-2">
             {/* Shows only the language you can switch TO (RU on the English page, EN on the Russian one). */}
-            <button
-              type="button"
-              onClick={() => chooseLang(lang === "en" ? "ru" : "en")}
+            <a
+              href={LANG_PATH[switchTo]}
+              hrefLang={switchTo}
+              onClick={rememberChoice}
               aria-label={lang === "en" ? "Переключить на русский" : "Switch to English"}
               className="rounded-full bg-white/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-cream transition hover:bg-white/20"
             >
               {lang === "en" ? "RU" : "EN"}
-            </button>
+            </a>
             <a
               href="#contact"
               className="hidden rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 sm:inline-block"

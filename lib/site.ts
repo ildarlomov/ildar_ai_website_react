@@ -7,3 +7,13 @@ export const SITE_NAME = "Ildar Lomov";
 export const TITLE = "Ildar Lomov — Bots, AI agents & automation for business";
 export const DESCRIPTION =
   "Messenger bots (WhatsApp, Telegram), AI agents, CRM setup (Bitrix24, amoCRM), mailings, Tilda websites and custom apps. Based in Lisbon, Portugal.";
+
+export const TITLE_RU = "Ильдар Ломов — боты, ИИ-агенты и автоматизация для бизнеса";
+export const DESCRIPTION_RU =
+  "Боты для WhatsApp и Telegram, ИИ-агенты, настройка CRM (Битрикс24, amoCRM), рассылки, сайты на Tilda и приложения под ключ. Лиссабон, Португалия.";
+
+// English lives at "/", Russian at "/ru". Both are declared to search engines via hreflang.
+export const LANG_PATH = { en: "/", ru: "/ru" } as const;
+
+// Explicit language choice from the header switcher; middleware.ts respects it over geo-detection.
+export const LANG_COOKIE = "lang";
