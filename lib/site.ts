@@ -1,6 +1,7 @@
 // Single source of truth for site-wide SEO constants.
 
-export const SITE_URL = "https://ildar.ai";
+// Primary domain on Vercel: ildarlomov.com 308-redirects to www, so www is canonical.
+export const SITE_URL = "https://www.ildarlomov.com";
 export const SITE_NAME = "Ildar Lomov";
 
 export const TITLE = "Ildar Lomov — Bots, AI agents & automation for business";

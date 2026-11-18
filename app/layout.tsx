@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
   alternates: { canonical: "/" },
+  // Search Console (ildarlomov.public Google account) + Yandex Webmaster (ildar.lomov) ownership tags.
+  verification: {
+    google: "MZ0qcrwWwEeEKWd9gPHqo-Vm5XWM-yGtjEGylFPzPfI",
+    yandex: "6aa8571de83ee5d9",
+  },
   robots: {
     index: true,
     follow: true,
