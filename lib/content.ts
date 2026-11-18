@@ -88,7 +88,6 @@ export type Dict = {
   };
   cases: {
     eyebrow: string;
-    hint: string;
     prev: string;
     next: string;
     slides: { tag: string; title: string; text: string }[];
@@ -181,7 +180,6 @@ export const DICT: Record<Lang, Dict> = {
     },
     cases: {
       eyebrow: "Case study",
-      hint: "Swipe or use the arrows",
       prev: "Previous slide",
       next: "Next slide",
       slides: [
@@ -403,7 +401,6 @@ export const DICT: Record<Lang, Dict> = {
     },
     cases: {
       eyebrow: "Кейс",
-      hint: "Листайте или жмите стрелки",
       prev: "Предыдущий слайд",
       next: "Следующий слайд",
       slides: [

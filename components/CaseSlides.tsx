@@ -360,45 +360,194 @@ function ChromeSlide({ active, t }: SlideProps) {
 
 /* ───────────── slide 5: everywhere + links ───────────── */
 
-const LINK_ICONS = ["sparkles", "home", "settings", "mic", "plus"] as const;
+function AppleIcon({ size = 18, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={color} aria-hidden="true">
+      <path d="M17.6 12.7c0-2.5 2-3.7 2.1-3.8-1.2-1.7-2.9-1.9-3.5-2-1.5-.2-3 .9-3.7.9-.8 0-2-.9-3.3-.8-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.2 10.1.9 1.2 1.9 2.6 3.2 2.5 1.3 0 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.2 3.1-2.5.5-.7.9-1.5 1.2-2.4-2.6-1-2.8-3.5-2.8-3.5zM15.4 5.5c.7-.9 1.2-2 1-3.2-1 0-2.2.7-3 1.5-.6.8-1.2 2-1 3.1 1.1.1 2.3-.5 3-1.4z" />
+    </svg>
+  );
+}
+function WindowsIcon({ size = 18, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={color} aria-hidden="true">
+      <path d="M3 5.5 11 4.4v7.1H3V5.5zm0 7.5h8v7.1L3 18.5V13zm9-8.7L21 3v8.5h-9V4.3zM12 13h9v8.5l-9-1.3V13z" />
+    </svg>
+  );
+}
+function ChromeIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#ea4335" d="M6.68 14A20 20 0 0 1 41.32 14L24 24Z" />
+      <path fill="#fbbc04" d="M41.32 14A20 20 0 0 1 24 44L24 24Z" />
+      <path fill="#34a853" d="M24 44A20 20 0 0 1 6.68 14L24 24Z" />
+      <circle cx="24" cy="24" r="10" fill="#fff" />
+      <circle cx="24" cy="24" r="7.6" fill="#4285f4" />
+    </svg>
+  );
+}
+function GlobeIcon({ size = 18, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18" />
+    </svg>
+  );
+}
+function LaptopIcon({ size = 18, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="4" y="5" width="16" height="11" rx="1.5" />
+      <path d="M2 19h20" />
+    </svg>
+  );
+}
+
+// Laptop with the desktop app on its screen (16:9 panel inside a bezel).
+function Laptop({ children }: { children: React.ReactNode }) {
+  return (
+    <div>
+      <div style={{ borderRadius: "16px 16px 4px 4px", background: "#16161a", padding: "2.4% 2.4% 3%", boxShadow: "0 30px 70px rgba(80,50,20,0.3), inset 0 0 0 1.5px rgba(255,255,255,0.08)" }}>
+        <div style={{ borderRadius: 6, overflow: "hidden", background: "#000" }}>{children}</div>
+      </div>
+      <div style={{ position: "relative", height: 12, margin: "0 -5%", borderRadius: "0 0 18px 18px", background: "linear-gradient(180deg, #ddd5c8 0%, #b6ad9f 100%)", boxShadow: "0 12px 24px rgba(80,50,20,0.25)" }}>
+        <div style={{ position: "absolute", left: "50%", top: 0, width: "16%", height: 5, transform: "translateX(-50%)", borderRadius: "0 0 8px 8px", background: "rgba(0,0,0,0.18)" }} />
+      </div>
+    </div>
+  );
+}
+
+// Compact browser window showing the Chrome extension popup.
+function MiniChrome({ label }: { label: string }) {
+  return (
+    <div style={{ borderRadius: 12, overflow: "hidden", background: "#fff", border: "1px solid rgba(0,0,0,0.12)", boxShadow: "0 24px 60px rgba(80,50,20,0.3)" }}>
+      <div style={{ background: "#e9e1d4", padding: "7px 10px", display: "flex", alignItems: "center", gap: 8 }}>
+        <div style={{ display: "flex", gap: 5 }}>
+          {["#ff5f57", "#febc2e", "#28c840"].map((c) => <span key={c} style={{ width: 8, height: 8, borderRadius: 99, background: c }} />)}
+        </div>
+        <div style={{ flex: 1, background: "rgba(255,255,255,0.7)", borderRadius: 99, padding: "3px 8px", fontSize: 9, color: "#6b6457" }}>meet.google.com</div>
+        <span style={{ width: 18, height: 18, borderRadius: 5, background: "#1a1a1a", display: "grid", placeItems: "center" }}>
+          <svg width="11" height="11" viewBox="0 0 60 60" fill="none" stroke="#faf2e8" strokeLinecap="round"><circle cx="30" cy="30" r="3" fill="#faf2e8" stroke="none" /><circle cx="30" cy="30" r="12" strokeWidth="5" /><circle cx="30" cy="30" r="22" strokeWidth="5" opacity={0.5} /></svg>
+        </span>
+      </div>
+      <div style={{ background: "#202124", padding: 8, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 5, position: "relative" }}>
+        {MEET_NAMES.slice(0, 4).map((n) => (
+          <div key={n} style={{ aspectRatio: "16 / 10", borderRadius: 6, background: "#3c4043", display: "grid", placeItems: "center" }}>
+            <Avatar name={n} size={22} />
+          </div>
+        ))}
+        <div style={{ position: "absolute", right: 8, top: 8, width: "58%", borderRadius: 9, background: "#faf2e8", boxShadow: "0 10px 26px rgba(0,0,0,0.4)", padding: "8px 10px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 600, color: C.fg }}>
+            <span className="cs-rec" style={{ width: 6, height: 6, borderRadius: 99, background: "#ff5a5a" }} /> {label}
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 2, height: 14, marginTop: 6 }} aria-hidden="true">
+            {Array.from({ length: 14 }).map((_, i) => (
+              <span key={i} className="cs-bar" style={{ flex: 1, height: `${35 + ((i * 37) % 65)}%`, borderRadius: 2, background: C.accent, animationDelay: `${(i % 7) * 0.12}s` }} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Floating glass badge with an OS / platform logo.
+function OsBadge({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  return (
+    <div className={`cs-float absolute ${className}`} style={{ animationDelay: `${delay}s` }}>
+      <div style={{ width: 52, height: 52, borderRadius: 999, display: "grid", placeItems: "center", color: C.fg, background: "linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.3) 100%)", border: "1px solid rgba(255,255,255,0.8)", backdropFilter: "blur(14px) saturate(180%)", WebkitBackdropFilter: "blur(14px) saturate(180%)", boxShadow: "0 10px 26px rgba(80,50,20,0.2), inset 0 1px 1px rgba(255,255,255,0.9)" }}>
+        {children}
+      </div>
+    </div>
+  );
+}
 
 function LinksSlide({ active, t }: SlideProps) {
+  const icons = [<GlobeIcon key="w" color={C.accent} />, <Icon key="s" name="home" size={18} color={C.accent} />, <LaptopIcon key="d" color={C.accent} />, <AppleIcon key="i" color={C.accent} />, <ChromeIcon key="c" />];
+  const platforms: [React.ReactNode, string][] = [
+    [<AppleIcon key="a" size={15} />, "macOS"],
+    [<WindowsIcon key="w" size={15} />, "Windows"],
+    [<AppleIcon key="i" size={15} />, "iOS"],
+    [<ChromeIcon key="c" size={15} />, "Chrome"],
+    [<GlobeIcon key="g" size={15} />, "Web"],
+  ];
   return (
-    <Slide active={active}>
-      <div className="mx-auto text-center" style={{ maxWidth: 720 }}>
-        <p className="cs-in" style={{ ...eyebrow, ...d(0) }}>{t.slides[5].tag}</p>
-        <h3 className="cs-in" style={{ ...h3, ...d(0.1) }}>{t.slides[5].title}</h3>
-        <p className="cs-in" style={{ ...body, ...d(0.22), margin: "20px auto 0" }}>{t.slides[5].text}</p>
-      </div>
+    <Slide active={active} bg={C.heroBg}>
+      <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+        <div>
+          <p className="cs-in" style={{ ...eyebrow, ...d(0) }}>{t.slides[5].tag}</p>
+          <h3 className="cs-in" style={{ ...h3, ...d(0.1) }}>{t.slides[5].title}</h3>
+          <p className="cs-in" style={{ ...body, ...d(0.2) }}>{t.slides[5].text}</p>
 
-      <div className="mx-auto mt-10 grid max-w-[1040px] gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {LINKS.map((href, i) => (
-          <a
-            key={href}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cs-in group flex flex-col rounded-2xl p-5 transition hover:-translate-y-1"
-            style={{ ...d(0.32 + i * 0.08), background: "rgba(255,250,243,0.85)", border: "1px solid rgba(0,0,0,0.05)", boxShadow: "0 12px 32px rgba(120,80,40,0.08)", textDecoration: "none" }}
-          >
-            <div style={{ width: 38, height: 38, borderRadius: 10, background: "#fff", border: "1px solid rgba(0,0,0,0.05)", display: "grid", placeItems: "center" }}>
-              <Icon name={LINK_ICONS[i]} size={18} color={C.accent} />
-            </div>
-            <div style={{ fontFamily: FD, fontSize: 17, fontWeight: 500, letterSpacing: "-0.01em", marginTop: 16, color: C.fg }}>{t.ui.linkTitles[i]}</div>
-            <div style={{ marginTop: 4, fontSize: 12, color: C.fgMuted, flex: 1 }}>{t.ui.linkSubs[i]}</div>
-            <div className="mt-4 transition group-hover:translate-x-1" style={{ color: C.accent }}><Arrow size={16} /></div>
-          </a>
-        ))}
-      </div>
+          <div className="cs-in mt-6 flex flex-wrap gap-2" style={d(0.3)}>
+            {platforms.map(([icon, name]) => (
+              <span key={name} style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "7px 13px", borderRadius: 999, background: "rgba(255,255,255,0.6)", border: "1px solid rgba(0,0,0,0.08)", color: C.fg, fontSize: 12, fontWeight: 600 }}>
+                {icon}{name}
+              </span>
+            ))}
+          </div>
 
-      <p className="cs-in mx-auto mt-8 text-center" style={{ ...d(0.8), maxWidth: 560, fontSize: 13, lineHeight: 1.6, color: C.fgMuted }}>
-        <Icon name="check" size={12} color="#2f8a5b" /> {t.ui.privacy}
-      </p>
+          <div className="mt-7 grid gap-3 sm:grid-cols-2">
+            {LINKS.map((href, i) => (
+              <a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cs-in group/link flex items-center gap-3 rounded-2xl p-3 transition hover:-translate-y-0.5"
+                style={{ ...d(0.38 + i * 0.07), background: "rgba(255,250,243,0.85)", border: "1px solid rgba(0,0,0,0.05)", boxShadow: "0 10px 26px rgba(120,80,40,0.08)", textDecoration: "none" }}
+              >
+                <span style={{ width: 38, height: 38, borderRadius: 10, background: "#fff", border: "1px solid rgba(0,0,0,0.05)", display: "grid", placeItems: "center", flexShrink: 0 }}>{icons[i]}</span>
+                <span style={{ flex: 1, minWidth: 0 }}>
+                  <span style={{ display: "block", fontFamily: FD, fontSize: 15, fontWeight: 500, color: C.fg }}>{t.ui.linkTitles[i]}</span>
+                  <span style={{ display: "block", fontSize: 11.5, color: C.fgMuted, marginTop: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{t.ui.linkSubs[i]}</span>
+                </span>
+                <span className="transition group-hover/link:translate-x-0.5" style={{ color: C.accent }}><Arrow size={15} /></span>
+              </a>
+            ))}
+          </div>
+
+          <p className="cs-in mt-6" style={{ ...d(0.8), maxWidth: 480, fontSize: 12.5, lineHeight: 1.6, color: C.fgMuted }}>
+            <Icon name="check" size={12} color="#2f8a5b" /> {t.ui.privacy}
+          </p>
+        </div>
+
+        {/* devices scene */}
+        <div className="cs-in cs-vis relative mx-auto w-full max-w-[660px] pb-16 pt-10" style={d(0.25)}>
+          <div className="mx-auto w-[88%]">
+            <Laptop>
+              <Fit w={1280} h={720}><HomeV2Preview height={720} /></Fit>
+            </Laptop>
+          </div>
+          <div className="cs-float absolute bottom-0 right-0 w-[23%] max-w-[150px]" style={{ animationDelay: "0.6s" }}>
+            <Fit w={340} h={720}><AppPreviewMobile /></Fit>
+          </div>
+          <div className="absolute bottom-0 left-0 hidden w-[44%] sm:block">
+            <MiniChrome label={t.ui.recording} />
+          </div>
+          <OsBadge className="left-[2%] top-0" delay={0}><AppleIcon size={24} /></OsBadge>
+          <OsBadge className="right-[10%] top-0" delay={0.8}><WindowsIcon size={22} /></OsBadge>
+          <OsBadge className="-left-1 top-[34%] hidden sm:block" delay={1.4}><ChromeIcon size={26} /></OsBadge>
+          <OsBadge className="-right-1 top-[30%]" delay={2}><GlobeIcon size={24} /></OsBadge>
+        </div>
+      </div>
     </Slide>
   );
 }
 
 /* ───────────── the pager ───────────── */
+
+// Apple-style "liquid glass": blurred, saturated backdrop with a bright rim and soft inner highlight.
+const GLASS: React.CSSProperties = {
+  width: 56,
+  height: 56,
+  borderRadius: 999,
+  color: C.fg,
+  background: "linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.18) 100%)",
+  border: "1px solid rgba(255,255,255,0.7)",
+  backdropFilter: "blur(18px) saturate(180%)",
+  WebkitBackdropFilter: "blur(18px) saturate(180%)",
+  boxShadow: "0 10px 30px rgba(80,50,20,0.22), inset 0 1px 1px rgba(255,255,255,0.9), inset 0 -1px 2px rgba(255,255,255,0.25)",
+};
 
 const SLIDES = [IntroSlide, DevicesSlide, SummarySlide, TasksSlide, ChromeSlide, LinksSlide];
 
@@ -426,7 +575,7 @@ export default function CaseSlides({ t }: { t: T }) {
   }, []);
 
   return (
-    <div className="relative" style={{ background: C.pageBg, color: C.fg }} role="region" aria-roledescription="carousel" aria-label={t.eyebrow}>
+    <div className="group relative" style={{ background: C.pageBg, color: C.fg }} role="region" aria-roledescription="carousel" aria-label={t.eyebrow}>
       {/* case header: project mark + case label (no site navigation) */}
       <header className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between px-5 pt-7 md:px-14">
         <a href={SITE} target="_blank" rel="noopener noreferrer" className="pointer-events-auto" aria-label="Memcircle">
@@ -450,7 +599,7 @@ export default function CaseSlides({ t }: { t: T }) {
       </div>
 
       {/* pager controls */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex items-center justify-between gap-4 px-5 pb-6 md:px-14">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex items-center justify-center px-5 pb-6 md:justify-between md:px-14">
         <div className="pointer-events-auto flex items-center gap-4">
           <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.16em", textTransform: "uppercase", color: C.fgMuted }}>
             {String(active + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
@@ -468,16 +617,19 @@ export default function CaseSlides({ t }: { t: T }) {
             ))}
           </div>
         </div>
-        <div className="pointer-events-auto flex items-center gap-2">
-          <span className="mr-2 hidden text-xs md:inline" style={{ color: C.fgFaint }}>{t.hint}</span>
-          <button type="button" onClick={() => go(active - 1)} disabled={active === 0} aria-label={t.prev} className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-black/5 disabled:opacity-30" style={{ border: "1px solid rgba(0,0,0,0.18)", color: C.fg }}>
-            <Arrow dir="left" size={18} />
-          </button>
-          <button type="button" onClick={() => go(active + 1)} disabled={active === count - 1} aria-label={t.next} className="flex h-11 w-11 items-center justify-center rounded-full transition hover:opacity-85 disabled:opacity-30" style={{ background: "#1a1a1a", color: "#fff", boxShadow: "0 4px 14px rgba(0,0,0,0.18)" }}>
-            <Arrow size={18} />
-          </button>
-        </div>
       </div>
+
+      {/* liquid-glass arrows: centred over the slide, shown on hover (touch devices swipe instead) */}
+      {active > 0 && (
+        <button type="button" onClick={() => go(active - 1)} aria-label={t.prev} className="cs-glass left-3 md:left-6" style={GLASS}>
+          <Arrow dir="left" size={22} />
+        </button>
+      )}
+      {active < count - 1 && (
+        <button type="button" onClick={() => go(active + 1)} aria-label={t.next} className="cs-glass right-3 md:right-6" style={GLASS}>
+          <Arrow size={22} />
+        </button>
+      )}
     </div>
   );
 }
