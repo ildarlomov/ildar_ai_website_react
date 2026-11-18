@@ -62,28 +62,27 @@ body {
   from { opacity: 0; transform: scale(0.7); }
   to { opacity: 1; transform: none; }
 }
-@keyframes cs-bar {
-  0%, 100% { transform: scaleY(0.25); }
-  50% { transform: scaleY(1); }
-}
-@keyframes cs-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(255, 90, 90, 0.55); }
-  100% { box-shadow: 0 0 0 14px rgba(255, 90, 90, 0); }
-}
-@keyframes cs-blink {
-  50% { opacity: 0; }
-}
 
 /* Elements inside a slide wait hidden, then animate each time the slide becomes active. */
 .cs-slide[data-active="false"] .cs-in { opacity: 0; }
 .cs-slide[data-active="true"] .cs-in { animation: cs-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--d, 0s); }
 .cs-slide[data-active="true"] .cs-pop { animation-name: cs-pop; }
-.cs-bar { transform-origin: center; animation: cs-bar 1.1s ease-in-out infinite; }
-.cs-rec { animation: cs-pulse 1.4s ease-out infinite; }
-.cs-caret { animation: cs-blink 1s steps(1) infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   .cs-slide[data-active="false"] .cs-in { opacity: 1; }
-  .cs-slide[data-active="true"] .cs-in,
-  .cs-bar, .cs-rec, .cs-caret { animation: none; }
+  .cs-slide[data-active="true"] .cs-in { animation: none; }
+}
+
+/* Memcircle primitives (RippleScene / LiveDot) */
+@keyframes mcPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+@keyframes mcRipple {
+  0% { width: 40px; height: 40px; opacity: 0.85; }
+  100% { width: 580px; height: 580px; opacity: 0; }
+}
+@keyframes mcDrift {
+  0%, 100% { transform: translate(0, 0); opacity: 0.7; }
+  50% { transform: translate(20px, -30px); opacity: 1; }
 }

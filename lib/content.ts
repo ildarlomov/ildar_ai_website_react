@@ -88,28 +88,9 @@ export type Dict = {
   };
   cases: {
     eyebrow: string;
-    title: string;
     hint: string;
     prev: string;
     next: string;
-    open: string;
-    demoNote: string;
-    slides: { kicker: string; title: string; text: string }[];
-    demo: {
-      rec: string;
-      noBot: string;
-      platforms: string[];
-      transcript: { who: string; text: string }[];
-      summaryLabel: string;
-      summary: string;
-      keyLabel: string;
-      keyPoints: string[];
-      actionLabel: string;
-      actions: string[];
-      askLabel: string;
-      question: string;
-      answer: string;
-    };
   };
   services: {
     eyebrow: string;
@@ -185,64 +166,10 @@ export const DICT: Record<Lang, Dict> = {
       caption: "Ildar Lomov, Lisbon",
     },
     cases: {
-      eyebrow: "Case study",
-      title: "Memcircle: meetings your AI can actually use",
+      eyebrow: "Case study: Memcircle",
       hint: "Swipe or use the arrows",
       prev: "Previous slide",
       next: "Next slide",
-      open: "Open memcircle.com",
-      demoNote: "Illustrative example",
-      slides: [
-        {
-          kicker: "Memcircle",
-          title: "Every meeting, recorded and ready for AI",
-          text:
-            "An AI meeting recorder I designed and built end to end — one product on web, desktop, mobile and the browser.",
-        },
-        {
-          kicker: "01 · Record",
-          title: "No bot joins your call",
-          text:
-            "It captures the call locally on your Mac, Windows PC or in Chrome. Zoom, Meet, Teams or anything else — nobody sees a recorder in the room.",
-        },
-        {
-          kicker: "02 · Transcribe",
-          title: "Speech to clean text",
-          text:
-            "A full, searchable transcript of the whole conversation, ready right after the call ends. Quotable, shareable, yours.",
-        },
-        {
-          kicker: "03 · Structure",
-          title: "Summary, decisions, action items",
-          text:
-            "One screen per meeting: a short recap, the key points and who has to do what — instead of an hour of recording to rewatch.",
-        },
-        {
-          kicker: "04 · Use with AI",
-          title: "Your meetings become AI context",
-          text:
-            "Hand transcripts, recaps and tasks to the AI tools you already use, so they know what was actually said — and ask questions across your meetings.",
-        },
-      ],
-      demo: {
-        rec: "Recording",
-        noBot: "No bot in the meeting",
-        platforms: ["macOS", "Windows", "Chrome", "iOS"],
-        transcript: [
-          { who: "Anna", text: "Let's lock the launch for the 12th." },
-          { who: "Mark", text: "The pricing page is ready, we're only waiting on legal." },
-          { who: "Anna", text: "Great — I'll send the contract today." },
-        ],
-        summaryLabel: "Summary",
-        summary: "Launch set for the 12th. Pricing page is ready; the contract goes out today.",
-        keyLabel: "Key points",
-        keyPoints: ["Launch date: the 12th", "Pricing page is ready", "Legal review pending"],
-        actionLabel: "Action items",
-        actions: ["Anna — send the contract", "Mark — get legal sign-off"],
-        askLabel: "Ask AI",
-        question: "What did we decide about the launch?",
-        answer: "Launch is set for the 12th. Pricing is ready; Anna sends the contract today and Mark chases legal.",
-      },
     },
     services: {
       eyebrow: "Services",
@@ -413,64 +340,10 @@ export const DICT: Record<Lang, Dict> = {
       caption: "Ильдар Ломов, Лиссабон",
     },
     cases: {
-      eyebrow: "Кейс",
-      title: "Memcircle: встречи, с которыми может работать ИИ",
+      eyebrow: "Кейс: Memcircle",
       hint: "Листайте или жмите стрелки",
       prev: "Предыдущий слайд",
       next: "Следующий слайд",
-      open: "Открыть memcircle.com",
-      demoNote: "Пример для иллюстрации",
-      slides: [
-        {
-          kicker: "Memcircle",
-          title: "Каждая встреча записана и готова для ИИ",
-          text:
-            "ИИ-рекордер встреч, который я придумал и собрал целиком: один продукт для веба, десктопа, мобильных и браузера.",
-        },
-        {
-          kicker: "01 · Запись",
-          title: "В звонок не заходит бот",
-          text:
-            "Запись идёт локально на вашем Mac, Windows-компьютере или в Chrome. Zoom, Meet, Teams или что угодно — никто не увидит «рекордер» в комнате.",
-        },
-        {
-          kicker: "02 · Расшифровка",
-          title: "Из речи — чистый текст",
-          text:
-            "Полная расшифровка разговора с поиском — готова сразу после звонка. Можно цитировать, пересылать, она ваша.",
-        },
-        {
-          kicker: "03 · Структура",
-          title: "Резюме, решения, задачи",
-          text:
-            "Один экран на встречу: короткое резюме, ключевые тезисы и кто что делает — вместо часа записи, которую надо пересматривать.",
-        },
-        {
-          kicker: "04 · Вместе с ИИ",
-          title: "Ваши встречи становятся контекстом для ИИ",
-          text:
-            "Передавайте расшифровки, резюме и задачи ИИ-инструментам, которыми уже пользуетесь, чтобы они знали, что на самом деле говорилось, и задавайте вопросы по всем встречам.",
-        },
-      ],
-      demo: {
-        rec: "Запись",
-        noBot: "Бота на встрече нет",
-        platforms: ["macOS", "Windows", "Chrome", "iOS"],
-        transcript: [
-          { who: "Анна", text: "Давайте зафиксируем запуск на 12-е." },
-          { who: "Марк", text: "Страница с ценами готова, ждём только юристов." },
-          { who: "Анна", text: "Отлично, договор отправлю сегодня." },
-        ],
-        summaryLabel: "Резюме",
-        summary: "Запуск назначен на 12-е. Страница с ценами готова, договор уходит сегодня.",
-        keyLabel: "Ключевое",
-        keyPoints: ["Дата запуска: 12-е", "Страница с ценами готова", "Ждём ревью юристов"],
-        actionLabel: "Задачи",
-        actions: ["Анна — отправить договор", "Марк — получить ок от юристов"],
-        askLabel: "Спросить ИИ",
-        question: "Что мы решили по запуску?",
-        answer: "Запуск назначен на 12-е. Цены готовы; Анна отправляет договор сегодня, Марк торопит юристов.",
-      },
     },
     services: {
       eyebrow: "Услуги",

@@ -224,14 +224,8 @@ export default function Landing() {
         </section>
 
         {/* ───── Cases (sand): one-project slide deck ───── */}
-        <section id="cases" className={`${PANEL} bg-cream-2 py-20 md:py-28`}>
-          <div className="mx-auto max-w-6xl px-5">
-            <Eyebrow>{t.cases.eyebrow}</Eyebrow>
-            <h2 className="font-display max-w-3xl text-3xl font-bold leading-tight sm:text-5xl">
-              {t.cases.title}
-            </h2>
-            <CaseSlides t={t.cases} />
-          </div>
+        <section id="cases" className={`${PANEL} overflow-hidden`} style={{ background: "#f6e3cf" }}>
+          <CaseSlides t={t.cases} />
         </section>
 
         {/* ───── Services (light) ───── */}
