@@ -81,7 +81,7 @@ export type Dict = {
     badge: string;
     title: string;
     titleAccent: string;
-    text: string;
+    text: string[];
     primary: string;
     secondary: string;
     caption: string;
@@ -172,8 +172,9 @@ export const DICT: Record<Lang, Dict> = {
       badge: "Based in Lisbon · Working worldwide",
       title: "I build bots, AI agents and automation",
       titleAccent: "that make businesses run on their own.",
-      text:
+      text: [
         "Messenger bots, CRM setups, mailings and custom apps. I'm Ildar — a technical entrepreneur with 7+ years in data science and AI, and the person who actually builds what you hire me for.",
+      ],
       primary: "Leave a request",
       secondary: "See services",
       caption: "Ildar Lomov, Lisbon",
@@ -391,10 +392,12 @@ export const DICT: Record<Lang, Dict> = {
     cta: "Связаться",
     hero: {
       badge: "Живу в Лиссабоне · Работаю с клиентами по всему миру",
-      title: "Делаю ботов, ИИ-агентов и автоматизацию,",
-      titleAccent: "чтобы бизнес работал сам.",
-      text:
-        "Боты для мессенджеров, настройка CRM, рассылки и приложения под ключ. Я Ильдар — технический предприниматель, 7+ лет в data science и AI, и всё, что вы заказываете, я собираю сам.",
+      title: "Я Ильдар - технический директор и исполнитель",
+      titleAccent: "для вашего бизнеса.",
+      text: [
+        "Беру вашу идею и превращаю ее в работающее техническое решение для вашего бизнеса.",
+        "Бывший руководитель AI в Островке. В моем \"меню\" широкий список услуг, среди которых: создание ботов в телеграм, telegram mini apps, вебсайт, SEO and GEO продвижение, приложения для IOS/Android, PWA, подключение CRM-систем, подключение ИИ-агентов, в том числе менеджеров по продажам и специалистов колл-центров которые работают в чатах и с ip-телефонией, также предлагаю услуги продвижения вашего бизнеса в соц сети Threads через нейрокомментинг. За мной можно следить в социальных сетях по ссылкам внизу.",
+      ],
       primary: "Оставить заявку",
       secondary: "Смотреть услуги",
       caption: "Ильдар Ломов, Лиссабон",

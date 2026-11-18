@@ -177,12 +177,19 @@ export default function Landing({ lang }: { lang: Lang }) {
             aria-hidden="true"
           />
 
-          <div className="relative mx-auto flex max-w-6xl flex-col px-5 md:h-[100svh] md:max-h-[940px] md:min-h-[680px] md:flex-row md:items-center">
-            <div className="relative z-10 pb-4 pt-32 md:w-[56%] md:py-0 md:pt-16">
-              <h1 className="font-display text-[2.6rem] font-bold leading-[1.04] sm:text-6xl lg:text-[4.1rem]">
+          <div className="relative mx-auto flex max-w-6xl flex-col px-5 md:min-h-[min(100svh,940px)] md:flex-row md:items-center">
+            <div className="relative z-10 pb-4 pt-32 md:w-[56%] md:py-0 md:pb-20 md:pt-28">
+              <h1 className="font-display text-[2.2rem] font-bold leading-[1.06] sm:text-5xl lg:text-[3.5rem]">
                 {t.hero.title} <span className="text-accent">{t.hero.titleAccent}</span>
               </h1>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream/70">{t.hero.text}</p>
+              {t.hero.text.map((para, i) => (
+                <p
+                  key={i}
+                  className={`max-w-xl leading-relaxed ${i === 0 ? "mt-6 text-lg text-cream/70" : "mt-4 text-base text-cream/60"}`}
+                >
+                  {para}
+                </p>
+              ))}
 
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <a
