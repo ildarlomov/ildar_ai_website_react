@@ -138,7 +138,7 @@ function IntroSlide({ active, t }: SlideProps) {
           </div>
         </TextBlock>
         <div className="cs-in cs-vis" style={d(0.25)}>
-          <Fit w={900} h={696}><HomeV2Preview /></Fit>
+          <Fit w={1280} h={720}><HomeV2Preview height={720} /></Fit>
         </div>
       </div>
     </Slide>
@@ -158,7 +158,7 @@ function DevicesSlide({ active, t }: SlideProps) {
           </div>
         </TextBlock>
         <div className="cs-in cs-vis relative pb-10 pr-[10%] sm:pr-[6%]" style={d(0.25)}>
-          <Fit w={900} h={696}><HomeV2Preview /></Fit>
+          <Fit w={1280} h={720}><HomeV2Preview height={720} /></Fit>
           <div className="cs-float absolute bottom-0 right-0 w-[34%] max-w-[240px]">
             <Fit w={340} h={720}><AppPreviewMobile /></Fit>
           </div>

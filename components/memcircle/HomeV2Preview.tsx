@@ -563,7 +563,7 @@ function MacChrome() {
 
 /* ─── public export ─────────────────────────────────────────────────────── */
 
-export function HomeV2Preview() {
+export function HomeV2Preview({ height = 696 }: { height?: number }) {
   return (
     <div className="mc-preview" style={{
       borderRadius: 16,
@@ -571,7 +571,7 @@ export function HomeV2Preview() {
       boxShadow: "0 32px 80px rgba(120,80,30,0.18), 0 2px 8px rgba(0,0,0,0.06)",
       border: "1px solid rgba(0,0,0,0.07)",
       display: "flex", flexDirection: "column",
-      height: 696,
+      height,
       fontFamily: "Inter, -apple-system, sans-serif",
       fontSize: 14,
     }}>
