@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect } from "react";
 import { DICT, FACTS, SERVICE_KEYS, type Lang, type SocialKey } from "@/lib/content";
-import { LANG_COOKIE, LANG_PATH } from "@/lib/site";
+import { LANG_COOKIE, LANG_PATH, PRIVACY_PATH } from "@/lib/site";
 import LeadForm from "@/components/LeadForm";
 import DiplomaPlate from "@/components/DiplomaPlate";
 import CaseSlides from "@/components/CaseSlides";
@@ -451,7 +451,10 @@ export default function Landing({ lang }: { lang: Lang }) {
           </address>
         </div>
         <p className="mx-auto mt-10 max-w-6xl px-5 text-xs text-cream/40">
-          © {new Date().getFullYear()} Ildar Lomov. {t.footer.rights}
+          © {new Date().getFullYear()} Ildar Lomov. {t.footer.rights}{" "}
+          <a href={PRIVACY_PATH[lang]} className="underline underline-offset-2 hover:text-cream">
+            {t.footer.privacy}
+          </a>
         </p>
       </footer>
     </div>

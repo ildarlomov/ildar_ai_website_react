@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { DICT, SERVICE_KEYS, type Lang } from "@/lib/content";
+import { PRIVACY_PATH } from "@/lib/site";
 
 type Status = "idle" | "sending" | "success" | "error" | "invalid";
 
@@ -106,6 +107,14 @@ export default function LeadForm({ lang }: { lang: Lang }) {
       >
         {status === "sending" ? f.sending : f.submit}
       </button>
+
+      <p className="text-center text-xs leading-relaxed text-ink-3">
+        {f.consent}{" "}
+        <a href={PRIVACY_PATH[lang]} className="underline underline-offset-2 hover:text-accent">
+          {f.consentLink}
+        </a>
+        .
+      </p>
 
       {(status === "error" || status === "invalid") && (
         <p role="alert" className="text-sm font-medium text-red-700">

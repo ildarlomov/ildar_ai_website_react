@@ -15,5 +15,10 @@ export const DESCRIPTION_RU =
 // English lives at "/", Russian at "/ru". Both are declared to search engines via hreflang.
 export const LANG_PATH = { en: "/", ru: "/ru" } as const;
 
+export const PRIVACY_PATH = { en: "/privacy", ru: "/ru/privacy" } as const;
+
+// localStorage key holding the cookie-banner choice ("granted" | "denied").
+export const CONSENT_KEY = "cookie-consent";
+
 // Explicit language choice from the header switcher; middleware.ts respects it over geo-detection.
 export const LANG_COOKIE = "lang";
