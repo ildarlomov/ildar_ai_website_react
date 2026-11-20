@@ -10,9 +10,9 @@ const SHOW_AFTER_MS = 8000;
 const SNOOZE_MS = 3 * 24 * 60 * 60 * 1000; // stay quiet for 3 days after the visitor closes it
 const STORAGE_KEY = "ildar-ai-popup-closed";
 
-// EN → WhatsApp on the Portuguese number. RU → Telegram, opened by the KZ phone number.
+// EN → WhatsApp on the Portuguese number. RU → Telegram (personal account).
 const WHATSAPP_EN = "https://wa.me/351912094137";
-const TELEGRAM_RU = "https://t.me/+77058275089";
+const TELEGRAM_RU = "https://t.me/ilomov";
 
 function WhatsAppLogo() {
   return (
