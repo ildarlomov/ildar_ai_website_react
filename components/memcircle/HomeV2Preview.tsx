@@ -141,7 +141,8 @@ function ThemedPill({ children, onClick }: { children: React.ReactNode; onClick?
   );
 }
 
-function BotSwitch({ on, onChange, disabled, size = "md" }: {
+function BotSwitch({ on, onChange, disabled, size = "md", label = "Record meeting" }: {
+  label?: string;
   on: boolean; onChange: (v: boolean) => void; disabled?: boolean; size?: "md" | "lg";
 }) {
   const W = size === "lg" ? 29 : 26;
@@ -152,6 +153,7 @@ function BotSwitch({ on, onChange, disabled, size = "md" }: {
     <div
       role="switch"
       aria-checked={on}
+      aria-label={label}
       tabIndex={disabled ? -1 : 0}
       onClick={(e) => { e.stopPropagation(); if (!disabled) onChange(!on); }}
       onKeyDown={(e) => {
@@ -252,7 +254,7 @@ function LiveHero({ m, onToggle }: { m: Meeting; onToggle: (id: string, v: boole
               <span style={{ fontSize: 10, fontWeight: 600,
                 color: "var(--t-accent-strong)", letterSpacing: "0.14em",
                 textTransform: "uppercase" }}>Bot in room</span>
-              <BotSwitch size="lg" on={m.bot} onChange={(v) => onToggle(m.id, v)}/>
+              <BotSwitch size="lg" label={`Record “${m.title}”`} on={m.bot} onChange={(v) => onToggle(m.id, v)}/>
             </div>
           </div>
         </div>
@@ -343,7 +345,7 @@ function MeetingRow({ m, onToggle }: { m: Meeting; onToggle: (id: string, v: boo
       </div>
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-        <BotSwitch on={m.bot} disabled={muted} onChange={(v) => onToggle(m.id, v)}/>
+        <BotSwitch label={`Record “${m.title}”`} on={m.bot} disabled={muted} onChange={(v) => onToggle(m.id, v)}/>
       </div>
     </div>
   );
@@ -509,7 +511,7 @@ function HomeV2View() {
               Joins all your meetings automatically
             </div>
           </div>
-          <BotSwitch size="lg" on={autoAll} onChange={flipAll}/>
+          <BotSwitch size="lg" label="Record all meetings" on={autoAll} onChange={flipAll}/>
         </div>
       </div>
 

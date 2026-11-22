@@ -28,7 +28,7 @@ const C = {
   heroBg: "linear-gradient(180deg, #faf2e8 0%, #f6e3cf 45%, #f1d4b8 75%, #f0d4d4 100%)",
   fg: "#1a1a1a",
   fgBody: "#4a4a4a",
-  fgMuted: "#7a7a7a",
+  fgMuted: "#666666", // was #7a7a7a: 3.4:1 on the sand panel, AA needs 4.5:1
   fgFaint: "#9a8878",
   cardBg: "rgba(255,255,255,0.72)",
   cardBorder: "rgba(0,0,0,0.08)",
@@ -635,16 +635,21 @@ export default function CaseSlides({ t }: { t: T }) {
           <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.16em", textTransform: "uppercase", color: C.fgMuted }}>
             {String(active + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
           </span>
-          <div className="flex gap-1.5">
+          <div className="flex items-center">
             {SLIDES.map((_, i) => (
               <button
                 key={i}
                 type="button"
                 onClick={() => go(i)}
                 aria-label={`${i + 1} / ${count}`}
-                className="h-1.5 rounded-full transition-all"
-                style={{ width: i === active ? 26 : 6, background: i === active ? C.accent : "rgba(0,0,0,0.2)" }}
-              />
+                // 24px tap target (WCAG 2.5.8); the visible 6px bar is the inner span.
+                className="flex h-6 min-w-6 items-center justify-center"
+              >
+                <span
+                  className="block h-1.5 rounded-full transition-all"
+                  style={{ width: i === active ? 26 : 6, background: i === active ? C.accent : "rgba(0,0,0,0.2)" }}
+                />
+              </button>
             ))}
           </div>
         </div>

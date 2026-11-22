@@ -6,9 +6,17 @@
   --color-paper: #ffffff;
   --color-ink: #1a1a1a;
   --color-ink-2: #4a4a4a;
-  --color-ink-3: #7a7a7a;
+  --color-ink-3: #666666; /* was #7a7a7a: 3.9:1 on cream, AA needs 4.5:1 */
   --color-line: rgba(0, 0, 0, 0.08);
-  --color-accent: #c46a44;
+  --color-accent: #c46a44; /* brand fill + large text (3:1) */
+  /* Accessible accent roles (WCAG AA 4.5:1, small text):
+     accent-deep — button fill behind white text (4.6:1 vs white)
+     accent-ink  — small accent text on light backgrounds (>=4.6:1 on cream/sand/white);
+                   dark panels override it to accent-bright via the DARK class in Landing.tsx
+     accent-bright — small accent text on the dark #171514/#201e1d panels (4.9:1) */
+  --color-accent-deep: #b35d39;
+  --color-accent-ink: #9d5131;
+  --color-accent-bright: #c97653;
   --color-accent-soft: rgba(255, 180, 100, 0.18);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-inter-tight), var(--font-inter), ui-sans-serif, sans-serif;

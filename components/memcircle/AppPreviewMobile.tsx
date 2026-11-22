@@ -64,7 +64,8 @@ const SEED: Meeting[] = [
 
 const GROUP_ORDER = ["Now", "Today", "Tomorrow"];
 
-function BotSwitch({ on, onChange, disabled = false }: {
+function BotSwitch({ on, onChange, disabled = false, label = "Record meeting" }: {
+  label?: string;
   on: boolean;
   onChange: (v: boolean) => void;
   disabled?: boolean;
@@ -74,6 +75,7 @@ function BotSwitch({ on, onChange, disabled = false }: {
     <div
       role="switch"
       aria-checked={on}
+      aria-label={label}
       tabIndex={disabled ? -1 : 0}
       onClick={(e) => { e.stopPropagation(); if (!disabled) onChange(!on); }}
       onKeyDown={(e) => {
@@ -143,7 +145,7 @@ function MMeetingRow({ m, onToggle, hero }: { m: Meeting; onToggle: (id: string,
             <span style={{ fontSize: 10, fontWeight: 600, color: "var(--t-accent-strong)", letterSpacing: "0.14em", textTransform: "uppercase" }}>
               Bot in room
             </span>
-            <BotSwitch on={m.bot} onChange={(v) => onToggle(m.id, v)} />
+            <BotSwitch label={`Record “${m.title}”`} on={m.bot} onChange={(v) => onToggle(m.id, v)} />
           </div>
         </div>
       </div>
@@ -196,7 +198,7 @@ function MMeetingRow({ m, onToggle, hero }: { m: Meeting; onToggle: (id: string,
               {muted ? "Skipped" : (m.bot ? "Bot will join" : "Bot off")}
             </span>
           </div>
-          <BotSwitch on={m.bot} disabled={muted} onChange={(v) => onToggle(m.id, v)} />
+          <BotSwitch label={`Record “${m.title}”`} on={m.bot} disabled={muted} onChange={(v) => onToggle(m.id, v)} />
         </div>
       </div>
     </div>
@@ -310,7 +312,7 @@ function MobileHomeV2Screen() {
             </div>
           </div>
         </div>
-        <BotSwitch on={autoAll} onChange={flipAll} />
+        <BotSwitch label="Record all meetings" on={autoAll} onChange={flipAll} />
       </div>
 
       {/* Source chips */}

@@ -120,7 +120,7 @@ export default function CookieConsent() {
             <button
               type="button"
               onClick={() => choose("granted")}
-              className="flex-1 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 sm:flex-none"
+              className="flex-1 rounded-full bg-accent-deep px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 sm:flex-none"
             >
               {t.accept}
             </button>

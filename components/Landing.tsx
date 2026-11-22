@@ -10,7 +10,8 @@ import CaseSlides from "@/components/CaseSlides";
 import ContactPopup from "@/components/ContactPopup";
 
 // Dark panels share one tone so the hero photo melts into the page.
-const DARK = "bg-[#171514] text-cream";
+// Dark panels swap the small-text accent to the brighter variant (see accent roles in globals.css).
+const DARK = "bg-[#171514] text-cream [--color-accent-ink:var(--color-accent-bright)]";
 
 // Sections are stacked panels: each one overlaps the previous by the same
 // amount and has rounded top corners, so the page reads as separate blocks.
@@ -100,7 +101,7 @@ function SocialBadgeIcon({ name }: { name: SocialKey }) {
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">{children}</p>
+    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-ink">{children}</p>
   );
 }
 
@@ -160,7 +161,7 @@ export default function Landing({ lang }: { lang: Lang }) {
             </a>
             <a
               href="#contact"
-              className="hidden rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 sm:inline-block"
+              className="hidden rounded-full bg-accent-deep px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 sm:inline-block"
             >
               {t.cta}
             </a>
@@ -195,7 +196,7 @@ export default function Landing({ lang }: { lang: Lang }) {
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(196,106,68,0.35)] transition hover:brightness-110"
+                  className="inline-flex items-center gap-2 rounded-full bg-accent-deep px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(196,106,68,0.35)] transition hover:brightness-110"
                 >
                   {t.hero.primary} <Arrow />
                 </a>
@@ -218,7 +219,7 @@ export default function Landing({ lang }: { lang: Lang }) {
                     >
                       <SocialBadgeIcon name={s.key} />
                       {s.label}
-                      {s.followers && <span className="text-cream/40">{s.followers}</span>}
+                      {s.followers && <span className="text-cream/60">{s.followers}</span>}
                     </a>
                   </li>
                 ))}
@@ -266,7 +267,7 @@ export default function Landing({ lang }: { lang: Lang }) {
                     key={key}
                     className="card-shadow flex flex-col rounded-3xl border border-line bg-paper p-7 transition hover:-translate-y-1"
                   >
-                    <span className="font-display text-sm font-bold text-accent">
+                    <span className="font-display text-sm font-bold text-accent-ink">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3 className="font-display mt-4 text-xl font-bold">{s.title}</h3>
@@ -289,7 +290,7 @@ export default function Landing({ lang }: { lang: Lang }) {
                 </div>
                 <a
                   href="#contact"
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent transition hover:gap-3"
+                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent-ink transition hover:gap-3"
                 >
                   {t.services.moreCta} <Arrow />
                 </a>
@@ -320,7 +321,7 @@ export default function Landing({ lang }: { lang: Lang }) {
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <h3 className="font-display text-xl font-bold leading-snug">{p.name}</h3>
-                        <p className="mt-1 text-sm font-medium text-accent">{p.tagline}</p>
+                        <p className="mt-1 text-sm font-medium text-accent-ink">{p.tagline}</p>
                       </div>
                       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 transition group-hover:bg-cream group-hover:text-ink">
                         <Arrow className="-rotate-45" />
@@ -335,7 +336,7 @@ export default function Landing({ lang }: { lang: Lang }) {
                           </span>
                         ))}
                       </div>
-                      <span className="text-xs font-semibold text-cream/45">{meta.host}</span>
+                      <span className="text-xs font-semibold text-cream/60">{meta.host}</span>
                     </div>
                   </a>
                 );
@@ -399,7 +400,7 @@ export default function Landing({ lang }: { lang: Lang }) {
                       href={FACTS.whatsappHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm font-semibold text-accent underline-offset-4 hover:underline"
+                      className="text-sm font-semibold text-accent-ink underline-offset-4 hover:underline"
                     >
                       WhatsApp →
                     </a>
@@ -458,7 +459,7 @@ export default function Landing({ lang }: { lang: Lang }) {
             <a href={FACTS.phoneHref} className="mt-1 block hover:text-cream">{FACTS.phone}</a>
           </address>
         </div>
-        <p className="mx-auto mt-10 max-w-6xl px-5 text-xs text-cream/40">
+        <p className="mx-auto mt-10 max-w-6xl px-5 text-xs text-cream/60">
           © {new Date().getFullYear()} Ildar Lomov. {t.footer.rights}{" "}
           <a href={PRIVACY_PATH[lang]} className="underline underline-offset-2 hover:text-cream">
             {t.footer.privacy}

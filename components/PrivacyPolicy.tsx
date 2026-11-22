@@ -78,7 +78,7 @@ export default function PrivacyPolicy({ lang }: { lang: Lang }) {
           </div>
         </section>
 
-        <a href={LANG_PATH[lang]} className="mt-12 inline-block text-sm font-semibold text-accent hover:underline">
+        <a href={LANG_PATH[lang]} className="mt-12 inline-block text-sm font-semibold text-accent-ink hover:underline">
           ← {t.back}
         </a>
       </main>
