@@ -8,7 +8,7 @@ import { LiveDot } from "@/components/memcircle/LiveDot";
 const LIGHT_VARS = `
   --t-bg:#faf2e8;--t-canvas:#faf6ee;--t-card:#ffffff;--t-card-2:#f6ecdb;
   --t-line:rgba(0,0,0,0.06);--t-line-2:rgba(0,0,0,0.04);--t-divider:rgba(0,0,0,0.08);
-  --t-fg-1:#1a1a1a;--t-fg-2:#4a4a4a;--t-fg-3:#7a7a7a;--t-fg-4:#a0998d;
+  --t-fg-1:#1a1a1a;--t-fg-2:#4a4a4a;--t-fg-3:#666666;--t-fg-4:#70675d;
   --t-accent:#c46a44;--t-accent-bg:rgba(255,180,100,0.18);--t-accent-bg-2:rgba(255,180,100,0.08);
   --t-accent-border:rgba(196,106,68,0.25);--t-accent-strong:#c46a44;
   --t-accent-bg-strong:rgba(196,106,68,0.12);--t-accent-on:#ffffff;

@@ -130,7 +130,7 @@ export default function Landing({ lang }: { lang: Lang }) {
             Ildar Lomov<span className="text-accent">.</span>
           </a>
 
-          <nav className="hidden items-center gap-1 text-sm md:flex">
+          <nav aria-label="Main" className="hidden items-center gap-1 text-sm md:flex">
             {[
               ["#cases", t.nav.cases],
               ["#services", t.nav.services],

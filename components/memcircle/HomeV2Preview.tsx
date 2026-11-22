@@ -91,7 +91,7 @@ function ThemeStyles() {
       .mc-preview {
         --t-bg:#faf2e8;--t-canvas:#faf6ee;--t-card:#ffffff;--t-card-2:#f6ecdb;
         --t-line:rgba(0,0,0,0.06);--t-line-2:rgba(0,0,0,0.04);--t-divider:rgba(0,0,0,0.08);
-        --t-fg-1:#1a1a1a;--t-fg-2:#4a4a4a;--t-fg-3:#7a7a7a;--t-fg-4:#a0998d;
+        --t-fg-1:#1a1a1a;--t-fg-2:#4a4a4a;--t-fg-3:#666666;--t-fg-4:#70675d;
         --t-accent:#c46a44;--t-accent-bg:rgba(255,180,100,0.18);--t-accent-bg-2:rgba(255,180,100,0.08);
         --t-accent-border:rgba(196,106,68,0.25);--t-accent-strong:#c46a44;
         --t-accent-bg-strong:rgba(196,106,68,0.12);--t-accent-on:#ffffff;
@@ -365,7 +365,7 @@ function AppSidebar() {
     { dot: "#b285e8", name: "Team standups" },
   ];
   return (
-    <aside style={{
+    <div style={{
       width: 220, background: "var(--t-canvas)", borderRight: "1px solid var(--t-line)",
       padding: 16, display: "flex", flexDirection: "column", gap: 16, height: "100%",
       color: "var(--t-fg-1)", flexShrink: 0,
@@ -385,7 +385,7 @@ function AppSidebar() {
           background: "var(--t-kbd-bg)" }}>⌘K</span>
       </div>
 
-      <nav style={{ display: "grid", gap: 2 }}>
+      <div style={{ display: "grid", gap: 2 }}>
         {items.map((it) => {
           const active = it.id === "home";
           return (
@@ -403,7 +403,7 @@ function AppSidebar() {
             </div>
           );
         })}
-      </nav>
+      </div>
 
       <div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
@@ -436,7 +436,7 @@ function AppSidebar() {
         </div>
         <Icon name="settings" size={13} color="var(--t-fg-4)"/>
       </div>
-    </aside>
+    </div>
   );
 }
 
