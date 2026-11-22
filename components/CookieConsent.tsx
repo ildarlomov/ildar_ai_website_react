@@ -23,8 +23,9 @@ ym(${YM_ID}, "init", {ssr:true, webvisor:true, clickmap:true, referrer: document
 `;
 
 const TEXT = {
-  en: { body: "We use cookies for analytics.", more: "Learn more", accept: "Accept", decline: "Decline" },
-  ru: { body: "Используем cookie для аналитики.", more: "Подробнее", accept: "Принять", decline: "Отклонить" },
+  // Link text must describe the target ("Learn more"/"Подробнее" fail Lighthouse SEO "link-text").
+  en: { body: "We use cookies for analytics.", more: "Cookie policy", accept: "Accept", decline: "Decline" },
+  ru: { body: "Используем cookie для аналитики.", more: "Политика cookie", accept: "Принять", decline: "Отклонить" },
 };
 
 type Consent = "granted" | "denied" | null;

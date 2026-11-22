@@ -102,7 +102,10 @@ function Slide({ active, bg = C.pageBg, children }: { active: boolean; bg?: stri
   return (
     <div
       data-active={active}
-      aria-hidden={!active}
+      // `inert` (not aria-hidden) for off-screen slides: it also removes their links/checkboxes
+      // from tab order. aria-hidden over focusable content is a malformed accessibility tree
+      // (flagged by Lighthouse "Agentic browsing" / a11y audits).
+      inert={!active}
       className="cs-slide relative flex w-full min-w-0 max-w-full shrink-0 snap-center flex-col justify-center overflow-hidden px-5 pb-20 pt-[88px] md:min-h-[100svh] md:px-14 md:pb-28 md:pt-28"
       style={{ background: bg }}
     >
@@ -117,7 +120,7 @@ function TextBlock({ s, children }: { s: T["slides"][number]; children?: React.R
   return (
     <div>
       <p className="cs-in" style={{ ...eyebrow, ...d(0) }}>{s.tag}</p>
-      <h3 className="cs-in" style={{ ...h3, ...d(0.1) }}>{s.title}</h3>
+      <h2 className="cs-in" style={{ ...h3, ...d(0.1) }}>{s.title}</h2>
       <p className="cs-in" style={{ ...body, ...d(0.22) }}>{s.text}</p>
       {children}
     </div>
@@ -480,7 +483,7 @@ function LinksSlide({ active, t }: SlideProps) {
       <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-x-14 gap-y-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <div className="lg:col-start-1 lg:row-start-1 lg:self-end">
           <p className="cs-in" style={{ ...eyebrow, ...d(0) }}>{t.slides[5].tag}</p>
-          <h3 className="cs-in" style={{ ...h3, ...d(0.1) }}>{t.slides[5].title}</h3>
+          <h2 className="cs-in" style={{ ...h3, ...d(0.1) }}>{t.slides[5].title}</h2>
           <p className="cs-in" style={{ ...body, ...d(0.2) }}>{t.slides[5].text}</p>
 
           <div className="cs-in mt-6 flex flex-wrap gap-2" style={d(0.3)}>
