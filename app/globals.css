@@ -102,11 +102,17 @@ body {
 .cs-bar { transform-origin: center; animation: cs-bar 1.1s ease-in-out infinite; }
 .cs-rec { animation: cs-rec 1.4s ease-out infinite; }
 .cs-ring { animation: cs-ring 2.4s ease-out infinite; }
+/* funnel decks: feed-scanner line and a typing caret */
+@keyframes cs-scan { 0% { top: 0; } 100% { top: calc(100% - 2px); } }
+@keyframes cs-blink { 50% { opacity: 0; } }
+.cs-scan { animation: cs-scan 2.6s ease-in-out infinite alternate; }
+.cs-blink { animation: cs-blink 1s steps(1) infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   .cs-slide[data-active="false"] .cs-in { opacity: 1; }
   .cs-slide[data-active="true"] .cs-in { animation: none; }
-  .cs-float, .cs-bar, .cs-rec, .cs-ring { animation: none; }
+  .cs-float, .cs-bar, .cs-rec, .cs-ring, .cs-scan, .cs-blink { animation: none; }
+  .cs-scan { display: none; }
 }
 
 /* Memcircle primitives (RippleScene / LiveDot) */

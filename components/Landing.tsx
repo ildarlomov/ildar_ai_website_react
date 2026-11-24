@@ -7,6 +7,9 @@ import { LANG_COOKIE, LANG_PATH, PRIVACY_PATH } from "@/lib/site";
 import LeadForm from "@/components/LeadForm";
 import DiplomaPlate from "@/components/DiplomaPlate";
 import CaseSlides from "@/components/CaseSlides";
+import ThreadsFunnel from "@/components/funnels/ThreadsFunnel";
+import InstagramFunnel from "@/components/funnels/InstagramFunnel";
+import { FUNNELS } from "@/lib/funnels";
 import ContactPopup from "@/components/ContactPopup";
 
 // Dark panels share one tone so the hero photo melts into the page.
@@ -133,6 +136,7 @@ export default function Landing({ lang }: { lang: Lang }) {
           <nav aria-label="Main" className="hidden items-center gap-1 text-sm md:flex">
             {[
               ["#cases", t.nav.cases],
+              ["#funnels", FUNNELS[lang].nav],
               ["#services", t.nav.services],
               ["#projects", t.nav.projects],
               ["#about", t.nav.about],
@@ -249,6 +253,14 @@ export default function Landing({ lang }: { lang: Lang }) {
         {/* ───── Cases (sand): one-project slide deck ───── */}
         <section id="cases" className={`${PANEL} overflow-hidden pb-10 md:pb-12`} style={{ background: "#f6e3cf" }}>
           <CaseSlides t={t.cases} />
+        </section>
+
+        {/* ───── Funnels: social-media auto-funnels (Threads dark, then Instagram rosy) ───── */}
+        <section id="funnels" className={`${PANEL} overflow-hidden pb-10 md:pb-12`} style={{ background: "#171514" }}>
+          <ThreadsFunnel lang={lang} />
+        </section>
+        <section id="funnel-instagram" className={`${PANEL} overflow-hidden pb-10 md:pb-12`} style={{ background: "#f8e7e3" }}>
+          <InstagramFunnel lang={lang} />
         </section>
 
         {/* ───── Services (light) ───── */}
