@@ -60,6 +60,14 @@ export default function SiteHeader({ lang, switchHref }: { lang: Lang; switchHre
   const close = () => setOpen(false);
 
   return (
+    <>
+    {/* Backdrop while the sitemap is open: blurs and slightly dims the page so the focus is on the
+        panel. Always mounted so it can fade; click-through is off when closed. A click on it closes
+        the panel (the outside-click listener above). */}
+    <div
+      aria-hidden="true"
+      className={`fixed inset-0 z-40 bg-[#171514]/25 transition-[opacity,backdrop-filter] duration-300 ${open ? "opacity-100 backdrop-blur-md" : "pointer-events-none opacity-0 backdrop-blur-none"}`}
+    />
     <header ref={panel} className="fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-4">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 rounded-full border border-white/10 bg-[#171514]/70 pl-5 pr-2 text-cream shadow-[0_8px_30px_rgba(0,0,0,0.3)] backdrop-blur-xl sm:pl-6">
         <a href={nav.pages[0].href} className="font-display text-[1.05rem] font-bold tracking-tight">
@@ -160,5 +168,6 @@ export default function SiteHeader({ lang, switchHref }: { lang: Lang; switchHre
         </div>
       </div>
     </header>
+    </>
   );
 }
