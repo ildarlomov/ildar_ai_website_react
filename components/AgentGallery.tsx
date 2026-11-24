@@ -6,8 +6,11 @@ import type { AiAgentCopy } from "@/lib/aiAgent";
 // "What the agent can do for you": an auto-advancing gallery, one task per slide.
 // Each slide stays up long enough to read it: 1.5 s to find your place + 250 ms per word
 // (~240 wpm, a comfortable skim), clamped to 6–11 s. The progress bar shows the time left.
-// It only runs while the gallery is on screen, and pauses on hover, keyboard focus, a hidden tab
-// or the pause button; prefers-reduced-motion starts it paused. Swipe / arrows / tabs switch by hand.
+// It only runs while the gallery is on screen and the browser tab is visible; the pause button
+// stops it (WCAG 2.2.2). With prefers-reduced-motion the slides still advance, just without the fade-in
+// (globals.css), otherwise macOS "Reduce motion" users would see a gallery that never moves. Swipe / arrows / tabs switch by hand and the
+// timer simply restarts on the chosen slide. (No pause on hover or focus: the mouse usually rests
+// over the block while reading, and a clicked tab kept focus, so autoplay looked broken.)
 
 type G = AiAgentCopy["gallery"];
 
@@ -36,26 +39,19 @@ export default function AgentGallery({ g }: { g: G }) {
   const n = g.items.length;
   const [i, setI] = useState(0);
   const [userPaused, setUserPaused] = useState(false);
-  const [hover, setHover] = useState(false);
-  const [focus, setFocus] = useState(false);
   const [visible, setVisible] = useState(false);
   const [tabHidden, setTabHidden] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const touchX = useRef<number | null>(null);
 
-  const paused = userPaused || hover || focus || !visible || tabHidden;
+  const paused = userPaused || !visible || tabHidden;
   const dur = slideMs(g.items[i]);
-
-  // Reduced motion: no autoplay unless the visitor presses play.
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setUserPaused(true);
-  }, []);
 
   // Run only while on screen; restart from the first task the first time it scrolls in.
   useEffect(() => {
     const el = root.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.35 });
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.25 });
     io.observe(el);
     const onVis = () => setTabHidden(document.hidden);
     document.addEventListener("visibilitychange", onVis);
@@ -96,10 +92,6 @@ export default function AgentGallery({ g }: { g: G }) {
   return (
     <div
       ref={root}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onFocus={() => setFocus(true)}
-      onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node) && setFocus(false)}
       className="grid gap-8 md:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] md:gap-12"
       role="region"
       aria-roledescription="carousel"
@@ -117,7 +109,7 @@ export default function AgentGallery({ g }: { g: G }) {
             className={`rounded-2xl px-4 py-3 text-left transition ${k === i ? "bg-paper shadow-[0_10px_30px_rgba(80,50,20,0.08)]" : "hover:bg-ink/[0.04]"}`}
           >
             <span className={`font-display text-lg font-bold ${k === i ? "text-ink" : "text-ink-3"}`}>{x.title}</span>
-            <span className={`mt-2 block h-1 overflow-hidden rounded-full ${k === i ? "bg-ink/10" : "bg-transparent"}`}>{k === i && bar}</span>
+            <span className={`mt-2.5 block h-1.5 overflow-hidden rounded-full ${k === i ? "bg-ink/10" : "bg-transparent"}`}>{k === i && bar}</span>
           </button>
         ))}
       </div>
@@ -136,7 +128,7 @@ export default function AgentGallery({ g }: { g: G }) {
           aria-live={paused ? "polite" : "off"}
         >
           {/* phones: progress bar on top of the card */}
-          <span className="mb-5 block h-1 overflow-hidden rounded-full bg-ink/10 md:hidden">{bar}</span>
+          <span className="mb-5 block h-1.5 overflow-hidden rounded-full bg-ink/10 md:hidden">{bar}</span>
 
           <div key={i} className="ag-in">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-ink">
