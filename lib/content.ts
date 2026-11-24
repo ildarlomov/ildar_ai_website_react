@@ -196,7 +196,7 @@ export const DICT: Record<Lang, Dict> = {
       slides: [
         {
           tag: "Memcircle · the product",
-          title: "An app that records your meetings and writes the notes for you",
+          title: "An app that records your meetings for use with AI",
           text:
             "Zoom, Google Meet, Teams or face to face: Memcircle listens, then hands you a transcript, a short summary and a to-do list. No bot joins the call.",
         },
@@ -423,7 +423,7 @@ export const DICT: Record<Lang, Dict> = {
       slides: [
         {
           tag: "Memcircle · о проекте",
-          title: "Приложение, которое записывает ваши встречи и само пишет конспект",
+          title: "Приложение, которое записывает ваши встречи для использования с ИИ",
           text:
             "Zoom, Google Meet, Teams или живая встреча: Memcircle слушает, а потом отдаёт расшифровку, короткое резюме и список задач. В звонок не заходит бот.",
         },
