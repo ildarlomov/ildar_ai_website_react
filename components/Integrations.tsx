@@ -1,8 +1,34 @@
 import type { Lang } from "@/lib/content";
-import { INTEGRATIONS } from "@/lib/integrations";
+import { INTEGRATIONS, MARKS } from "@/lib/integrations";
+import { BRAND_ICONS } from "@/lib/brandIcons";
 import { AI_AGENT_PATH } from "@/lib/site";
 
-// "Integrations" section: groups of services as chip cards, plus a link card to the AI-agent page.
+// One service mark: the brand glyph on a light tint of its colour, or a monogram on the brand colour.
+function Mark({ name }: { name: string }) {
+  const m = MARKS[name] ?? { mono: [name.slice(0, 1), "#8a8178"] as [string, string] };
+  const icon = m.icon ? BRAND_ICONS[m.icon] : undefined;
+  if (icon) {
+    return (
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: `${icon.hex}14` }}>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill={icon.hex} aria-hidden="true">
+          <path d={icon.path} />
+        </svg>
+      </span>
+    );
+  }
+  const [text, color] = m.mono ?? ["•", "#8a8178"];
+  return (
+    <span
+      aria-hidden="true"
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg font-display font-bold text-white"
+      style={{ background: color, fontSize: text.length > 2 ? 10 : text.length > 1 ? 12 : 14 }}
+    >
+      {text}
+    </span>
+  );
+}
+
+// "Integrations" section: groups of services as cards with logo lists, plus a link card to the AI-agent page.
 export default function Integrations({ lang }: { lang: Lang }) {
   const t = INTEGRATIONS[lang];
   return (
@@ -15,13 +41,14 @@ export default function Integrations({ lang }: { lang: Lang }) {
         {t.groups.map((g) => (
           <div key={g.title} className="rounded-3xl border border-line bg-paper p-6">
             <h3 className="font-display text-lg font-bold">{g.title}</h3>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <ul className={`mt-5 grid gap-x-4 gap-y-3 ${g.items.length > 6 ? "grid-cols-2" : "grid-cols-1"}`}>
               {g.items.map((item) => (
-                <span key={item} className="rounded-full bg-ink/5 px-3 py-1.5 text-sm font-medium text-ink">
-                  {item}
-                </span>
+                <li key={item} className="flex min-w-0 items-center gap-3 text-[0.95rem] font-medium leading-tight text-ink">
+                  <Mark name={item} />
+                  <span className="min-w-0">{item}</span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         ))}
 

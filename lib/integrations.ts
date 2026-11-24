@@ -1,16 +1,67 @@
-// "Integrations I connect" section on the landing. Each group is a card with chips; the last
+// "Integrations I connect" section on the landing. Each group is a card with a list of services
+// (logo + name); the last
 // group (personal AI agent) is a link card to its own page (AI_AGENT_PATH).
-// Some chips are Russia-only services (MAX, ЮMoney, Robokassa, YandexGPT…): they appear in RU only.
+// Some items are Russia-only services (MAX, ЮMoney, Robokassa, YandexGPT…): they appear in RU only.
 
 import type { Lang } from "@/lib/content";
 
-export type IntegrationGroup = { title: string; items: string[] };
+// Each item is a name plus its mark: a simple-icons glyph (key of BRAND_ICONS) or, for brands not in
+// simple-icons, a short monogram on the brand colour.
+export type IntegrationItem = { name: string; icon?: string; mono?: [string, string] };
+export type IntegrationGroup = { title: string; items: IntegrationItem[] };
+
+// name -> mark, shared by both languages (unknown names get a neutral monogram).
+export const MARKS: Record<string, Omit<IntegrationItem, "name">> = {
+  "Битрикс24": { mono: ["Б24", "#2FC6F6"] },
+  Bitrix24: { mono: ["B24", "#2FC6F6"] },
+  amoCRM: { mono: ["amo", "#1F7AF2"] },
+  HubSpot: { icon: "hubspot" },
+  "Context Whisper CRM": { mono: ["CW", "#b35d39"] },
+  PayPal: { icon: "paypal" },
+  Stripe: { icon: "stripe" },
+  "ЮMoney": { mono: ["Ю", "#8B3FFD"] },
+  "ЮKassa": { mono: ["Ю", "#0070F0"] },
+  "Робокасса": { mono: ["R", "#00A0E3"] },
+  LavaTop: { mono: ["L", "#7B5CFF"] },
+  Instagram: { icon: "instagram" },
+  Threads: { icon: "threads" },
+  Facebook: { icon: "facebook" },
+  "X (Twitter)": { icon: "x" },
+  Telegram: { icon: "telegram" },
+  WhatsApp: { icon: "whatsapp" },
+  Messenger: { icon: "messenger" },
+  MAX: { mono: ["M", "#6D4AFF"] },
+  Claude: { icon: "claude" },
+  ChatGPT: { mono: ["G", "#10A37F"] },
+  Gemini: { icon: "googlegemini" },
+  DeepSeek: { icon: "deepseek" },
+  Kimi: { icon: "kimi" },
+  Qwen: { icon: "qwen" },
+  Grok: { mono: ["Gk", "#111111"] },
+  Mistral: { icon: "mistralai" },
+  Llama: { icon: "meta" },
+  YandexGPT: { mono: ["Я", "#FC3F1D"] },
+  GigaChat: { mono: ["G", "#21A038"] },
+  "Meta Graph API": { icon: "meta" },
+  "WhatsApp Business API": { icon: "whatsapp" },
+  "Instagram Business API": { icon: "instagram" },
+  "Meta Ads": { icon: "meta" },
+  "Google Ads": { icon: "googleads" },
+  "E-mail": { icon: "gmail" },
+  Email: { icon: "gmail" },
+  "Реактивация базы CRM": { mono: ["↻", "#b35d39"] },
+  "CRM base reactivation": { mono: ["↻", "#b35d39"] },
+  "Google Search Console": { icon: "googlesearchconsole" },
+  "Яндекс Вебмастер": { mono: ["Я", "#FC3F1D"] },
+  "Yandex Webmaster": { mono: ["Y", "#FC3F1D"] },
+  "Яндекс Метрика": { mono: ["Я", "#FC3F1D"] },
+};
 
 export type IntegrationsCopy = {
   eyebrow: string;
   title: string;
   text: string;
-  groups: IntegrationGroup[];
+  groups: { title: string; items: string[] }[];
   agent: { title: string; text: string; more: string };
 };
 

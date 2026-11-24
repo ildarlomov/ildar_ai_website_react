@@ -295,14 +295,14 @@ export const DICT: Record<Lang, Dict> = {
       open: "Open site",
       items: [
         {
-          name: "Walkie Talkie",
-          tagline: "English in dialogue with an AI teacher",
+          name: "An English-learning app with an AI teacher",
+          tagline: "Learning by conversation, not drills",
           text:
             "A product for learning English by talking with an AI teacher, instead of memorising lists and drilling exercises.",
           tags: ["AI", "Education", "Product"],
         },
         {
-          name: "Context Whisper",
+          name: "A CRM where AI agents work the leads",
           tagline: "AI-native CRM",
           text:
             "A CRM where AI agents do the legwork: they find leads in Threads and Telegram, write the first message, follow up and flag the replies worth a call. Team workspaces, a Telegram bot and a web app.",
@@ -529,14 +529,14 @@ export const DICT: Record<Lang, Dict> = {
       open: "Открыть сайт",
       items: [
         {
-          name: "Walkie Talkie",
-          tagline: "Английский в диалоге с AI-учителем",
+          name: "Приложение для изучения английского с ИИ-преподавателем",
+          tagline: "Учит через разговор, а не упражнения",
           text:
             "Продукт для изучения английского через живой разговор с AI-учителем — вместо зубрёжки списков слов и бесконечных упражнений.",
           tags: ["AI", "Образование", "Продукт"],
         },
         {
-          name: "Context Whisper",
+          name: "CRM, в которой лидов ведут ИИ-агенты",
           tagline: "AI-native CRM",
           text:
             "CRM, в которой работу делают ИИ-агенты: находят лидов в Threads и Telegram, пишут первое сообщение, напоминают о себе и отмечают ответы, по которым пора созваниваться. Воркспейсы для команды, Telegram-бот и веб-приложение.",
