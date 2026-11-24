@@ -56,25 +56,3 @@ export const INTEGRATIONS: Record<Lang, IntegrationsCopy> = {
     },
   },
 };
-
-// Copy for the /ai-agent pages (stub for now; the full write-up comes later).
-export const AI_AGENT_PAGE: Record<Lang, { title: string; description: string; intro: string; soon: string; cta: string; back: string }> = {
-  ru: {
-    title: "Как я настраиваю персонального ИИ-агента",
-    description: "Персональный ИИ-агент-ассистент для предпринимателя: работа с базой клиентов, CRM и мессенджерами.",
-    intro:
-      "Персональный ИИ-агент — это ассистент, который знает вашу базу клиентов, подключён к CRM и мессенджерам и берёт на себя рутину: напоминания, переписку, разбор заявок и отчёты.",
-    soon: "Подробный разбор того, как я настраиваю такого агента, скоро появится на этой странице.",
-    cta: "Обсудить агента для вашего бизнеса",
-    back: "На главную",
-  },
-  en: {
-    title: "How I set up a personal AI agent",
-    description: "A personal AI assistant for business owners that works with your client base, CRM and messengers.",
-    intro:
-      "A personal AI agent is an assistant that knows your client base, is connected to your CRM and messengers, and takes the routine off your plate: reminders, messages, sorting incoming requests and reports.",
-    soon: "A detailed walkthrough of how I set up this kind of agent is coming to this page soon.",
-    cta: "Discuss an agent for your business",
-    back: "Back to home",
-  },
-};
