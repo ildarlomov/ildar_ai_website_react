@@ -11,6 +11,7 @@ import ThreadsFunnel from "@/components/funnels/ThreadsFunnel";
 import InstagramFunnel from "@/components/funnels/InstagramFunnel";
 import { FUNNELS } from "@/lib/funnels";
 import ContactPopup from "@/components/ContactPopup";
+import Integrations from "@/components/Integrations";
 
 // Dark panels share one tone so the hero photo melts into the page.
 // Dark panels swap the small-text accent to the brighter variant (see accent roles in globals.css).
@@ -323,22 +324,18 @@ export default function Landing({ lang }: { lang: Lang }) {
             <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {t.projects.items.map((p, i) => {
                 const meta = FACTS.projects[i];
-                return (
-                  <a
-                    key={p.name}
-                    href={meta.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-7 transition hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.08]"
-                  >
+                const body = (
+                  <>
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <h3 className="font-display text-xl font-bold leading-snug">{p.name}</h3>
                         <p className="mt-1 text-sm font-medium text-accent-ink">{p.tagline}</p>
                       </div>
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 transition group-hover:bg-cream group-hover:text-ink">
-                        <Arrow className="-rotate-45" />
-                      </span>
+                      {meta.url && (
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 transition group-hover:bg-cream group-hover:text-ink">
+                          <Arrow className="-rotate-45" />
+                        </span>
+                      )}
                     </div>
                     <p className="mt-5 flex-1 text-[0.95rem] leading-relaxed text-cream/65">{p.text}</p>
                     <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
@@ -349,13 +346,35 @@ export default function Landing({ lang }: { lang: Lang }) {
                           </span>
                         ))}
                       </div>
-                      <span className="text-xs font-semibold text-cream/60">{meta.host}</span>
+                      {meta.host && <span className="text-xs font-semibold text-cream/60">{meta.host}</span>}
                     </div>
+                  </>
+                );
+                const box = "group flex flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-7";
+                // Cards without a public link (e.g. Context Whisper CRM) render as plain blocks.
+                return meta.url ? (
+                  <a
+                    key={p.name}
+                    href={meta.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${box} transition hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.08]`}
+                  >
+                    {body}
                   </a>
+                ) : (
+                  <div key={p.name} className={box}>
+                    {body}
+                  </div>
                 );
               })}
             </div>
           </div>
+        </section>
+
+        {/* ───── Integrations (light): no menu link on purpose (menu is capped) ───── */}
+        <section id="integrations" className={`${PANEL} bg-cream py-20 md:py-28`}>
+          <Integrations lang={lang} />
         </section>
 
         {/* ───── About (sand) ───── */}

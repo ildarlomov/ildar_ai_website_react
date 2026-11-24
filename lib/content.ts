@@ -38,18 +38,17 @@ export const FACTS = {
   ] as Social[],
   nif: "316456124",
   addressLines: ["Rua Martins Barata 3", "1400-247 Lisbon, Portugal"],
-  // Same order as `projects.items` in both languages below.
+  // Same order as `projects.items` in both languages below. No url = card without a link;
+  // no host = the link stays "under the hood" (the Memcircle apps are named by platform only).
   projects: [
     { url: "https://walkietalkie.pro", host: "walkietalkie.pro" },
-    { url: "https://memcircle.com", host: "memcircle.com" },
-    { url: "https://memcircle.com/desktop", host: "memcircle.com/desktop" },
-    { url: "https://memcircle.com/desktop", host: "memcircle.com/desktop" },
-    {
-      url: "https://chromewebstore.google.com/detail/memcircle/kinngkocjegmnpakmicaiflbilgikdbp",
-      host: "Chrome Web Store",
-    },
-    { url: "https://memcircle.com/mobile", host: "memcircle.com/mobile" },
-  ],
+    {}, // Context Whisper CRM: private product, no public link
+    { url: "https://memcircle.com" },
+    { url: "https://memcircle.com/desktop" },
+    { url: "https://memcircle.com/desktop" },
+    { url: "https://chromewebstore.google.com/detail/memcircle/kinngkocjegmnpakmicaiflbilgikdbp" },
+    { url: "https://memcircle.com/mobile" },
+  ] as { url?: string; host?: string }[],
 };
 
 export type ServiceKey =
@@ -303,35 +302,42 @@ export const DICT: Record<Lang, Dict> = {
           tags: ["AI", "Education", "Product"],
         },
         {
-          name: "Memcircle",
+          name: "Context Whisper",
+          tagline: "AI-native CRM",
+          text:
+            "A CRM where AI agents do the legwork: they find leads in Threads and Telegram, write the first message, follow up and flag the replies worth a call. Team workspaces, a Telegram bot and a web app.",
+          tags: ["AI agents", "CRM", "Product"],
+        },
+        {
+          name: "Web app",
           tagline: "An AI meeting recorder that works everywhere",
           text:
             "Records calls without a bot joining, then turns them into a transcript, recap and action items. One product on every platform: web, desktop, mobile and the browser.",
           tags: ["AI", "SaaS", "Product"],
         },
         {
-          name: "Memcircle for Mac",
-          tagline: "Native macOS app",
+          name: "macOS app",
+          tagline: "Native app for Mac",
           text:
             "A native desktop app that records any call on your Mac — Zoom, Meet, Teams or anything else — with no bot in the meeting. Signed and notarized.",
           tags: ["macOS 14+", "Native app"],
         },
         {
-          name: "Memcircle for Windows",
+          name: "Windows app",
           tagline: "Windows desktop app",
           text:
             "The same bot-free meeting recorder for Windows: captures the call locally and delivers the transcript, summary and action items afterwards.",
           tags: ["Windows 10+", "C# · .NET · WPF"],
         },
         {
-          name: "Memcircle Chrome extension",
+          name: "Chrome extension",
           tagline: "Record calls right from the browser",
           text:
             "Record web calls straight from the browser toolbar — no bot joins the meeting. Free in the Chrome Web Store.",
           tags: ["Chrome", "Free"],
         },
         {
-          name: "Memcircle for iOS",
+          name: "iOS app",
           tagline: "Your meetings on iPhone",
           text:
             "The mobile companion: your transcripts, summaries and action items from every meeting, always in your pocket.",
@@ -531,35 +537,42 @@ export const DICT: Record<Lang, Dict> = {
           tags: ["AI", "Образование", "Продукт"],
         },
         {
-          name: "Memcircle",
+          name: "Context Whisper",
+          tagline: "AI-native CRM",
+          text:
+            "CRM, в которой работу делают ИИ-агенты: находят лидов в Threads и Telegram, пишут первое сообщение, напоминают о себе и отмечают ответы, по которым пора созваниваться. Воркспейсы для команды, Telegram-бот и веб-приложение.",
+          tags: ["ИИ-агенты", "CRM", "Продукт"],
+        },
+        {
+          name: "Веб-приложение",
           tagline: "AI-рекордер встреч, который работает везде",
           text:
             "Записывает созвоны без бота в звонке и превращает их в транскрипт, резюме и список задач. Один продукт на всех платформах: веб, десктоп, мобильное приложение и браузер.",
           tags: ["AI", "SaaS", "Продукт"],
         },
         {
-          name: "Memcircle для Mac",
-          tagline: "Нативное приложение для macOS",
+          name: "Приложение для macOS",
+          tagline: "Нативное приложение для Mac",
           text:
             "Нативное десктопное приложение, которое записывает любой звонок на Mac — Zoom, Meet, Teams или что угодно — без бота во встрече. Подписано и нотаризовано.",
           tags: ["macOS 14+", "Нативное приложение"],
         },
         {
-          name: "Memcircle для Windows",
+          name: "Приложение для Windows",
           tagline: "Десктопное приложение для Windows",
           text:
             "Тот же рекордер встреч без бота, но для Windows: записывает звонок локально, а потом присылает транскрипт, резюме и список задач.",
           tags: ["Windows 10+", "C# · .NET · WPF"],
         },
         {
-          name: "Memcircle — расширение для Chrome",
+          name: "Расширение для Chrome",
           tagline: "Запись звонков прямо из браузера",
           text:
             "Записывайте веб-звонки прямо с панели браузера — без бота во встрече. Бесплатно в Chrome Web Store.",
           tags: ["Chrome", "Бесплатно"],
         },
         {
-          name: "Memcircle для iOS",
+          name: "Приложение для iOS",
           tagline: "Ваши встречи на iPhone",
           text:
             "Мобильный спутник: транскрипты, резюме и задачи со всех ваших встреч — всегда под рукой.",

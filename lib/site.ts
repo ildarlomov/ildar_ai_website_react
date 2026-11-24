@@ -22,3 +22,6 @@ export const CONSENT_KEY = "cookie-consent";
 
 // Explicit language choice from the header switcher; middleware.ts respects it over geo-detection.
 export const LANG_COOKIE = "lang";
+
+// Personal AI agent page (linked from the Integrations section).
+export const AI_AGENT_PATH = { en: "/ai-agent", ru: "/ru/ai-agent" } as const;
