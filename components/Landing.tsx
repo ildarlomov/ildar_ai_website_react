@@ -1,16 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { DICT, FACTS, SERVICE_KEYS, type Lang, type SocialKey } from "@/lib/content";
-import { LANG_COOKIE, LANG_PATH, PRIVACY_PATH } from "@/lib/site";
+import { LANG_PATH } from "@/lib/site";
 import LeadForm from "@/components/LeadForm";
-import DiplomaPlate from "@/components/DiplomaPlate";
 import CaseSlides from "@/components/CaseSlides";
 import ThreadsFunnel from "@/components/funnels/ThreadsFunnel";
 import InstagramFunnel from "@/components/funnels/InstagramFunnel";
-import { FUNNELS } from "@/lib/funnels";
 import ContactPopup from "@/components/ContactPopup";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import Integrations from "@/components/Integrations";
 
 // Dark panels share one tone so the hero photo melts into the page.
@@ -110,15 +110,8 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 }
 
 export default function Landing({ lang }: { lang: Lang }) {
-  // Each language has its own URL ("/" and "/ru"); middleware.ts sends first-time
-  // Russian-speaking visitors to /ru. The switcher remembers an explicit choice in a
-  // cookie so the auto-redirect never overrides it.
-  const switchTo: Lang = lang === "en" ? "ru" : "en";
-  const rememberChoice = useCallback(() => {
-    console.log("[lang] switch", { from: lang, to: switchTo });
-    document.cookie = `${LANG_COOKIE}=${switchTo}; path=/; max-age=31536000; samesite=lax`;
-  }, [lang, switchTo]);
-
+  // Each language has its own URL ("/" and "/ru"); middleware.ts sends first-time Russian-speaking
+  // visitors to /ru. The header (SiteHeader) holds the language switch.
   const t = DICT[lang];
 
   useEffect(() => {
@@ -127,53 +120,7 @@ export default function Landing({ lang }: { lang: Lang }) {
 
   return (
     <div className="relative overflow-x-clip">
-      {/* ───── Floating header ───── */}
-      <header className="fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-4">
-        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 rounded-full border border-white/10 bg-[#171514]/70 pl-5 pr-2 text-cream shadow-[0_8px_30px_rgba(0,0,0,0.3)] backdrop-blur-xl sm:pl-6">
-          <a href="#top" className="font-display text-[1.05rem] font-bold tracking-tight">
-            Ildar Lomov<span className="text-accent">.</span>
-          </a>
-
-          {/* Main menu: 4 items, hard cap 5 (Ildar, 2026-11-24). New sections do NOT get a menu
-              link by default; a section without a link is fine. "Contact" is left out because the
-              header already has the CTA button to #contact. */}
-          <nav aria-label="Main" className="hidden items-center gap-1 text-sm md:flex">
-            {[
-              ["#cases", t.nav.cases],
-              ["#funnels", FUNNELS[lang].nav],
-              ["#services", t.nav.services],
-              ["#about", t.nav.about],
-            ].map(([href, label]) => (
-              <a
-                key={href}
-                href={href}
-                className="rounded-full px-4 py-2 text-cream/70 transition hover:bg-white/10 hover:text-cream"
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            {/* Shows only the language you can switch TO (RU on the English page, EN on the Russian one). */}
-            <a
-              href={LANG_PATH[switchTo]}
-              hrefLang={switchTo}
-              onClick={rememberChoice}
-              aria-label={lang === "en" ? "Переключить на русский" : "Switch to English"}
-              className="rounded-full bg-white/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-cream transition hover:bg-white/20"
-            >
-              {lang === "en" ? "RU" : "EN"}
-            </a>
-            <a
-              href="#contact"
-              className="hidden rounded-full bg-accent-deep px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 sm:inline-block"
-            >
-              {t.cta}
-            </a>
-          </div>
-        </div>
-      </header>
+      <SiteHeader lang={lang} switchHref={LANG_PATH} />
 
       <main id="top">
         {/* ───── Hero: the photo is part of the section ───── */}
@@ -469,35 +416,7 @@ export default function Landing({ lang }: { lang: Lang }) {
       </main>
 
       {/* ───── Footer (dark) ───── */}
-      <footer className={`${PANEL} ${DARK} py-12`}>
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="font-display text-xl font-bold">
-              Ildar Lomov<span className="text-accent">.</span>
-            </p>
-            <p className="mt-3 text-sm text-cream/65">{t.footer.role}</p>
-            <p className="mt-1 text-sm text-cream/65">
-              {t.footer.nifLabel}: <span className="font-semibold text-cream">{FACTS.nif}</span>
-            </p>
-          </div>
-
-          {/* "Not a vibe coder" — sits between the identity block and the address */}
-          <DiplomaPlate lang={lang} />
-
-          <address className="text-sm not-italic leading-relaxed text-cream/65">
-            {FACTS.addressLines.map((l) => (
-              <span key={l} className="block">{l}</span>
-            ))}
-            <a href={FACTS.phoneHref} className="mt-1 block hover:text-cream">{FACTS.phone}</a>
-          </address>
-        </div>
-        <p className="mx-auto mt-10 max-w-6xl px-5 text-xs text-cream/60">
-          © {new Date().getFullYear()} Ildar Lomov. {t.footer.rights}{" "}
-          <a href={PRIVACY_PATH[lang]} className="underline underline-offset-2 hover:text-cream">
-            {t.footer.privacy}
-          </a>
-        </p>
-      </footer>
+      <SiteFooter lang={lang} />
       <ContactPopup lang={lang} />
     </div>
   );

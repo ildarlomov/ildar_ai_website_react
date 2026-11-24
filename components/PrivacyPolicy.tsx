@@ -2,30 +2,20 @@ import type { Lang } from "@/lib/content";
 import { PRIVACY } from "@/lib/privacy";
 import { LANG_PATH, PRIVACY_PATH } from "@/lib/site";
 import CookieSettings from "@/components/CookieSettings";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 // Short, plain privacy policy page (server-rendered). Copy lives in lib/privacy.ts.
 export default function PrivacyPolicy({ lang }: { lang: Lang }) {
   const t = PRIVACY[lang];
-  const other: Lang = lang === "en" ? "ru" : "en";
 
   return (
     // lang on the wrapper enables correct hyphenation (the root <html> is always lang="en").
     <div lang={lang} className="min-h-screen bg-cream hyphens-auto">
 
-      <header className="mx-auto flex max-w-3xl items-center justify-between px-5 pt-8">
-        <a href={LANG_PATH[lang]} className="font-display text-[1.05rem] font-bold tracking-tight text-ink">
-          Ildar Lomov<span className="text-accent">.</span>
-        </a>
-        <a
-          href={PRIVACY_PATH[other]}
-          hrefLang={other}
-          className="rounded-full bg-ink/5 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-ink transition hover:bg-ink/10"
-        >
-          {other.toUpperCase()}
-        </a>
-      </header>
+      <SiteHeader lang={lang} switchHref={PRIVACY_PATH} />
 
-      <main className="mx-auto max-w-3xl px-5 pb-20 pt-12">
+      <main className="mx-auto max-w-3xl px-5 pb-28 pt-32 md:pt-36">
         <h1 className="font-display text-3xl font-bold leading-tight [overflow-wrap:anywhere] sm:text-5xl">{t.title}</h1>
         <p className="mt-3 text-sm text-ink-3">{t.updated}</p>
         <p className="mt-8 text-lg leading-relaxed text-ink-2">{t.intro}</p>
@@ -82,6 +72,7 @@ export default function PrivacyPolicy({ lang }: { lang: Lang }) {
           ← {t.back}
         </a>
       </main>
+      <SiteFooter lang={lang} />
     </div>
   );
 }
