@@ -8,7 +8,9 @@ import { DICT, type Lang } from "@/lib/content";
 const W = 1440;
 const H = 1742;
 
-export default function DiplomaPlate({ lang }: { lang: Lang }) {
+// variant "plate" = the small thumbnail + caption (was in the footer);
+// variant "large" = the diploma as a big, slightly tilted photo for the About section.
+export default function DiplomaPlate({ lang, variant = "plate" }: { lang: Lang; variant?: "plate" | "large" }) {
   const t = DICT[lang].plate;
   const [open, setOpen] = useState(false);
 
@@ -27,8 +29,29 @@ export default function DiplomaPlate({ lang }: { lang: Lang }) {
     };
   }, [open]);
 
+  const large = (
+    <figure className="mx-auto w-full max-w-[420px]">
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label={`${t.alt} — ${t.hint}`}
+        className="group relative block w-full -rotate-2 cursor-zoom-in overflow-hidden rounded-2xl border border-white/15 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.45)] transition duration-300 hover:rotate-0 hover:scale-[1.02]"
+      >
+        <Image src="/diploma.jpg" alt={t.alt} width={W} height={H} sizes="(min-width: 768px) 420px, 90vw" className="h-auto w-full" />
+        <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/20 group-hover:opacity-100">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-white">
+            <circle cx="11" cy="11" r="6.5" stroke="currentColor" strokeWidth="2" />
+            <path d="M16 16l4.5 4.5M11 8.5v5M8.5 11h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </span>
+      </button>
+      <figcaption className="mt-5 text-center text-sm text-cream/60">{t.alt} · {t.hint}</figcaption>
+    </figure>
+  );
+
   return (
     <>
+      {variant === "large" ? large : (
       <div className="flex max-w-md items-center gap-4 lg:max-w-sm">
         <button
           type="button"
@@ -52,6 +75,7 @@ export default function DiplomaPlate({ lang }: { lang: Lang }) {
           <p className="mt-1 text-sm leading-relaxed text-cream/65">{t.text}</p>
         </div>
       </div>
+      )}
 
       {open && (
         <div

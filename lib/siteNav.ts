@@ -29,6 +29,13 @@ const L = {
       ["contact", "Контакты"],
     ],
     pages: { home: "Главная", agent: "Настройка ИИ-агента · консультация", privacy: "Политика конфиденциальности" },
+    featured: {
+      instagram: ["Автоворонка Instagram + Telegram", "Ключевое слово под Reels → бот → оплата"],
+      threads: ["Автоворонка Threads", "ИИ находит клиентов и пишет им 24/7"],
+      memcircle: ["Кейс Memcircle", "AI-рекордер встреч на всех платформах"],
+      agent: ["Персональный ИИ-агент", "Настрою под ключ за 1–2 созвона · 400 €"],
+    },
+    moreTitle: "Ещё на сайте",
   },
   en: {
     sitemap: "Sitemap",
@@ -47,6 +54,13 @@ const L = {
       ["contact", "Contact"],
     ],
     pages: { home: "Home", agent: "AI agent setup · consultation", privacy: "Privacy policy" },
+    featured: {
+      instagram: ["Instagram + Telegram auto-funnel", "Keyword under a Reel → bot → payment"],
+      threads: ["Threads auto-funnel", "AI finds clients and messages them 24/7"],
+      memcircle: ["Memcircle case", "An AI meeting recorder on every platform"],
+      agent: ["Personal AI agent", "Done-for-you setup in 1–2 calls · €400"],
+    },
+    moreTitle: "Also on the site",
   },
 } as const;
 
@@ -62,7 +76,18 @@ export function siteNav(lang: Lang) {
       { href: homeAnchor(lang, "about"), label: t.nav.about },
     ] as NavLink[],
     contact: homeAnchor(lang, "contact"),
-    labels: { sitemap: l.sitemap, menuMobile: l.menuMobile, close: l.close, cta: t.cta, homeTitle: l.homeTitle, pagesTitle: l.pagesTitle },
+    labels: { sitemap: l.sitemap, menuMobile: l.menuMobile, close: l.close, cta: t.cta, homeTitle: l.homeTitle, pagesTitle: l.pagesTitle, moreTitle: l.moreTitle },
+    // Header "Sitemap" panel: four big tiles for the main things, then the rest as pills.
+    featured: [
+      { key: "instagram", href: homeAnchor(lang, "funnel-instagram"), label: l.featured.instagram[0], desc: l.featured.instagram[1] },
+      { key: "threads", href: homeAnchor(lang, "funnel-threads"), label: l.featured.threads[0], desc: l.featured.threads[1] },
+      { key: "memcircle", href: homeAnchor(lang, "cases"), label: l.featured.memcircle[0], desc: l.featured.memcircle[1] },
+      { key: "agent", href: AI_AGENT_PATH[lang], label: l.featured.agent[0], desc: l.featured.agent[1] },
+    ] as (NavLink & { key: "instagram" | "threads" | "memcircle" | "agent"; desc: string })[],
+    more: [
+      ...l.home.filter(([id]) => !["funnel-instagram", "funnel-threads", "cases"].includes(id)).map(([id, label]) => ({ href: homeAnchor(lang, id), label })),
+      { href: PRIVACY_PATH[lang], label: l.pages.privacy },
+    ] as NavLink[],
     // Sitemap groups, printed in the header panel and the footer.
     sections: l.home.map(([id, label]) => ({ href: homeAnchor(lang, id), label })) as NavLink[],
     pages: [

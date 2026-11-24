@@ -9,6 +9,7 @@ import CaseSlides from "@/components/CaseSlides";
 import ThreadsFunnel from "@/components/funnels/ThreadsFunnel";
 import InstagramFunnel from "@/components/funnels/InstagramFunnel";
 import ContactPopup from "@/components/ContactPopup";
+import DiplomaPlate from "@/components/DiplomaPlate";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import Integrations from "@/components/Integrations";
@@ -325,37 +326,33 @@ export default function Landing({ lang }: { lang: Lang }) {
           <Integrations lang={lang} />
         </section>
 
-        {/* ───── About (sand) ───── */}
-        <section id="about" className={`${PANEL} bg-cream-2 py-20 md:py-28`}>
-          <div className="mx-auto grid max-w-6xl gap-12 px-5 md:grid-cols-[1fr_0.9fr]">
+        {/* ───── About (dark: contrasts with the light Integrations and Contact around it) ───── */}
+        <section id="about" className={`${PANEL} ${DARK} py-20 md:py-28`}>
+          <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 md:grid-cols-[1fr_0.85fr] md:gap-16">
             <div>
               <Eyebrow>{t.about.eyebrow}</Eyebrow>
               <h2 className="font-display text-3xl font-bold leading-tight sm:text-5xl">{t.about.title}</h2>
-              <div className="mt-8 space-y-5 text-lg leading-relaxed text-ink-2">
+              <div className="mt-8 space-y-5 text-lg leading-relaxed text-cream/70">
                 {t.about.paragraphs.map((p) => (
                   <p key={p}>{p}</p>
                 ))}
+              </div>
+              <div className="mt-8 border-l-2 border-accent pl-5">
+                <p className="font-display text-xl font-bold text-cream">
+                  {t.about.vibe.title} <span aria-hidden="true">🙂</span>
+                </p>
+                <p className="mt-2 text-lg leading-relaxed text-cream/70">{t.about.vibe.text}</p>
               </div>
               <a
                 href={FACTS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-2 text-sm font-semibold transition hover:text-accent"
+                className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-cream transition hover:text-accent-bright"
               >
                 LinkedIn <Arrow className="-rotate-45" />
               </a>
             </div>
-            <dl className="grid grid-cols-2 gap-4 self-start">
-              {t.about.facts.map((f) => (
-                <div
-                  key={f.label}
-                  className="card-shadow rounded-3xl border border-line bg-paper p-6 [&:last-child:nth-child(odd)]:col-span-2"
-                >
-                  <dt className="font-display text-3xl font-bold text-accent">{f.value}</dt>
-                  <dd className="mt-2 text-sm leading-snug text-ink-2">{f.label}</dd>
-                </div>
-              ))}
-            </dl>
+            <DiplomaPlate lang={lang} variant="large" />
           </div>
         </section>
 

@@ -4,9 +4,9 @@ import type { Lang } from "@/lib/content";
 import { DICT, FACTS } from "@/lib/content";
 import { siteNav } from "@/lib/siteNav";
 import { PRIVACY_PATH } from "@/lib/site";
-import DiplomaPlate from "@/components/DiplomaPlate";
 
-// One footer for every page: the original landing footer (identity + diploma plate + address,
+// One footer for every page: the original landing footer (identity + address; the diploma moved
+// to the About section on 2026-11-24),
 // copyright + privacy link) with the sitemap (home sections and pages) added above the copyright.
 // It is a stacked panel: overlaps the section above it.
 
@@ -32,9 +32,6 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
             {t.footer.nifLabel}: <span className="font-semibold text-cream">{FACTS.nif}</span>
           </p>
         </div>
-
-        {/* "Not a vibe coder" — sits between the identity block and the address */}
-        <DiplomaPlate lang={lang} />
 
         <address className="text-sm not-italic leading-relaxed text-cream/65">
           {FACTS.addressLines.map((l) => (

@@ -124,7 +124,7 @@ export type Dict = {
     eyebrow: string;
     title: string;
     paragraphs: string[];
-    facts: { value: string; label: string }[];
+    vibe: { title: string; text: string }; // "not a vibe coder" note next to the diploma
   };
   contact: {
     eyebrow: string;
@@ -353,11 +353,10 @@ export const DICT: Record<Lang, Dict> = {
         "Today I build my own products and take on client projects. I write the code, set up the infrastructure and connect the pieces myself, so you talk to one person from the first call to the launch.",
         "My stack is Python (FastAPI, Django), React and Node.js, Docker, and LLMs wherever they genuinely help.",
       ],
-      facts: [
-        { value: "7+", label: "years in data science & AI" },
-        { value: "$1B+", label: "travel-tech company, AI team lead" },
-        { value: "MSc", label: "Data Science, HSE" },
-      ],
+      vibe: {
+        title: "Not a vibe coder",
+        text: "I actually studied this: a Master's in Applied Mathematics and Computer Science from HSE (2020). I understand every line of code I ship and I'm responsible for it, not just for what an AI happened to generate.",
+      },
     },
     contact: {
       eyebrow: "Contact",
@@ -588,11 +587,10 @@ export const DICT: Record<Lang, Dict> = {
         "Сейчас делаю собственные продукты и беру клиентские проекты. Код, инфраструктуру и интеграции собираю сам — вы общаетесь с одним человеком от первого звонка до запуска.",
         "Мой стек: Python (FastAPI, Django), React и Node.js, Docker и LLM — везде, где они действительно полезны.",
       ],
-      facts: [
-        { value: "7+", label: "лет в data science и AI" },
-        { value: "$1B+", label: "travel-tech компания, лид AI-команды" },
-        { value: "MSc", label: "Data Science, НИУ ВШЭ" },
-      ],
+      vibe: {
+        title: "Не вайбкодер",
+        text: "Я этому реально учился: магистратура «Прикладная математика и информатика» в НИУ ВШЭ, 2020. Я понимаю каждую строчку кода, который отдаю, и отвечаю за неё, а не просто за то, что сгенерировала нейросеть.",
+      },
     },
     contact: {
       eyebrow: "Контакты",

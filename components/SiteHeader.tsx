@@ -4,6 +4,26 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Lang } from "@/lib/content";
 import { LANG_COOKIE } from "@/lib/site";
 import { siteNav } from "@/lib/siteNav";
+import { InstagramLogo, TelegramLogo, ThreadsLogo } from "@/components/funnels/mocks";
+import { MemcircleGlyph } from "@/components/memcircle/MemcircleGlyph";
+
+// Sitemap tiles wear their section's colours (rosy Instagram, dark Threads, sand Memcircle, accent agent).
+const TILE = {
+  instagram: { bg: "#f8e7e3", fg: "#1a1a1a", ring: "", icon: <><InstagramLogo size={22} /><TelegramLogo size={22} /></> },
+  threads: { bg: "#000000", fg: "#f6efe6", ring: "rgba(255,255,255,0.16)", icon: <ThreadsLogo size={22} color="#f6efe6" /> },
+  memcircle: { bg: "#f6e3cf", fg: "#1a1a1a", ring: "", icon: <MemcircleGlyph size={24} color="#1a1a1a" /> },
+  agent: {
+    bg: "#b35d39",
+    fg: "#ffffff",
+    ring: "",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z" />
+        <path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z" />
+      </svg>
+    ),
+  },
+} as const;
 
 // One floating header for every page of the site: logo, menu (4 items + "Sitemap", hard cap 5),
 // language switch and the contact CTA. "Sitemap" opens a panel with every home section and page;
@@ -95,44 +115,48 @@ export default function SiteHeader({ lang, switchHref }: { lang: Lang; switchHre
         </div>
       </div>
 
-      {/* sitemap panel */}
+      {/* sitemap panel: four tiles in each section's own colours, then the rest as pills */}
       <div
         id="sitemap-panel"
         hidden={!open}
-        className="mx-auto mt-2 max-w-5xl rounded-[1.75rem] border border-white/10 bg-[#171514]/95 p-6 text-cream shadow-[0_20px_60px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:p-8"
+        className="mx-auto mt-2 max-h-[calc(100svh-6rem)] max-w-5xl overflow-y-auto rounded-[1.75rem] border border-white/10 bg-[#171514]/95 p-4 text-cream shadow-[0_20px_60px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:p-6"
       >
-        <div className="grid gap-8 sm:grid-cols-2">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-bright">{nav.labels.homeTitle}</p>
-            <ul className="mt-3 grid gap-1">
-              {nav.sections.map((s) => (
-                <li key={s.href}>
-                  <a href={s.href} onClick={close} className="block rounded-xl px-3 py-2 text-[0.95rem] text-cream/80 transition hover:bg-white/10 hover:text-cream">
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-bright">{nav.labels.pagesTitle}</p>
-            <ul className="mt-3 grid gap-1">
-              {nav.pages.map((p) => (
-                <li key={p.href}>
-                  <a href={p.href} onClick={close} className="block rounded-xl px-3 py-2 text-[0.95rem] text-cream/80 transition hover:bg-white/10 hover:text-cream">
-                    {p.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <a
-              href={nav.contact}
-              onClick={close}
-              className="mt-6 inline-flex rounded-full bg-accent-deep px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 sm:hidden"
-            >
-              {nav.labels.cta}
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {nav.featured.map((f) => {
+            const tone = TILE[f.key];
+            return (
+              <a
+                key={f.key}
+                href={f.href}
+                onClick={close}
+                // phones: compact rows (icon left); sm+: tall tiles
+                className="group flex items-center gap-3 rounded-2xl p-3.5 transition hover:-translate-y-0.5 sm:min-h-[9.5rem] sm:flex-col sm:items-start sm:justify-between sm:p-4"
+                style={{ background: tone.bg, color: tone.fg, boxShadow: tone.ring ? `inset 0 0 0 1px ${tone.ring}` : undefined }}
+              >
+                <span className="flex shrink-0 items-center gap-1.5">{tone.icon}</span>
+                <span>
+                  <span className="block font-display text-[1.05rem] font-bold leading-snug">{f.label}</span>
+                  <span className="mt-1 block text-[0.8rem] leading-snug" style={{ opacity: 0.75 }}>{f.desc}</span>
+                </span>
+              </a>
+            );
+          })}
+        </div>
+
+        <p className="mt-5 px-1 text-xs font-semibold uppercase tracking-[0.16em] text-cream/60">{nav.labels.moreTitle}</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {nav.more.map((m) => (
+            <a key={m.href} href={m.href} onClick={close} className="rounded-full bg-white/10 px-4 py-2 text-sm text-cream/85 transition hover:bg-white/20 hover:text-cream">
+              {m.label}
             </a>
-          </div>
+          ))}
+          <a
+            href={nav.contact}
+            onClick={close}
+            className="rounded-full bg-accent-deep px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110 sm:hidden"
+          >
+            {nav.labels.cta}
+          </a>
         </div>
       </div>
     </header>
