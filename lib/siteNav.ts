@@ -19,8 +19,8 @@ const L = {
     homeTitle: "Главная",
     pagesTitle: "Страницы",
     home: [
-      ["funnels", "Автоворонка Threads"],
       ["funnel-instagram", "Автоворонка Instagram + Telegram"],
+      ["funnel-threads", "Автоворонка Threads"],
       ["cases", "Кейс Memcircle"],
       ["services", "Услуги"],
       ["projects", "Проекты"],
@@ -37,8 +37,8 @@ const L = {
     homeTitle: "Home",
     pagesTitle: "Pages",
     home: [
-      ["funnels", "Threads auto-funnel"],
       ["funnel-instagram", "Instagram + Telegram auto-funnel"],
+      ["funnel-threads", "Threads auto-funnel"],
       ["cases", "Memcircle case"],
       ["services", "Services"],
       ["projects", "Projects"],
@@ -57,7 +57,7 @@ export function siteNav(lang: Lang) {
     // Header menu: 4 items + "Sitemap" (Ildar, 2026-11-24: hard cap 5, never add more).
     menu: [
       { href: homeAnchor(lang, "cases"), label: t.nav.cases },
-      { href: homeAnchor(lang, "funnels"), label: FUNNELS[lang].nav },
+      { href: homeAnchor(lang, "funnel-instagram"), label: FUNNELS[lang].nav }, // first funnel on the page
       { href: homeAnchor(lang, "services"), label: t.nav.services },
       { href: homeAnchor(lang, "about"), label: t.nav.about },
     ] as NavLink[],

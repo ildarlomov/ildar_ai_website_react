@@ -199,12 +199,13 @@ export default function Landing({ lang }: { lang: Lang }) {
 
         </section>
 
-        {/* ───── Funnels: social-media auto-funnels (Threads dark, then Instagram rosy) ───── */}
-        <section id="funnels" className={`${PANEL} overflow-hidden pb-10 md:pb-12`} style={{ background: "#171514" }}>
-          <ThreadsFunnel lang={lang} />
-        </section>
+        {/* ───── Funnels: social-media auto-funnels. Order is for colour contrast:
+             dark hero → rosy Instagram → dark Threads → sand Memcircle case ───── */}
         <section id="funnel-instagram" className={`${PANEL} overflow-hidden pb-10 md:pb-12`} style={{ background: "#f8e7e3" }}>
           <InstagramFunnel lang={lang} />
+        </section>
+        <section id="funnel-threads" className={`${PANEL} overflow-hidden pb-10 md:pb-12`} style={{ background: "#171514" }}>
+          <ThreadsFunnel lang={lang} />
         </section>
 
         {/* ───── Cases (sand): one-project slide deck ───── */}
