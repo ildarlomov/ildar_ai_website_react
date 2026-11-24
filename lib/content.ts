@@ -349,7 +349,7 @@ export const DICT: Record<Lang, Dict> = {
       eyebrow: "About",
       title: "Hi, I'm Ildar",
       paragraphs: [
-        "I'm a technical entrepreneur based in Lisbon. For seven years I worked in data science, and I finished as Head of AI at Emerging Travel Group, a $1B+ travel-tech company, where I built and led the AI team.",
+        "I'm a technical entrepreneur. For seven years I worked in data science, and I finished as Head of AI at Emerging Travel Group, a $1B+ travel-tech company, where I built and led the AI team.",
         "Today I build my own products and take on client projects. I write the code, set up the infrastructure and connect the pieces myself, so you talk to one person from the first call to the launch.",
         "My stack is Python (FastAPI, Django), React and Node.js, Docker, and LLMs wherever they genuinely help.",
       ],
@@ -583,7 +583,7 @@ export const DICT: Record<Lang, Dict> = {
       eyebrow: "Обо мне",
       title: "Привет, я Ильдар",
       paragraphs: [
-        "Я технический предприниматель, живу в Лиссабоне. Семь лет занимался data science, а последние годы был Head of AI в Emerging Travel Group — travel-tech компании с оборотом $1B+, где построил и возглавил AI-команду.",
+        "Я технический предприниматель. Семь лет занимался data science, а последние годы был Head of AI в Emerging Travel Group — travel-tech компании с оборотом $1B+, где построил и возглавил AI-команду.",
         "Сейчас делаю собственные продукты и беру клиентские проекты. Код, инфраструктуру и интеграции собираю сам — вы общаетесь с одним человеком от первого звонка до запуска.",
         "Мой стек: Python (FastAPI, Django), React и Node.js, Docker и LLM — везде, где они действительно полезны.",
       ],
