@@ -181,7 +181,7 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
       },
     },
     instagram: {
-      label: "Автоворонка · Instagram",
+      label: "Автоворонка · Instagram + Telegram",
       slides: [
         {
           tag: "Автоворонка Instagram + Telegram-бот под ключ",
@@ -439,7 +439,7 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
       },
     },
     instagram: {
-      label: "Auto-funnel · Instagram",
+      label: "Auto-funnel · Instagram + Telegram",
       slides: [
         {
           tag: "Instagram auto-funnel + Telegram bot, done for you",
