@@ -3,7 +3,7 @@
 // Small, hand-drawn UI mock-ups for the funnel decks: a phone, a Threads post, an Instagram post,
 // DM / Telegram chat bubbles and a CRM card. Pure presentation, no real data.
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 
 export const FONT = "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 
@@ -17,11 +17,13 @@ export function ThreadsLogo({ size = 22, color = "currentColor" }: { size?: numb
   );
 }
 
+// Instagram glyph: gradient tile with the camera outline (rounded square), lens and flash dot.
 export function InstagramLogo({ size = 22 }: { size?: number }) {
+  const id = `ig-grad-${useId().replace(/:/g, "")}`; // unique per instance: several logos share a page
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
       <defs>
-        <radialGradient id="ig-grad" cx="30%" cy="107%" r="150%">
+        <radialGradient id={id} cx="30%" cy="107%" r="150%">
           <stop offset="0" stopColor="#fdf497" />
           <stop offset="0.05" stopColor="#fdf497" />
           <stop offset="0.45" stopColor="#fd5949" />
@@ -29,9 +31,10 @@ export function InstagramLogo({ size = 22 }: { size?: number }) {
           <stop offset="0.9" stopColor="#285AEB" />
         </radialGradient>
       </defs>
-      <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#ig-grad)" />
-      <rect x="6.5" y="6.5" width="11" height="11" rx="5.5" fill="none" stroke="#fff" strokeWidth="1.8" />
-      <circle cx="17.2" cy="6.8" r="1.2" fill="#fff" />
+      <rect x="1" y="1" width="22" height="22" rx="6.5" fill={`url(#${id})`} />
+      <rect x="5" y="5" width="14" height="14" rx="4.2" fill="none" stroke="#fff" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="3.3" fill="none" stroke="#fff" strokeWidth="1.8" />
+      <circle cx="16.1" cy="7.9" r="1.05" fill="#fff" />
     </svg>
   );
 }
