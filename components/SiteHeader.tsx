@@ -34,7 +34,25 @@ export default function SiteHeader({ lang, switchHref }: { lang: Lang; switchHre
   const nav = siteNav(lang);
   const switchTo: Lang = lang === "en" ? "ru" : "en";
   const [open, setOpen] = useState(false);
+  const [q, setQ] = useState("");
   const panel = useRef<HTMLDivElement>(null);
+  const search = useRef<HTMLInputElement>(null);
+
+  // Sitemap search: every word of the query must appear in the item's label, description or keywords.
+  const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+  const match = (x: { label: string; desc?: string; keys?: string }) => {
+    const hay = `${x.label} ${x.desc ?? ""} ${x.keys ?? ""}`.toLowerCase();
+    return words.every((w) => hay.includes(w));
+  };
+  const featured = nav.featured.filter(match);
+  const more = nav.more.filter(match);
+
+  // Focus the search when the panel opens on a desktop (on phones it would pop the keyboard); reset it on close.
+  useEffect(() => {
+    if (open) {
+      if (window.matchMedia("(min-width: 768px)").matches) search.current?.focus();
+    } else setQ("");
+  }, [open]);
 
   // The switcher remembers an explicit choice so the geo auto-redirect (middleware.ts) never overrides it.
   const rememberChoice = useCallback(() => {
@@ -129,8 +147,25 @@ export default function SiteHeader({ lang, switchHref }: { lang: Lang; switchHre
         hidden={!open}
         className="mx-auto mt-2 max-h-[calc(100svh-6rem)] max-w-5xl overflow-y-auto rounded-[1.75rem] border border-white/10 bg-[#171514]/95 p-4 text-cream shadow-[0_20px_60px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:p-6"
       >
+        <label className="mb-4 flex items-center gap-3 rounded-full bg-white/10 px-4 py-2.5 focus-within:bg-white/15">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" className="shrink-0 text-cream/60">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.5-3.5" />
+          </svg>
+          <input
+            ref={search}
+            type="search"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder={nav.labels.search}
+            aria-label={nav.labels.search}
+            className="w-full bg-transparent text-[0.95rem] text-cream outline-none placeholder:text-cream/50"
+          />
+        </label>
+
+        {featured.length > 0 && (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {nav.featured.map((f) => {
+          {featured.map((f) => {
             const tone = TILE[f.key];
             return (
               <a
@@ -150,11 +185,23 @@ export default function SiteHeader({ lang, switchHref }: { lang: Lang; switchHre
             );
           })}
         </div>
+        )}
 
+        {featured.length === 0 && more.length === 0 && (
+          <p className="px-1 py-4 text-sm text-cream/70">
+            {nav.labels.nothing}{" "}
+            <a href={nav.contact} onClick={close} className="font-semibold text-accent-bright hover:underline">
+              {nav.labels.cta}
+            </a>
+          </p>
+        )}
+
+        {more.length > 0 && (
+        <>
         <p className="mt-5 px-1 text-xs font-semibold uppercase tracking-[0.16em] text-cream/60">{nav.labels.moreTitle}</p>
         {/* CSS columns: reads top-to-bottom, then the next column */}
         <ul className="mt-2 columns-2 gap-x-6 sm:columns-3">
-          {nav.more.map((m) => (
+          {more.map((m) => (
             <li key={m.href} className="break-inside-avoid">
               <a href={m.href} onClick={close} className="block rounded-lg px-1 py-1.5 text-sm text-cream/75 transition hover:text-cream">
                 {m.label}
@@ -162,6 +209,8 @@ export default function SiteHeader({ lang, switchHref }: { lang: Lang; switchHre
             </li>
           ))}
         </ul>
+        </>
+        )}
         <a
           href={nav.contact}
           onClick={close}

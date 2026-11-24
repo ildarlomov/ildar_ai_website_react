@@ -6,7 +6,22 @@ import { DICT, type Lang } from "@/lib/content";
 import { FUNNELS } from "@/lib/funnels";
 import { AI_AGENT_PATH, LANG_PATH, PRIVACY_PATH } from "@/lib/site";
 
-export type NavLink = { href: string; label: string };
+export type NavLink = { href: string; label: string; keys?: string };
+
+// Extra search words for the sitemap search (both languages; matched case-insensitively).
+const KEYS: Record<string, string> = {
+  home: "главная home старт",
+  "funnel-instagram": "instagram инстаграм telegram телеграм reels рилс бот bot оплата payment воронка funnel курс",
+  "funnel-threads": "threads тредс нейрокомментинг комментарии comments лиды leads воронка funnel crm",
+  cases: "memcircle мемсеркл встречи meetings запись recorder транскрипт кейс case",
+  services: "услуги services боты bots crm сайт website tilda рассылки mailings приложения apps",
+  projects: "проекты projects walkie talkie context whisper приложение app ios macos windows chrome",
+  integrations: "интеграции integrations битрикс bitrix amocrm hubspot stripe paypal оплата платежи payments whatsapp meta ads реклама seo google яндекс",
+  about: "обо мне about диплом diploma вайбкодер vibe ильдар ildar",
+  contact: "контакты contact заявка request телефон phone telegram whatsapp",
+  agent: "ии агент ai agent claude chatgpt codex консультация consultation настройка setup 400",
+  privacy: "политика privacy cookie конфиденциальность данные data",
+};
 
 // "/" + "#id" or "/ru" + "#id": works from any page, and on the home page it just scrolls.
 const homeAnchor = (lang: Lang, id: string) => `${lang === "en" ? "/" : "/ru"}#${id}`;
@@ -14,6 +29,8 @@ const homeAnchor = (lang: Lang, id: string) => `${lang === "en" ? "/" : "/ru"}#$
 const L = {
   ru: {
     sitemap: "Карта сайта",
+    search: "Поиск по сайту",
+    nothing: "Ничего не нашлось. Напишите мне — разберёмся.",
     menuMobile: "Меню",
     close: "Закрыть",
     homeTitle: "Главная",
@@ -39,6 +56,8 @@ const L = {
   },
   en: {
     sitemap: "Sitemap",
+    search: "Search the site",
+    nothing: "Nothing found. Message me and we'll figure it out.",
     menuMobile: "Menu",
     close: "Close",
     homeTitle: "Home",
@@ -76,20 +95,20 @@ export function siteNav(lang: Lang) {
       { href: homeAnchor(lang, "about"), label: t.nav.about },
     ] as NavLink[],
     contact: homeAnchor(lang, "contact"),
-    labels: { sitemap: l.sitemap, menuMobile: l.menuMobile, close: l.close, cta: t.cta, homeTitle: l.homeTitle, pagesTitle: l.pagesTitle, moreTitle: l.moreTitle },
+    labels: { search: l.search, nothing: l.nothing, sitemap: l.sitemap, menuMobile: l.menuMobile, close: l.close, cta: t.cta, homeTitle: l.homeTitle, pagesTitle: l.pagesTitle, moreTitle: l.moreTitle },
     // Header "Sitemap" panel: four big tiles for the main things, then the rest as pills.
     featured: [
-      { key: "instagram", href: homeAnchor(lang, "funnel-instagram"), label: l.featured.instagram[0], desc: l.featured.instagram[1] },
-      { key: "threads", href: homeAnchor(lang, "funnel-threads"), label: l.featured.threads[0], desc: l.featured.threads[1] },
-      { key: "memcircle", href: homeAnchor(lang, "cases"), label: l.featured.memcircle[0], desc: l.featured.memcircle[1] },
-      { key: "agent", href: AI_AGENT_PATH[lang], label: l.featured.agent[0], desc: l.featured.agent[1] },
+      { key: "instagram", href: homeAnchor(lang, "funnel-instagram"), label: l.featured.instagram[0], desc: l.featured.instagram[1], keys: KEYS["funnel-instagram"] },
+      { key: "threads", href: homeAnchor(lang, "funnel-threads"), label: l.featured.threads[0], desc: l.featured.threads[1], keys: KEYS["funnel-threads"] },
+      { key: "memcircle", href: homeAnchor(lang, "cases"), label: l.featured.memcircle[0], desc: l.featured.memcircle[1], keys: KEYS.cases },
+      { key: "agent", href: AI_AGENT_PATH[lang], label: l.featured.agent[0], desc: l.featured.agent[1], keys: KEYS.agent },
     ] as (NavLink & { key: "instagram" | "threads" | "memcircle" | "agent"; desc: string })[],
     // Full list under the tiles: every home section and every page, by name.
     more: [
-      { href: LANG_PATH[lang], label: l.pages.home },
-      ...l.home.map(([id, label]) => ({ href: homeAnchor(lang, id), label })),
-      { href: AI_AGENT_PATH[lang], label: l.pages.agent },
-      { href: PRIVACY_PATH[lang], label: l.pages.privacy },
+      { href: LANG_PATH[lang], label: l.pages.home, keys: KEYS.home },
+      ...l.home.map(([id, label]) => ({ href: homeAnchor(lang, id), label, keys: KEYS[id] })),
+      { href: AI_AGENT_PATH[lang], label: l.pages.agent, keys: KEYS.agent },
+      { href: PRIVACY_PATH[lang], label: l.pages.privacy, keys: KEYS.privacy },
     ] as NavLink[],
     // Sitemap groups, printed in the header panel and the footer.
     sections: l.home.map(([id, label]) => ({ href: homeAnchor(lang, id), label })) as NavLink[],
