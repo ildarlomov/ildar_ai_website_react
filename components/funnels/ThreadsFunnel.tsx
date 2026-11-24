@@ -382,8 +382,6 @@ function TrafficSlide({ active, t, cta }: P) {
 
 const SLIDES = [IntroSlide, SearchSlide, SelectSlide, CommentSlide, SignalsSlide, TelegramSlide, CrmSlide, TrafficSlide];
 
-const DISC: React.CSSProperties = { width: 30, height: 30, borderRadius: 999, display: "grid", placeItems: "center", background: "#fff", boxShadow: "0 4px 12px rgba(0,0,0,0.35)" };
-
 export default function ThreadsFunnel({ lang }: { lang: Lang }) {
   const f = FUNNELS[lang];
   return (
@@ -393,13 +391,8 @@ export default function ThreadsFunnel({ lang }: { lang: Lang }) {
       prev={f.prev}
       next={f.next}
       mark={
-        // Same mark as the Instagram deck: overlapping platform discs + names (names hidden on phones).
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 10, fontFamily: FD, fontSize: 16, fontWeight: 600 }}>
-          <span style={{ display: "inline-flex" }}>
-            <span style={DISC}><ThreadsLogo size={18} color="#111" /></span>
-            <span style={{ ...DISC, marginLeft: -8 }}><TelegramLogo size={20} /></span>
-          </span>
-          <span className="hidden sm:inline">Threads + Telegram</span>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: FD, fontSize: 17, fontWeight: 600 }}>
+          <ThreadsLogo size={22} /> Threads
         </span>
       }
       renderSlides={(active) => SLIDES.map((S, i) => <S key={i} active={i === active} t={f.threads} cta={f.cta} />)}

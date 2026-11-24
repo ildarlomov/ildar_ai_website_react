@@ -251,17 +251,17 @@ export default function Landing({ lang }: { lang: Lang }) {
 
         </section>
 
-        {/* ───── Cases (sand): one-project slide deck ───── */}
-        <section id="cases" className={`${PANEL} overflow-hidden pb-10 md:pb-12`} style={{ background: "#f6e3cf" }}>
-          <CaseSlides t={t.cases} />
-        </section>
-
         {/* ───── Funnels: social-media auto-funnels (Threads dark, then Instagram rosy) ───── */}
         <section id="funnels" className={`${PANEL} overflow-hidden pb-10 md:pb-12`} style={{ background: "#171514" }}>
           <ThreadsFunnel lang={lang} />
         </section>
         <section id="funnel-instagram" className={`${PANEL} overflow-hidden pb-10 md:pb-12`} style={{ background: "#f8e7e3" }}>
           <InstagramFunnel lang={lang} />
+        </section>
+
+        {/* ───── Cases (sand): one-project slide deck ───── */}
+        <section id="cases" className={`${PANEL} overflow-hidden pb-10 md:pb-12`} style={{ background: "#f6e3cf" }}>
+          <CaseSlides t={t.cases} />
         </section>
 
         {/* ───── Services (light) ───── */}
