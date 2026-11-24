@@ -2,8 +2,8 @@
 // deck copy and its mock-up strings live together. Facts come from the real systems:
 // - Threads: vibe_comments extension + threads_home_lead_scan / crm_first_outreach skills,
 //   outreach_sieve and vedenie crons in efficiency_scripts/droid/whisper_crm (numbers from 2026-10).
-// - Instagram: Alhimia Woman — ManyChat keyword DM (client side), then @alhimia_woman_bot
-//   (droid/alhimia_woman: funnel.py, chain.py, program.py) and the alhimia_woman_crm PWA.
+// - Instagram: modelled on the Alhimia Woman funnel (keyword DM → @alhimia_woman_bot → chain,
+//   payments, course, CRM PWA) but shown generically as a done-for-you service for creators.
 // Never put client personal names, chat ids or handles of real people here.
 
 import type { Lang } from "@/lib/content";
@@ -33,14 +33,24 @@ export type FunnelCopy = {
   };
   instagram: {
     label: string;
-    slides: SlideText[]; // 7
+    slides: SlideText[]; // 8: intro + 7 steps
+    steps: { icon: "ig" | "tg" | "pay" | "crm"; text: string }[]; // intro step list
+    handle: string; // the creator's Instagram handle in the mock-ups
     reel: { caption: string; comments: { author: string; text: string }[]; replied: string };
     dm: { name: string; msgs: { from: "me" | "them"; text: string; buttons?: string[] }[] };
     bot: { name: string; msgs: { from: "me" | "them"; text: string; buttons?: string[]; file?: string }[] };
     chain: { time: string; text: string }[];
-    pay: { title: string; old: string; price: string; deadline: string; methods: string[]; button: string; done: string };
-    course: { day: string; items: string[]; quizQ: string; quizA: string[] };
-    crm: { columns: string[]; rows: { name: string; status: string; tone: string; paid: string }[]; push: string; pushSub: string; statuses: string };
+    pay: { title: string; old: string; price: string; deadline: string; methods: string[]; currencies: string; button: string; done: string };
+    course: { day: string; items: string[]; quizQ: string; quizA: string[]; protect: string };
+    crm: {
+      columns: string[];
+      rows: { name: string; status: string; tone: string; paid: string }[];
+      chatWith: string;
+      chat: { from: "me" | "them"; text: string }[];
+      agent: string;
+      push: string;
+      pushSub: string;
+    };
   };
 };
 
@@ -174,86 +184,106 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
       label: "Автоворонка · Instagram",
       slides: [
         {
-          tag: "Кейс · Alhimia Woman",
-          title: "Кодовое слово под Reels превращается в оплату",
+          tag: "Автоворонка Instagram + Telegram-бот под ключ",
+          title: "Из Instagram в Telegram-канал и в бота, который продаёт сам",
           text:
-            "Воронка для эксперта по женским практикам: подписчица пишет одно слово в комментариях, а дальше директ, Telegram-бот, прогрев, оплата, курс и CRM работают без участия команды.",
+            "Строю автоворонки для Instagram-блогеров и экспертов: подписчики переходят из Reels в ваш Telegram-канал, а бот прогревает их и продаёт мини-продукты без ручной переписки.",
         },
         {
           tag: "Шаг 1 · Instagram",
-          title: "Пишешь «Алхимия» и сразу получаешь директ",
+          title: "Подписчик пишет ключевое слово под Reels",
           text:
-            "Reels заканчивается призывом написать кодовое слово. ManyChat мгновенно отвечает в комментарии и присылает в директ ссылку на Telegram-бота. Комментарии заодно поднимают охваты.",
+            "В конце видео вы просите написать кодовое слово в комментариях. Каждый такой комментарий запускает воронку и заодно поднимает охваты ролика.",
         },
         {
-          tag: "Шаг 2 · Telegram-бот",
-          title: "Бот встречает и через 30 секунд делает оффер",
+          tag: "Шаг 2 · Директ",
+          title: "Агент отвечает по скрипту и переводит в Telegram-бота",
           text:
-            "Приветствие, короткая история и предложение: три урока за $15, но только 48 часов. Потом цена становится $47. Дедлайн настоящий, его считает сервер.",
+            "Агент сразу отвечает на комментарий и пишет в директ по заданному сценарию, а потом даёт ссылку на Telegram-бота. Ни одна заявка не теряется, даже если видео залетело ночью.",
         },
         {
-          tag: "Шаг 3 · Дожим",
-          title: "8 касаний за 72 часа, каждое в своё время",
+          tag: "Шаг 3 · Telegram-канал",
+          title: "Бот предлагает подписаться на канал и дарит подарок",
           text:
-            "Видеокружок, подарочная практика, разбор кейса клиентки, напоминания «осталось 2 часа» и «последний час», потом предложение консультации. Цепочка стартует с /start и останавливается после оплаты.",
+            "Первым делом бот зовёт в ваш Telegram-канал, проверяет подписку и выдаёт подарок: гайд, урок или практику. Канал растёт вместе с воронкой.",
         },
         {
-          tag: "Шаг 4 · Оплата",
-          title: "Оплата в один тап, в трёх валютах",
+          tag: "Шаг 4 · Прогрев",
+          title: "8 касаний за 72 часа: видео, истории, оффер с дедлайном",
           text:
-            "PayPal и LavaTop в рублях, евро и долларах. Платёж подтверждается вебхуком, доступ открывается сразу, а защита от двойного списания не даёт взять деньги дважды.",
+            "Бот ведёт человека по видео-воронке: кружки, подарочная практика, истории клиентов, предложение по сниженной цене и напоминания перед дедлайном. После оплаты цепочка останавливается сама.",
         },
         {
-          tag: "Шаг 5 · Продукт",
-          title: "Курс живёт прямо в боте",
+          tag: "Шаг 5 · Оплата",
+          title: "Оплата в один клик, в любой валюте",
           text:
-            "Трёхдневная программа: уроки по расписанию, практики, тест на 32 вопроса, трекер усталости и PDF-план на 30 дней. После оплаты бот предлагает консультацию, а через сутки и неделю просит отзыв.",
+            "Подключаем нужные способы оплаты: Apple Pay, Google Pay, карты, PayPal и локальные платёжные сервисы. Платёж подтверждается автоматически, доступ открывается сразу.",
         },
         {
-          tag: "Шаг 6 · CRM",
-          title: "CRM со статусами и пушами на iPhone",
+          tag: "Шаг 6 · Мини-продукт",
+          title: "Мини-продукт живёт прямо в боте, с защитой от копирования",
           text:
-            "Каждая клиентка в CRM: переписка, оплаты, ответы на тесты. Шесть статусов ставятся сами, рассылки уходят с медиа, о каждой оплате команде приходит пуш и сообщение в Telegram.",
+            "Уроки по расписанию, практики, тесты и PDF-материалы приходят в боте. Пересылать и сохранять контент нельзя, так что продукт не утечёт в сеть.",
+        },
+        {
+          tag: "Шаг 7 · CRM",
+          title: "Каждый клиент в CRM, а к базе можно подключить вашего агента",
+          text:
+            "Все, кто прошёл воронку, попадают в CRM: переписка, оплаты, статусы. Писать клиентам можно прямо оттуда, делать рассылки по базе или подключить ИИ-агента, который будет вести её за вас.",
         },
       ],
+      steps: [
+        { icon: "ig", text: "Ключевое слово под Reels" },
+        { icon: "ig", text: "Агент отвечает в директ по скрипту" },
+        { icon: "tg", text: "Переход в Telegram-бота" },
+        { icon: "tg", text: "Подписка на канал и подарок" },
+        { icon: "tg", text: "Прогрев: 8 касаний за 72 часа" },
+        { icon: "pay", text: "Оплата в один клик" },
+        { icon: "tg", text: "Мини-продукт в боте" },
+        { icon: "crm", text: "CRM и работа с базой" },
+      ],
+      handle: "your.blog",
       reel: {
-        caption: "Хочешь вернуть себе силы? Напиши «Алхимия» в комментариях ✨",
+        caption: "Хочешь мой гайд? Напиши «ГАЙД» в комментариях 👇",
         comments: [
-          { author: "anna_m", text: "Алхимия" },
-          { author: "olga.yoga", text: "Алхимия 🙏" },
-          { author: "kate_life", text: "Алхимия!" },
+          { author: "anna_m", text: "ГАЙД" },
+          { author: "olga.yoga", text: "ГАЙД 🙏" },
+          { author: "kate_life", text: "Гайд!" },
         ],
-        replied: "Отправили тебе в директ 💌",
+        replied: "Отправила тебе в директ 💌",
       },
       dm: {
-        name: "Alhimia Woman",
+        name: "Ваш блог",
         msgs: [
-          { from: "them", text: "Алхимия" },
-          { from: "me", text: "Привет! Лови доступ: всё внутри Telegram-бота, там тебя ждёт первый урок 💛", buttons: ["Открыть в Telegram"] },
+          { from: "them", text: "ГАЙД" },
+          { from: "me", text: "Привет! Рада, что откликнулось 💛 Подскажи, что тебе сейчас важнее: энергия или отношения?" },
+          { from: "them", text: "Энергия" },
+          { from: "me", text: "Тогда держи: гайд и бонусный урок ждут тебя в Telegram-боте 👇", buttons: ["Открыть в Telegram"] },
         ],
       },
       bot: {
-        name: "Alhimia Woman · бот",
+        name: "Ваш блог · бот",
         msgs: [
           { from: "them", text: "/start" },
-          { from: "me", text: "Привет! Я рада, что ты здесь. За 3 дня ты вернёшь себе энергию и опору 🌿" },
-          { from: "me", text: "3 урока за $15 вместо $47.\nЦена действует 48 часов.", buttons: ["Забрать за $15", "Что внутри?"] },
+          { from: "me", text: "Привет! Подпишись на мой канал, и я пришлю подарок 🎁", buttons: ["Подписаться на канал", "Я подписалась ✓"] },
+          { from: "me", text: "Подписка есть, спасибо! Держи подарок 👇", file: "Гайд «Возврат силы».pdf" },
         ],
       },
       chain: [
         { time: "+1 ч", text: "Видеокружок от автора" },
-        { time: "+5,5 ч", text: "Подарок: практика «Возврат силы»" },
+        { time: "+5 ч", text: "Подарочная практика" },
         { time: "+13 ч", text: "История клиентки: скрины и голосовые" },
+        { time: "+24 ч", text: "Оффер: мини-курс за $15 вместо $47" },
         { time: "+46 ч", text: "«Осталось 2 часа»" },
-        { time: "+47 ч", text: "«Последний час»" },
         { time: "+72 ч", text: "Консультация и отзывы" },
       ],
       pay: {
-        title: "3 урока · программа «Алхимия»",
+        title: "Мини-курс · 3 урока",
         old: "$47",
         price: "$15",
         deadline: "ещё 47:59:12",
-        methods: ["PayPal", "₽ LavaTop", "€ LavaTop", "$ LavaTop"],
+        methods: ["Apple Pay", "Google Pay", "Карта", "PayPal"],
+        currencies: "₽ · € · $ · ₸ · и другие валюты",
         button: "Оплатить $15",
         done: "Оплата прошла, доступ открыт",
       },
@@ -262,18 +292,24 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
         items: ["Урок 1 · видео 18 мин", "Практика дыхания", "Трекер усталости · 20 вопросов"],
         quizQ: "Вопрос 7 из 32 · Как часто вы откладываете свои желания ради других?",
         quizA: ["Почти всегда", "Иногда", "Редко"],
+        protect: "Пересылка и сохранение запрещены",
       },
       crm: {
-        columns: ["Клиентка", "Статус", "Оплата"],
+        columns: ["Клиент", "Статус", "Оплата"],
         rows: [
           { name: "Анна М.", status: "В программе", tone: "#2f8a5b", paid: "$15" },
           { name: "Ольга Р.", status: "Ждёт оплату", tone: "#c98a1e", paid: "—" },
           { name: "Катя Л.", status: "Прошла", tone: "#5a6ee6", paid: "$15 + $99" },
           { name: "Ирина С.", status: "Новая", tone: "#888", paid: "—" },
         ],
+        chatWith: "Катя Л.",
+        chat: [
+          { from: "them", text: "Спасибо, урок огонь! А консультация будет?" },
+          { from: "me", text: "Да! Записала вас на четверг 🙌" },
+        ],
+        agent: "ИИ-агент ведёт базу",
         push: "Новая оплата · $15",
         pushSub: "Анна М. начала программу",
-        statuses: "6 статусов ставятся автоматически",
       },
     },
   },
@@ -406,86 +442,106 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
       label: "Auto-funnel · Instagram",
       slides: [
         {
-          tag: "Case · Alhimia Woman",
-          title: "A keyword under a Reel turns into a payment",
+          tag: "Instagram auto-funnel + Telegram bot, done for you",
+          title: "From Instagram to your Telegram channel and a bot that sells on its own",
           text:
-            "A funnel for a women's wellbeing expert: a follower comments one word, and from there DMs, a Telegram bot, warm-up, payment, the course and the CRM all run without the team.",
+            "I build auto-funnels for Instagram creators and experts: followers move from Reels to your Telegram channel, and a bot warms them up and sells your mini-products with no manual messaging.",
         },
         {
           tag: "Step 1 · Instagram",
-          title: "Comment the keyword, get a DM instantly",
+          title: "A follower comments a keyword under a Reel",
           text:
-            "Each Reel ends with a call to comment the keyword. ManyChat replies to the comment right away and sends a DM with a link to the Telegram bot. The comments boost reach too.",
+            "At the end of the video you ask people to comment a keyword. Every such comment starts the funnel and boosts the Reel's reach along the way.",
         },
         {
-          tag: "Step 2 · Telegram bot",
-          title: "The bot says hi and makes an offer 30 seconds later",
+          tag: "Step 2 · DMs",
+          title: "The agent replies by script and moves the chat to a Telegram bot",
           text:
-            "A welcome, a short story and the offer: three lessons for $15, but only for 48 hours. After that the price goes to $47. The deadline is real and tracked by the server.",
+            "The agent replies to the comment right away, follows your script in DMs, then hands over a link to the Telegram bot. No lead gets lost, even if the Reel takes off at night.",
         },
         {
-          tag: "Step 3 · Follow-ups",
-          title: "8 touches over 72 hours, each one on schedule",
+          tag: "Step 3 · Telegram channel",
+          title: "The bot invites people to your channel and gives a gift",
           text:
-            "A video note, a free practice, a client's story, \"2 hours left\" and \"last hour\" reminders, then a consultation offer. The chain starts at /start and stops the moment someone pays.",
+            "First, the bot invites people to your Telegram channel, checks they've joined and hands out a gift: a guide, a lesson or a practice. Your channel grows with the funnel.",
         },
         {
-          tag: "Step 4 · Payment",
-          title: "One-tap payment in three currencies",
+          tag: "Step 4 · Warm-up",
+          title: "8 touches over 72 hours: videos, stories, a deadline offer",
           text:
-            "PayPal and LavaTop in roubles, euros and dollars. A webhook confirms the payment, access opens instantly, and a lock makes sure no one is charged twice.",
+            "The bot walks people through a video funnel: video notes, a free practice, client stories, a discounted offer and reminders before the deadline. Once someone pays, the chain stops on its own.",
         },
         {
-          tag: "Step 5 · Product",
-          title: "The course lives right inside the bot",
+          tag: "Step 5 · Payment",
+          title: "One-click payment in any currency",
           text:
-            "A three-day program: scheduled lessons, practices, a 32-question test, a fatigue tracker and a 30-day PDF plan. After payment the bot offers a consultation, and asks for a review a day and a week later.",
+            "We connect the payment methods you need: Apple Pay, Google Pay, cards, PayPal and local providers. Payments are confirmed automatically and access opens instantly.",
         },
         {
-          tag: "Step 6 · CRM",
-          title: "A CRM with statuses and push alerts on iPhone",
+          tag: "Step 6 · Mini-product",
+          title: "The mini-product lives inside the bot, protected from copying",
           text:
-            "Every client in one CRM: chat, payments, test answers. Six statuses update themselves, broadcasts go out with media, and every payment pings the team by push and in Telegram.",
+            "Scheduled lessons, practices, tests and PDFs arrive in the bot. Content can't be forwarded or saved, so your product doesn't leak online.",
+        },
+        {
+          tag: "Step 7 · CRM",
+          title: "Every client in a CRM, with your own agent on top of the base",
+          text:
+            "Everyone who goes through the funnel lands in a CRM: chats, payments, statuses. Message clients right from there, send broadcasts to your base, or plug in an AI agent to run it for you.",
         },
       ],
+      steps: [
+        { icon: "ig", text: "Keyword under a Reel" },
+        { icon: "ig", text: "Agent replies in DMs by script" },
+        { icon: "tg", text: "Move to the Telegram bot" },
+        { icon: "tg", text: "Channel subscription and a gift" },
+        { icon: "tg", text: "Warm-up: 8 touches over 72 hours" },
+        { icon: "pay", text: "One-click payment" },
+        { icon: "tg", text: "Mini-product in the bot" },
+        { icon: "crm", text: "CRM and your client base" },
+      ],
+      handle: "your.blog",
       reel: {
-        caption: "Want your energy back? Comment \"Alchemy\" below ✨",
+        caption: "Want my guide? Comment \"GUIDE\" below 👇",
         comments: [
-          { author: "anna_m", text: "Alchemy" },
-          { author: "olga.yoga", text: "Alchemy 🙏" },
-          { author: "kate_life", text: "Alchemy!" },
+          { author: "anna_m", text: "GUIDE" },
+          { author: "olga.yoga", text: "GUIDE 🙏" },
+          { author: "kate_life", text: "Guide!" },
         ],
         replied: "Sent it to your DMs 💌",
       },
       dm: {
-        name: "Alhimia Woman",
+        name: "Your blog",
         msgs: [
-          { from: "them", text: "Alchemy" },
-          { from: "me", text: "Hi! Here's your access: it's all inside the Telegram bot, your first lesson is waiting 💛", buttons: ["Open in Telegram"] },
+          { from: "them", text: "GUIDE" },
+          { from: "me", text: "Hi! So glad it resonated 💛 Quick question: what matters more to you right now, energy or relationships?" },
+          { from: "them", text: "Energy" },
+          { from: "me", text: "Then here you go: the guide and a bonus lesson are waiting in the Telegram bot 👇", buttons: ["Open in Telegram"] },
         ],
       },
       bot: {
-        name: "Alhimia Woman · bot",
+        name: "Your blog · bot",
         msgs: [
           { from: "them", text: "/start" },
-          { from: "me", text: "Hi! So glad you're here. In 3 days you'll get your energy and footing back 🌿" },
-          { from: "me", text: "3 lessons for $15 instead of $47.\nThis price lasts 48 hours.", buttons: ["Get it for $15", "What's inside?"] },
+          { from: "me", text: "Hi! Join my channel and I'll send you a gift 🎁", buttons: ["Join the channel", "I've joined ✓"] },
+          { from: "me", text: "You're in, thank you! Here's your gift 👇", file: "Energy Back guide.pdf" },
         ],
       },
       chain: [
         { time: "+1 h", text: "Video note from the author" },
-        { time: "+5.5 h", text: "Gift: the \"Energy back\" practice" },
+        { time: "+5 h", text: "A free practice" },
         { time: "+13 h", text: "A client's story: screenshots and voice notes" },
+        { time: "+24 h", text: "Offer: mini-course for $15 instead of $47" },
         { time: "+46 h", text: "\"2 hours left\"" },
-        { time: "+47 h", text: "\"Last hour\"" },
         { time: "+72 h", text: "Consultation and reviews" },
       ],
       pay: {
-        title: "3 lessons · \"Alchemy\" program",
+        title: "Mini-course · 3 lessons",
         old: "$47",
         price: "$15",
         deadline: "47:59:12 left",
-        methods: ["PayPal", "₽ LavaTop", "€ LavaTop", "$ LavaTop"],
+        methods: ["Apple Pay", "Google Pay", "Card", "PayPal"],
+        currencies: "$ · € · £ · ₽ · and other currencies",
         button: "Pay $15",
         done: "Payment received, access open",
       },
@@ -494,6 +550,7 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
         items: ["Lesson 1 · 18 min video", "Breathing practice", "Fatigue tracker · 20 questions"],
         quizQ: "Question 7 of 32 · How often do you put your own wishes aside for others?",
         quizA: ["Almost always", "Sometimes", "Rarely"],
+        protect: "Forwarding and saving are disabled",
       },
       crm: {
         columns: ["Client", "Status", "Paid"],
@@ -503,9 +560,14 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
           { name: "Kate L.", status: "Completed", tone: "#5a6ee6", paid: "$15 + $99" },
           { name: "Irina S.", status: "New", tone: "#888", paid: "—" },
         ],
+        chatWith: "Kate L.",
+        chat: [
+          { from: "them", text: "Thank you, the lesson was amazing! Is there a consultation?" },
+          { from: "me", text: "Yes! You're booked for Thursday 🙌" },
+        ],
+        agent: "AI agent runs the base",
         push: "New payment · $15",
         pushSub: "Anna M. started the program",
-        statuses: "6 statuses set automatically",
       },
     },
   },
