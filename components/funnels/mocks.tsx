@@ -108,6 +108,9 @@ export function Bubble({ m, tone }: { m: Msg; tone: "ig" | "tg" | "threads" }) {
   );
 }
 
+// The funnel decks animate twice as fast as they were first built (Ildar, 2026-11-24: "too slow").
+const SPEED = 2;
+
 // Messages appear one by one while the slide is active (restart when it becomes active again).
 export function useStagger(active: boolean, count: number, stepMs = 900, startMs = 500) {
   const [shown, setShown] = useState(0);
@@ -120,7 +123,7 @@ export function useStagger(active: boolean, count: number, stepMs = 900, startMs
       setShown(count);
       return;
     }
-    const timers = Array.from({ length: count }, (_, i) => setTimeout(() => setShown(i + 1), startMs + i * stepMs));
+    const timers = Array.from({ length: count }, (_, i) => setTimeout(() => setShown(i + 1), (startMs + i * stepMs) / SPEED));
     return () => timers.forEach(clearTimeout);
   }, [active, count, stepMs, startMs]);
   return shown;
@@ -145,8 +148,8 @@ export function useTypewriter(active: boolean, text: string, delayMs = 700, cps 
         i += 1;
         setN(i);
         if (i >= text.length && iv) clearInterval(iv);
-      }, 1000 / cps);
-    }, delayMs);
+      }, 1000 / (cps * SPEED));
+    }, delayMs / SPEED);
     return () => {
       clearTimeout(start);
       if (iv) clearInterval(iv);
@@ -157,7 +160,7 @@ export function useTypewriter(active: boolean, text: string, delayMs = 700, cps 
 
 export function Appear({ show, children, style }: { show: boolean; children: React.ReactNode; style?: React.CSSProperties }) {
   return (
-    <div style={{ transition: "opacity 0.45s ease, transform 0.45s cubic-bezier(0.2,0.7,0.2,1)", opacity: show ? 1 : 0, transform: show ? "none" : "translateY(10px)", ...style }}>
+    <div style={{ transition: "opacity 0.25s ease, transform 0.25s cubic-bezier(0.2,0.7,0.2,1)", opacity: show ? 1 : 0, transform: show ? "none" : "translateY(10px)", ...style }}>
       {children}
     </div>
   );

@@ -187,3 +187,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .ag-in, .ag-step { animation: none; }
 }
+
+/* Funnel decks (Threads, Instagram + Telegram): reveal animations twice as fast as the Memcircle case. */
+.fast-deck .cs-slide[data-active="true"] .cs-in { animation-duration: 0.3s; animation-delay: calc(var(--d, 0s) / 2); }
+.fast-deck .cs-slide[data-active="true"] .cs-vis { animation-duration: 0.45s; }

@@ -395,6 +395,7 @@ export default function ThreadsFunnel({ lang }: { lang: Lang }) {
           <ThreadsLogo size={22} /> Threads
         </span>
       }
+      className="fast-deck"
       renderSlides={(active) => SLIDES.map((S, i) => <S key={i} active={i === active} t={f.threads} cta={f.cta} />)}
     />
   );

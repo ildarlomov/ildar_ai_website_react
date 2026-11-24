@@ -142,9 +142,10 @@ type DeckProps = {
   next: string;
   mark: React.ReactNode; // top-left: project / channel mark
   renderSlides: (active: number) => React.ReactNode[]; // one <Slide active={i === active}> per entry
+  className?: string; // e.g. "fast-deck" (globals.css) to speed up the reveal animations
 };
 
-export default function SlideDeck({ theme = LIGHT, label, prev, next, mark, renderSlides }: DeckProps) {
+export default function SlideDeck({ theme = LIGHT, label, prev, next, mark, renderSlides, className = "" }: DeckProps) {
   const track = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [heights, setHeights] = useState<number[]>([]);
@@ -190,7 +191,7 @@ export default function SlideDeck({ theme = LIGHT, label, prev, next, mark, rend
 
   return (
     <ThemeCtx.Provider value={theme}>
-      <div className="group relative" style={{ background: theme.pageBg, color: theme.fg }} role="region" aria-roledescription="carousel" aria-label={label}>
+      <div className={`group relative ${className}`} style={{ background: theme.pageBg, color: theme.fg }} role="region" aria-roledescription="carousel" aria-label={label}>
         <header className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between px-5 pt-7 md:px-14">
           <div className="pointer-events-auto">{mark}</div>
           <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.16em", textTransform: "uppercase", color: theme.fgMuted }}>{label}</span>

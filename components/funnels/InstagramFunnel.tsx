@@ -377,6 +377,7 @@ export default function InstagramFunnel({ lang }: { lang: Lang }) {
       prev={f.prev}
       next={f.next}
       mark={<Mark />}
+      className="fast-deck"
       renderSlides={(active) => SLIDES.map((S, i) => <S key={i} active={i === active} t={f.instagram} cta={f.cta} />)}
     />
   );
