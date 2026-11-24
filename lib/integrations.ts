@@ -19,7 +19,7 @@ export const MARKS: Record<string, Omit<IntegrationItem, "name">> = {
   "Context Whisper CRM": { mono: ["CW", "#b35d39"] },
   PayPal: { icon: "paypal" },
   Stripe: { icon: "stripe" },
-  "ЮKassa": { mono: ["Ю", "#0070F0"] },
+  "ЮKassa": { icon: "yookassa" }, // drawn in Integrations.tsx
   "Робокасса": { mono: ["R", "#00A0E3"] },
   Instagram: { icon: "instagram" },
   Threads: { icon: "threads" },
@@ -28,9 +28,9 @@ export const MARKS: Record<string, Omit<IntegrationItem, "name">> = {
   Telegram: { icon: "telegram" },
   WhatsApp: { icon: "whatsapp" },
   Messenger: { icon: "messenger" },
-  MAX: { mono: ["M", "#6D4AFF"] },
+  MAX: { icon: "max" }, // drawn in Integrations.tsx
   Claude: { icon: "claude" },
-  ChatGPT: { mono: ["G", "#10A37F"] },
+  ChatGPT: { icon: "openai" },
   DeepSeek: { icon: "deepseek" },
   Grok: { mono: ["Gk", "#111111"] },
   "WhatsApp Business API": { icon: "whatsapp" },
