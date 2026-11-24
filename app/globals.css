@@ -178,3 +178,12 @@ body {
   .cp-card, .cp-btn { animation: none; }
   .cp-logo, .cp-ring { animation: none; }
 }
+
+/* AI-agent page task gallery (components/AgentGallery.tsx) */
+@keyframes ag-progress { from { width: 0%; } to { width: 100%; } }
+@keyframes ag-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.ag-in { animation: ag-fade 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.ag-step { animation: ag-fade 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .ag-in, .ag-step { animation: none; }
+}

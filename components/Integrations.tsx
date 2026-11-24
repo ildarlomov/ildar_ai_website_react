@@ -45,6 +45,11 @@ function MaxMark() {
 // One service mark: the brand glyph on a light tint of its colour, or a monogram on the brand colour.
 function Mark({ name }: { name: string }) {
   const m = MARKS[name] ?? { mono: [name.slice(0, 1), "#8a8178"] as [string, string] };
+  if (m.img) {
+    // A full app icon (own background and corners): shown as is.
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={m.img} alt="" width={32} height={32} className="h-8 w-8 shrink-0 rounded-lg" />;
+  }
   if (m.icon === "yookassa" || m.icon === "max") {
     return (
       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: m.icon === "max" ? "#6D4AFF14" : "#0B6CFF14" }}>

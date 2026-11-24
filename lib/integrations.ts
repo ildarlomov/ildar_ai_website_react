@@ -7,7 +7,7 @@ import type { Lang } from "@/lib/content";
 
 // Each item is a name plus its mark: a simple-icons glyph (key of BRAND_ICONS) or, for brands not in
 // simple-icons, a short monogram on the brand colour.
-export type IntegrationItem = { name: string; icon?: string; mono?: [string, string] };
+export type IntegrationItem = { name: string; icon?: string; img?: string; mono?: [string, string] };
 export type IntegrationGroup = { title: string; items: IntegrationItem[] };
 
 // name -> mark, shared by both languages (unknown names get a neutral monogram).
@@ -16,7 +16,7 @@ export const MARKS: Record<string, Omit<IntegrationItem, "name">> = {
   Bitrix24: { mono: ["B24", "#2FC6F6"] },
   amoCRM: { mono: ["amo", "#1F7AF2"] },
   HubSpot: { icon: "hubspot" },
-  "Context Whisper CRM": { mono: ["CW", "#b35d39"] },
+  "Context Whisper CRM": { img: "/brands/context-whisper.svg" }, // the product's own app icon (context_whisper_crm/app/icon.svg)
   PayPal: { icon: "paypal" },
   Stripe: { icon: "stripe" },
   "ЮKassa": { icon: "yookassa" }, // drawn in Integrations.tsx

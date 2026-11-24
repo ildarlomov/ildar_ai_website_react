@@ -3,6 +3,7 @@ import { AI_AGENT } from "@/lib/aiAgent";
 import { AI_AGENT_PATH, LANG_PATH } from "@/lib/site";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import AgentGallery from "@/components/AgentGallery";
 
 // Offer page: personal AI agent setup consultation. Copy lives in lib/aiAgent.ts.
 // Same shell as every page: SiteHeader on top, SiteFooter (with the sitemap) at the bottom.
@@ -41,7 +42,7 @@ export default function AiAgentPage({ lang }: { lang: Lang }) {
       <SiteHeader lang={lang} switchHref={AI_AGENT_PATH} />
 
       <main>
-        {/* ───── hero (dark, full screen): offer + task pills on the left, the one price card on the right ───── */}
+        {/* ───── hero (dark, full screen): offer on the left, the one price card on the right ───── */}
         <section className={`relative isolate overflow-hidden pb-24 pt-28 md:pb-28 ${SCREEN} ${DARK}`}>
           <div
             className="pointer-events-none absolute -right-24 -top-24 -z-10 h-[620px] w-[760px] opacity-80"
@@ -53,14 +54,6 @@ export default function AiAgentPage({ lang }: { lang: Lang }) {
               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent-bright">{t.eyebrow}</p>
               <h1 className="font-display text-[2.1rem] font-bold leading-[1.08] sm:text-5xl lg:text-[3.4rem]">{t.title}</h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream/70">{t.lead}</p>
-              <p className="mt-8 text-xs font-semibold uppercase tracking-[0.16em] text-cream/60">{t.tasksLabel}</p>
-              <div className="mt-3 flex max-w-xl flex-wrap gap-2">
-                {t.tasks.map((x) => (
-                  <span key={x} className="rounded-full bg-white/[0.08] px-3.5 py-1.5 text-sm font-medium text-cream/85">
-                    {x}
-                  </span>
-                ))}
-              </div>
             </div>
 
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 backdrop-blur sm:p-8">
@@ -87,6 +80,17 @@ export default function AiAgentPage({ lang }: { lang: Lang }) {
               <a href={formHref} className="mt-3 block text-center text-xs font-medium text-cream/60 underline-offset-4 hover:text-cream hover:underline">
                 {t.price.ctaAlt}
               </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ───── what the agent can do (light, full screen): auto-advancing task gallery ───── */}
+        <section className={`${PANEL} bg-cream py-20 md:py-28 ${SCREEN}`}>
+          <div className={WRAP}>
+            <h2 className="font-display text-3xl font-bold leading-tight sm:text-5xl">{t.gallery.title}</h2>
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-2">{t.gallery.lead}</p>
+            <div className="mt-10">
+              <AgentGallery g={t.gallery} />
             </div>
           </div>
         </section>
