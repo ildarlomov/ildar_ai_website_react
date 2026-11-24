@@ -9,7 +9,7 @@ const W = 1440;
 const H = 1742;
 
 // variant "plate" = the small thumbnail + caption (was in the footer);
-// variant "large" = the diploma as a big, slightly tilted photo for the About section.
+// variant "large" = the diploma as a big, straight photo for the About section (no tilt — Ildar).
 export default function DiplomaPlate({ lang, variant = "plate" }: { lang: Lang; variant?: "plate" | "large" }) {
   const t = DICT[lang].plate;
   const [open, setOpen] = useState(false);
@@ -35,7 +35,7 @@ export default function DiplomaPlate({ lang, variant = "plate" }: { lang: Lang; 
         type="button"
         onClick={() => setOpen(true)}
         aria-label={`${t.alt} — ${t.hint}`}
-        className="group relative block w-full -rotate-2 cursor-zoom-in overflow-hidden rounded-2xl border border-white/15 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.45)] transition duration-300 hover:rotate-0 hover:scale-[1.02]"
+        className="group relative block w-full cursor-zoom-in overflow-hidden rounded-2xl border border-white/15 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.45)] transition duration-300 hover:scale-[1.02]"
       >
         <Image src="/diploma.jpg" alt={t.alt} width={W} height={H} sizes="(min-width: 768px) 420px, 90vw" className="h-auto w-full" />
         <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/20 group-hover:opacity-100">
