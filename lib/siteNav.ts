@@ -91,7 +91,7 @@ export function siteNav(lang: Lang) {
   return {
     // Header menu: 4 items + "Sitemap" (Ildar, 2026-11-24: hard cap 5, never add more).
     menu: [
-      { href: homeAnchor(lang, "cases"), label: t.nav.cases },
+      { href: homeAnchor(lang, "funnel-threads"), label: "Threads" }, // was «Кейсы» → Memcircle (Ildar, 2026-11-24)
       { href: homeAnchor(lang, "funnel-instagram"), label: FUNNELS[lang].nav }, // first funnel on the page
       { href: homeAnchor(lang, "services"), label: t.nav.services },
       { href: homeAnchor(lang, "about"), label: t.nav.about },
