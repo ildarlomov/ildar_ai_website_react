@@ -16,19 +16,20 @@ export type FunnelCopy = {
   cta: string;
   threads: {
     label: string;
-    slides: SlideText[]; // 7
-    stages: string[]; // intro pipeline, 6
+    slides: SlideText[]; // 8; the last one is the optional "send traffic anywhere" step
+    funnel: { label: string; value: string }[]; // intro funnel layers, widest first
     stats: { value: string; label: string }[];
     feed: { author: string; text: string; verdict: string; hit: boolean }[];
-    scanning: string;
     search: string;
     verdicts: { title: string; items: { text: string; verdict: string; kind: "direct" | "indirect" | "miss"; category?: string }[] };
     post: { author: string; time: string; text: string };
     reply: string;
     replyAuthor: string;
-    timeline: { time: string; text: string; tone: "act" | "hot" | "cold" }[];
+    gallery: string;
+    signals: { inTitle: string; in: string[]; brain: string; outTitle: string; out: string[]; channels: string[] };
     chat: { name: string; status: string; msgs: { from: "me" | "them"; text: string }[] };
     crm: { columns: { title: string; cards: { name: string; note: string; heat: number }[] }[]; call: string; callSub: string };
+    traffic: { center: string; targets: string[] };
   };
   instagram: {
     label: string;
@@ -53,55 +54,66 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
       label: "Автоворонка · Threads",
       slides: [
         {
-          tag: "Нейрокомментинг в Threads",
-          title: "Клиенты из Threads, пока я занят другим",
+          tag: "Нейрокомментинг · клиенты для вашего бизнеса",
+          title: "Система, которая приводит клиентов из Threads 24/7",
           text:
-            "ИИ сам находит людей, которые прямо сейчас ищут исполнителя, пишет им живой комментарий, переводит диалог в Telegram и ведёт переписку. Мне остаётся созвониться и закрыть сделку.",
+            "ИИ находит людей, которым прямо сейчас нужна ваша услуга, пишет им живой комментарий, переводит диалог в Telegram и ведёт переписку. Вам остаётся созвониться и закрыть сделку.",
         },
         {
-          tag: "Шаг 1 · Поиск",
-          title: "Расширение читает ленту каждые 15 минут",
+          tag: "Шаг 1 · ИИ-поиск",
+          title: "ИИ-агент сканирует Threads каждые 15 минут",
           text:
-            "Chrome-расширение листает ленту и поиск Threads от имени аккаунта, а сервер раз в полчаса запускает новый проход. Каждый свежий пост уходит на разбор.",
+            "Агент круглосуточно ищет свежие посты, где люди просят совета, ищут исполнителя или жалуются на задачу, которую решает ваш бизнес. Каждый новый пост сразу уходит на разбор.",
         },
         {
           tag: "Шаг 2 · Отбор",
-          title: "ИИ читает пост и решает, есть ли там клиент",
+          title: "Агент читает пост и решает, есть ли там клиент",
           text:
-            "Агент на Claude отличает прямой запрос («ищу разработчика бота») от косвенного («устала отвечать клиентам вручную») и от шума. Подходящий автор сразу попадает в CRM с категорией.",
+            "Агент отличает прямой запрос («ищу разработчика бота») от косвенного («устала отвечать клиентам вручную») и от шума. Подходящий автор сразу попадает в CRM с категорией.",
         },
         {
           tag: "Шаг 3 · Комментарий",
           title: "Живой комментарий под постом, без ссылок и спама",
           text:
-            "ИИ пишет коротко и по делу, от первого лица, под конкретную боль автора. Публичный комментарий не упирается в лимиты личных сообщений и выглядит как нормальный разговор.",
+            "ИИ пишет коротко и по делу, под конкретную боль автора. К комментарию можно прикрепить изображения или целую галерею с примерами работ. Выглядит как нормальный разговор, а не реклама.",
         },
         {
-          tag: "Шаг 4 · Второе касание",
-          title: "Максимум два касания, дальше система отпускает",
+          tag: "Шаг 4 · Сигналы интереса",
+          title: "Система ловит сигналы интереса и решает, что делать дальше",
           text:
-            "Через 30 минут второе касание и подписка. Ответил — лид становится горячим. Промолчал после двух касаний — сито само остужает его и убирает из работы.",
+            "Агент следит за реакцией потенциальных клиентов и сам выбирает следующий шаг: написать в личку, оставить комментарий, ответить на комментарий или написать в другом канале.",
         },
         {
           tag: "Шаг 5 · Telegram",
-          title: "Диалог переезжает в Telegram, ИИ ведёт его моим голосом",
+          title: "Диалог переезжает в Telegram и продолжается вашим голосом",
           text:
-            "В личке Threads ассистент уточняет задачу и один раз зовёт в Telegram. Там отвечает ИИ-персона в моём стиле: задаёт вопросы, объясняет, как работаю, договаривается о созвоне.",
+            "В личке агент уточняет задачу и один раз зовёт в Telegram. Там он ведёт клиента от вашего имени: задаёт вопросы, объясняет, как вы работаете, договаривается о созвоне.",
         },
         {
           tag: "Шаг 6 · CRM и дожим",
-          title: "Каждый лид в CRM, а мне звонят, когда пора",
+          title: "Каждый лид в CRM, а агент оповещает вас, когда лид квалифицирован",
           text:
-            "Каждое утро система мягко напоминает о себе тем, кто замолчал. Как только приходит толковый ответ, ИИ его классифицирует и мне прилетает звонок-алерт. Сделку закрываю я, остальное делает воронка.",
+            "Тем, кто замолчал, система мягко напоминает о себе по утрам. Как только лид готов к разговору, вам приходит оповещение. Вам остаётся созвониться и закрыть сделку.",
+        },
+        {
+          tag: "Шаг 7 · Опционально",
+          title: "Так же можно вести трафик куда угодно",
+          text:
+            "Вместо созвона агент может вести людей на ваш сайт, в Instagram, в Telegram-канал, на форму записи, конкретную услугу или анкету.",
         },
       ],
-      stages: ["Поиск постов", "ИИ-отбор", "Комментарий", "Второе касание", "Telegram + ИИ", "CRM и звонок"],
+      funnel: [
+        { label: "ИИ-поиск постов", value: "24/7" },
+        { label: "Отбор целевых", value: "" },
+        { label: "Касания", value: "500–10 000 / мес" },
+        { label: "Входящие", value: "2–5%" },
+        { label: "Созвоны и сделки", value: "" },
+      ],
       stats: [
-        { value: "3 100+", label: "касаний сделано автоматически" },
-        { value: "160+", label: "лидов ответили сами" },
+        { value: "500–10 000", label: "касаний в месяц, в зависимости от ниши" },
+        { value: "2–5%", label: "конверсия во входящие" },
         { value: "0", label: "ручных сообщений до созвона" },
       ],
-      scanning: "Сканирую ленту…",
       search: "ищу разработчика",
       feed: [
         { author: "marina.design", text: "Кто делал Telegram-бота для записи клиентов? Ищу исполнителя 🙏", verdict: "Запрос", hit: true },
@@ -122,17 +134,20 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
         time: "12 мин",
         text: "Кто делал Telegram-бота для записи клиентов? Хочу, чтобы бот сам предлагал время и напоминал. Ищу исполнителя 🙏",
       },
-      replyAuthor: "ildar.ai",
+      replyAuthor: "your.brand",
       reply:
-        "Делал такое для студии: бот показывает свободные окна, сам напоминает за день и за час, переносы тоже через него. Могу показать, как это выглядит изнутри",
-      timeline: [
-        { time: "0 мин", text: "Комментарий под постом", tone: "act" },
-        { time: "+30 мин", text: "Второе касание + подписка", tone: "act" },
-        { time: "Ответ", text: "Горячий лид → диалог", tone: "hot" },
-        { time: "Тишина", text: "Сито остужает, без спама", tone: "cold" },
-      ],
+        "Делали такое для студии: бот показывает свободные окна, сам напоминает за день и за час, переносы тоже через него. Вот как это выглядит 👇",
+      gallery: "Галерея · 3 фото",
+      signals: {
+        inTitle: "Сигналы интереса",
+        in: ["Ответ на комментарий", "Лайк", "Подписка в ответ", "Переход в профиль"],
+        brain: "Агент решает",
+        outTitle: "Следующий шаг",
+        out: ["Личное сообщение", "Комментарий", "Ответ на комментарий", "Сообщение в другом канале"],
+        channels: ["Threads", "Telegram", "WhatsApp", "Instagram"],
+      },
       chat: {
-        name: "Ильдар · ИИ-ассистент",
+        name: "От вашего имени",
         status: "онлайн",
         msgs: [
           { from: "them", text: "Привет! Это по боту для записи из Threads" },
@@ -147,8 +162,12 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
           { title: "Диалог", cards: [{ name: "marina.design", note: "Ответила · хочет созвон", heat: 5 }, { name: "olga.school", note: "Напоминание в 09:00", heat: 4 }] },
           { title: "Сделка", cards: [{ name: "fitness.lab", note: "Созвон завтра", heat: 5 }] },
         ],
-        call: "Входящий звонок",
-        callSub: "marina.design ответила по делу",
+        call: "Лид квалифицирован",
+        callSub: "marina.design готова к созвону",
+      },
+      traffic: {
+        center: "Threads",
+        targets: ["Ваш сайт", "Instagram", "Telegram-канал", "Форма записи", "Услуга", "Анкета"],
       },
     },
     instagram: {
@@ -267,55 +286,66 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
       label: "Auto-funnel · Threads",
       slides: [
         {
-          tag: "AI commenting on Threads",
-          title: "Clients from Threads while I'm busy with something else",
+          tag: "AI commenting · clients for your business",
+          title: "A system that brings you clients from Threads 24/7",
           text:
-            "AI finds people who are looking for a contractor right now, leaves them a genuine comment, moves the conversation to Telegram and keeps it going. All I do is take the call and close the deal.",
+            "AI finds people who need your service right now, leaves them a genuine comment, moves the conversation to Telegram and keeps it going. All you do is take the call and close the deal.",
         },
         {
-          tag: "Step 1 · Search",
-          title: "An extension reads the feed every 15 minutes",
+          tag: "Step 1 · AI search",
+          title: "An AI agent scans Threads every 15 minutes",
           text:
-            "A Chrome extension scrolls the Threads feed and search as the account, and the server kicks off a fresh pass every half hour. Every new post goes in for review.",
+            "Around the clock, the agent looks for fresh posts where people ask for advice, look for a contractor or complain about a problem your business solves. Every new post goes straight in for review.",
         },
         {
           tag: "Step 2 · Selection",
-          title: "AI reads each post and decides if there's a client in it",
+          title: "The agent reads each post and decides if there's a client in it",
           text:
-            "A Claude agent tells a direct request (\"looking for a bot developer\") from an indirect one (\"tired of answering clients by hand\") and from noise. A good match lands in the CRM with a category.",
+            "The agent tells a direct request (\"looking for a bot developer\") from an indirect one (\"tired of answering clients by hand\") and from noise. A good match lands in the CRM with a category.",
         },
         {
           tag: "Step 3 · Comment",
           title: "A real comment under the post, no links, no spam",
           text:
-            "AI writes a short, first-person reply aimed at the author's actual problem. A public comment doesn't hit DM limits and reads like a normal conversation.",
+            "AI writes a short reply aimed at the author's actual problem. You can attach images or a whole gallery of your work. It reads like a normal conversation, not an ad.",
         },
         {
-          tag: "Step 4 · Second touch",
-          title: "Two touches at most, then the system lets go",
+          tag: "Step 4 · Signals of interest",
+          title: "The system picks up signals of interest and decides what to do next",
           text:
-            "Thirty minutes later comes a second touch and a follow. A reply makes the lead hot. Silence after two touches, and the sieve cools the lead down and drops it.",
+            "The agent watches how potential clients react and picks the next step itself: a DM, a comment, a reply to a comment, or a message on another channel.",
         },
         {
           tag: "Step 5 · Telegram",
-          title: "The chat moves to Telegram, and AI keeps it going in my voice",
+          title: "The chat moves to Telegram and carries on in your voice",
           text:
-            "In Threads DMs the assistant clarifies the task and invites the person to Telegram once. There an AI persona in my style asks questions, explains how I work and books a call.",
+            "In DMs the agent clarifies the task and invites the person to Telegram once. There it talks to the client on your behalf: asks questions, explains how you work and books a call.",
         },
         {
           tag: "Step 6 · CRM & follow-ups",
-          title: "Every lead in the CRM, and my phone rings when it's time",
+          title: "Every lead in the CRM, and the agent alerts you once a lead is qualified",
           text:
-            "Every morning the system gently nudges leads who went quiet. As soon as a meaningful reply comes in, AI classifies it and I get a phone-call alert. I close the deal; the funnel does the rest.",
+            "Leads who went quiet get a gentle nudge in the morning. As soon as a lead is ready to talk, you get an alert. All you do is take the call and close the deal.",
+        },
+        {
+          tag: "Step 7 · Optional",
+          title: "Send the traffic anywhere you like",
+          text:
+            "Instead of a call, the agent can send people to your website, Instagram, Telegram channel, booking form, a specific service or a questionnaire.",
         },
       ],
-      stages: ["Find posts", "AI selection", "Comment", "Second touch", "Telegram + AI", "CRM & call"],
+      funnel: [
+        { label: "AI post search", value: "24/7" },
+        { label: "Target posts", value: "" },
+        { label: "Touches", value: "500–10,000 / mo" },
+        { label: "Inbound", value: "2–5%" },
+        { label: "Calls & deals", value: "" },
+      ],
       stats: [
-        { value: "3,100+", label: "touches made automatically" },
-        { value: "160+", label: "leads replied on their own" },
+        { value: "500–10,000", label: "touches a month, depending on the niche" },
+        { value: "2–5%", label: "conversion to inbound" },
         { value: "0", label: "manual messages before the call" },
       ],
-      scanning: "Scanning the feed…",
       search: "looking for a developer",
       feed: [
         { author: "marina.design", text: "Has anyone built a Telegram booking bot? Looking for someone 🙏", verdict: "Request", hit: true },
@@ -336,17 +366,20 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
         time: "12m",
         text: "Has anyone built a Telegram booking bot? I want it to offer times and send reminders on its own. Looking for someone 🙏",
       },
-      replyAuthor: "ildar.ai",
+      replyAuthor: "your.brand",
       reply:
-        "Built exactly that for a studio: the bot shows free slots, reminds clients a day and an hour before, and handles reschedules too. Happy to show you how it looks inside",
-      timeline: [
-        { time: "0 min", text: "Comment under the post", tone: "act" },
-        { time: "+30 min", text: "Second touch + follow", tone: "act" },
-        { time: "Reply", text: "Hot lead → conversation", tone: "hot" },
-        { time: "Silence", text: "Sieve cools it down, no spam", tone: "cold" },
-      ],
+        "We built exactly that for a studio: the bot shows free slots, reminds clients a day and an hour before, and handles reschedules too. Here's how it looks 👇",
+      gallery: "Gallery · 3 photos",
+      signals: {
+        inTitle: "Signals of interest",
+        in: ["Reply to a comment", "Like", "Follow-back", "Profile visit"],
+        brain: "Agent decides",
+        outTitle: "Next step",
+        out: ["Direct message", "Comment", "Reply to a comment", "Message on another channel"],
+        channels: ["Threads", "Telegram", "WhatsApp", "Instagram"],
+      },
       chat: {
-        name: "Ildar · AI assistant",
+        name: "On your behalf",
         status: "online",
         msgs: [
           { from: "them", text: "Hi! It's about the booking bot from Threads" },
@@ -361,8 +394,12 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
           { title: "Talking", cards: [{ name: "marina.design", note: "Replied · wants a call", heat: 5 }, { name: "olga.school", note: "Nudge at 9:00", heat: 4 }] },
           { title: "Deal", cards: [{ name: "fitness.lab", note: "Call tomorrow", heat: 5 }] },
         ],
-        call: "Incoming call",
-        callSub: "marina.design replied with intent",
+        call: "Lead qualified",
+        callSub: "marina.design is ready for a call",
+      },
+      traffic: {
+        center: "Threads",
+        targets: ["Your website", "Instagram", "Telegram channel", "Booking form", "A service", "Questionnaire"],
       },
     },
     instagram: {

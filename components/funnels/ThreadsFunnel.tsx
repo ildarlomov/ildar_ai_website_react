@@ -1,7 +1,8 @@
 "use client";
 
-// Threads auto-funnel ("AI commenting") deck: search → AI selection → comment → second touch →
-// Telegram + AI assistant → CRM + call alert. Dark deck, Threads-style mock-ups.
+// Threads auto-funnel ("AI commenting") deck: AI search → selection → comment → signals of interest →
+// Telegram in the client's voice → CRM + qualified-lead alert → (optional) traffic anywhere.
+// Public copy: no implementation details (no extension, feed, model names). Dark deck.
 
 import React from "react";
 import type { Lang } from "@/lib/content";
@@ -31,7 +32,8 @@ export function CtaPill({ children }: { children: React.ReactNode }) {
 /* ───────── 0 · intro: the pipeline ───────── */
 
 function IntroSlide({ active, t, cta }: P) {
-  const shown = useStagger(active, t.stages.length, 260, 400);
+  const shown = useStagger(active, t.funnel.length, 220, 400);
+  const n = t.funnel.length;
   return (
     <Slide active={active} bg={HERO_BG}>
       <div className={split}>
@@ -41,21 +43,29 @@ function IntroSlide({ active, t, cta }: P) {
           </div>
         </TextBlock>
         <div className="cs-in cs-vis" style={d(0.25)}>
-          <div style={{ ...PANEL, padding: "22px 22px 18px" }}>
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-              {t.stages.map((s, i) => (
-                <Appear key={s} show={i < shown}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 12px", borderRadius: 14, background: i === t.stages.length - 1 ? "rgba(196,106,68,0.16)" : "rgba(255,255,255,0.05)", border: `1px solid ${i === t.stages.length - 1 ? "rgba(201,118,83,0.45)" : LINE}` }}>
-                    <span style={{ fontFamily: FD, fontSize: 13, fontWeight: 600, color: ACC, minWidth: 18 }}>{String(i + 1).padStart(2, "0")}</span>
-                    <span style={{ fontSize: 13.5, fontWeight: 500, lineHeight: 1.25 }}>{s}</span>
+          <div style={{ ...PANEL, padding: "26px 20px 20px" }}>
+            {/* the funnel: each layer narrower than the one above, warming up towards the deal */}
+            <div style={{ display: "grid", gap: 6, justifyItems: "center" }}>
+              {t.funnel.map((f, i) => (
+                <Appear key={f.label} show={i < shown} style={{ width: `${100 - i * (56 / (n - 1))}%` }}>
+                  <div
+                    style={{
+                      display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, height: 50, padding: "0 16px",
+                      borderRadius: i === n - 1 ? "10px 10px 22px 22px" : 10,
+                      background: `linear-gradient(90deg, rgba(196,106,68,${0.1 + i * 0.13}), rgba(201,118,83,${0.18 + i * 0.16}))`,
+                      border: `1px solid rgba(201,118,83,${0.25 + i * 0.12})`,
+                    }}
+                  >
+                    <span style={{ fontSize: 13.5, fontWeight: 600, lineHeight: 1.2, minWidth: 0 }}>{f.label}</span>
+                    {f.value && <span style={{ fontFamily: FD, fontSize: 13.5, fontWeight: 600, whiteSpace: "nowrap", color: i >= 3 ? "#fff" : ACC }}>{f.value}</span>}
                   </div>
                 </Appear>
               ))}
             </div>
-            <div className="mt-5 grid grid-cols-3 gap-3 border-t pt-5" style={{ borderColor: LINE }}>
+            <div className="mt-6 grid grid-cols-3 gap-3 border-t pt-5" style={{ borderColor: LINE }}>
               {t.stats.map((s) => (
-                <div key={s.label}>
-                  <div style={{ fontFamily: FD, fontSize: "clamp(24px, 3vw, 34px)", fontWeight: 600, letterSpacing: "-0.02em" }}>{s.value}</div>
+                <div key={s.label} style={{ minWidth: 0 }}>
+                  <div style={{ fontFamily: FD, fontSize: "clamp(19px, 2.3vw, 28px)", fontWeight: 600, letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>{s.value}</div>
                   <div style={{ fontSize: 12, lineHeight: 1.35, color: DARK.fgMuted, marginTop: 4 }}>{s.label}</div>
                 </div>
               ))}
@@ -101,7 +111,6 @@ function SearchSlide({ active, t }: P) {
               ))}
               <div className="cs-scan" style={{ position: "absolute", left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${ACC}, transparent)`, boxShadow: `0 0 18px ${ACC}` }} />
             </div>
-            <div style={{ padding: "8px 14px 14px", fontSize: 11, color: "#999" }}>{t.scanning}</div>
           </Phone>
         </div>
       </div>
@@ -125,7 +134,7 @@ function SelectSlide({ active, t }: P) {
         <TextBlock s={t.slides[2]} />
         <div className="cs-in cs-vis" style={{ ...PANEL, padding: 22, ...d(0.25) }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: DARK.fgMuted, marginBottom: 14 }}>
-            <span className="cs-rec" style={{ width: 7, height: 7, borderRadius: 99, background: ACC }} /> {t.verdicts.title} · Claude
+            <span className="cs-rec" style={{ width: 7, height: 7, borderRadius: 99, background: ACC }} /> {t.verdicts.title}
           </div>
           <div style={{ display: "grid", gap: 10 }}>
             {t.verdicts.items.map((it, i) => {
@@ -149,6 +158,13 @@ function SelectSlide({ active, t }: P) {
 
 /* ───────── 3 · the comment ───────── */
 
+// Fake screenshots of "your work" attached to the comment.
+const GALLERY = [
+  "linear-gradient(160deg, #3a6df0, #7aa2ff)",
+  "linear-gradient(160deg, #e8855c, #f3b38f)",
+  "linear-gradient(160deg, #2f8a5b, #6fcf9b)",
+];
+
 function CommentSlide({ active, t }: P) {
   const typed = useTypewriter(active, t.reply, 900, 45);
   const done = typed.length === t.reply.length;
@@ -171,13 +187,26 @@ function CommentSlide({ active, t }: P) {
             </div>
           </div>
           <div style={{ display: "flex", gap: 12 }}>
-            <span style={{ width: 36, display: "flex", justifyContent: "center" }}><Ava name="Ildar Lomov" size={30} ring={ACC} /></span>
+            <span style={{ width: 36, display: "flex", justifyContent: "center" }}><Ava name="Your Brand" size={30} ring={ACC} /></span>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontSize: 14, fontWeight: 600 }}>{t.replyAuthor} <span style={{ fontWeight: 400, color: "#8a8a8a", marginLeft: 6 }}>{done ? "1m" : "…"}</span></div>
-              <div style={{ fontSize: 14.5, lineHeight: 1.5, marginTop: 4, color: "#eaeaea", minHeight: 88 }}>
+              <div style={{ fontSize: 14.5, lineHeight: 1.5, marginTop: 4, color: "#eaeaea", minHeight: 66 }}>
                 {typed}
                 {!done && <span className="cs-blink" style={{ display: "inline-block", width: 2, height: 15, background: ACC, marginLeft: 2, verticalAlign: "middle" }} />}
               </div>
+              {/* attached gallery: appears once the text is typed */}
+              <Appear show={done} style={{ marginTop: 10 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 6 }} aria-label={t.gallery}>
+                  {GALLERY.map((g, i) => (
+                    <div key={i} style={{ aspectRatio: "3 / 4", borderRadius: 10, background: g, border: "1px solid rgba(255,255,255,0.08)", position: "relative", overflow: "hidden" }}>
+                      <span style={{ position: "absolute", left: "14%", right: "14%", top: "16%", height: "34%", borderRadius: 6, background: "rgba(255,255,255,0.55)" }} />
+                      <span style={{ position: "absolute", left: "14%", width: "50%", top: "58%", height: 5, borderRadius: 3, background: "rgba(255,255,255,0.7)" }} />
+                      <span style={{ position: "absolute", left: "14%", width: "34%", top: "66%", height: 5, borderRadius: 3, background: "rgba(255,255,255,0.45)" }} />
+                    </div>
+                  ))}
+                </div>
+                <div style={{ fontSize: 11.5, color: "#8a8a8a", marginTop: 6 }}>🖼 {t.gallery}</div>
+              </Appear>
             </div>
           </div>
         </div>
@@ -186,29 +215,46 @@ function CommentSlide({ active, t }: P) {
   );
 }
 
-/* ───────── 4 · second touch + sieve ───────── */
+/* ───────── 4 · signals of interest → agent decides → next step ───────── */
 
-const TONE = { act: ACC, hot: "#5fd3a5", cold: "rgba(246,239,230,0.4)" };
+function Chip({ children, hot = false }: { children: React.ReactNode; hot?: boolean }) {
+  return (
+    <div style={{ padding: "9px 12px", borderRadius: 12, fontSize: 13, lineHeight: 1.3, background: hot ? "rgba(196,106,68,0.16)" : "rgba(255,255,255,0.05)", border: `1px solid ${hot ? "rgba(201,118,83,0.45)" : LINE}` }}>
+      {children}
+    </div>
+  );
+}
 
-function TouchSlide({ active, t }: P) {
-  const shown = useStagger(active, t.timeline.length, 600, 500);
+function SignalsSlide({ active, t }: P) {
+  const sg = t.signals;
+  const shown = useStagger(active, 3, 700, 500);
+  const head: React.CSSProperties = { fontSize: 11, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: DARK.fgMuted, marginBottom: 10 };
   return (
     <Slide active={active}>
       <div className={split}>
         <TextBlock s={t.slides[4]} />
-        <div className="cs-in cs-vis mx-auto w-full max-w-[520px]" style={{ ...PANEL, padding: "26px 24px", ...d(0.25) }}>
-          {t.timeline.map((s, i) => (
-            <Appear key={s.time} show={i < shown}>
-              <div style={{ display: "grid", gridTemplateColumns: "92px 22px 1fr", alignItems: "stretch", minHeight: 64 }}>
-                <span style={{ fontFamily: FD, fontSize: 15, fontWeight: 600, paddingTop: 1, color: s.tone === "cold" ? DARK.fgMuted : DARK.fg }}>{s.time}</span>
-                <span style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <span style={{ width: 12, height: 12, borderRadius: 99, marginTop: 4, background: TONE[s.tone], boxShadow: s.tone === "hot" ? "0 0 0 5px rgba(95,211,165,0.18)" : undefined }} />
-                  {i < t.timeline.length - 1 && <span style={{ flex: 1, width: 2, background: LINE, marginTop: 6 }} />}
-                </span>
-                <span style={{ fontSize: 15, lineHeight: 1.4, paddingLeft: 8, color: s.tone === "cold" ? DARK.fgMuted : DARK.fg }}>{s.text}</span>
+        <div className="cs-in cs-vis" style={{ ...PANEL, padding: 20, ...d(0.25) }}>
+          <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-4 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
+            <Appear show={shown >= 1}>
+              <div style={head}>{sg.inTitle}</div>
+              <div style={{ display: "grid", gap: 6 }}>{sg.in.map((x) => <Chip key={x}>{x}</Chip>)}</div>
+            </Appear>
+            <Appear show={shown >= 2} style={{ display: "flex", justifyContent: "center" }}>
+              <div style={{ position: "relative", width: 92, height: 92, borderRadius: 999, display: "grid", placeItems: "center", textAlign: "center", background: "radial-gradient(circle, rgba(201,118,83,0.35), rgba(201,118,83,0.08))", border: "1px solid rgba(201,118,83,0.5)" }}>
+                <span className="cs-ring" style={{ position: "absolute", inset: -3, borderRadius: 999, border: `1px solid ${ACC}` }} />
+                <span style={{ fontSize: 12, fontWeight: 700, lineHeight: 1.25, padding: 8 }}>{sg.brain}</span>
               </div>
             </Appear>
-          ))}
+            <Appear show={shown >= 3}>
+              <div style={head}>{sg.outTitle}</div>
+              <div style={{ display: "grid", gap: 6 }}>{sg.out.map((x, i) => <Chip key={x} hot={i === 0}>{x}</Chip>)}</div>
+            </Appear>
+          </div>
+          <Appear show={shown >= 3} style={{ marginTop: 16, paddingTop: 14, borderTop: `1px solid ${LINE}`, display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {sg.channels.map((c) => (
+              <span key={c} style={{ fontSize: 12, fontWeight: 600, padding: "5px 11px", borderRadius: 999, background: "rgba(255,255,255,0.06)", color: DARK.fgBody }}>{c}</span>
+            ))}
+          </Appear>
         </div>
       </div>
     </Slide>
@@ -226,7 +272,7 @@ function TelegramSlide({ active, t }: P) {
         <div className="cs-in cs-vis flex justify-center" style={d(0.25)}>
           <Phone width={290}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "4px 14px 10px", borderBottom: "1px solid #eee" }}>
-              <Ava name="Ildar Lomov" size={32} />
+              <Ava name="Your Brand" size={32} />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 13.5, fontWeight: 600 }}>{t.chat.name}</div>
                 <div style={{ fontSize: 11, color: "#2AABEE" }}>{t.chat.status}</div>
@@ -259,15 +305,11 @@ function Heat({ n }: { n: number }) {
   );
 }
 
-function CrmSlide({ active, t, cta }: P) {
+function CrmSlide({ active, t }: P) {
   return (
-    <Slide active={active} bg={HERO_BG}>
+    <Slide active={active}>
       <div className={split}>
-        <TextBlock s={t.slides[6]}>
-          <div className="cs-in mt-8" style={d(0.34)}>
-            <CtaPill>{cta}</CtaPill>
-          </div>
-        </TextBlock>
+        <TextBlock s={t.slides[6]} />
         <div className="cs-in cs-vis relative pb-16 sm:pb-10" style={d(0.25)}>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3" style={{ ...PANEL, padding: 14 }}>
             {t.crm.columns.map((col, ci) => (
@@ -305,7 +347,40 @@ function CrmSlide({ active, t, cta }: P) {
   );
 }
 
-const SLIDES = [IntroSlide, SearchSlide, SelectSlide, CommentSlide, TouchSlide, TelegramSlide, CrmSlide];
+/* ───────── 7 · optional: send the traffic anywhere ───────── */
+
+function TrafficSlide({ active, t, cta }: P) {
+  const shown = useStagger(active, t.traffic.targets.length, 160, 500);
+  return (
+    <Slide active={active} bg={HERO_BG}>
+      <div className={split}>
+        <TextBlock s={t.slides[7]}>
+          <div className="cs-in mt-8" style={d(0.34)}>
+            <CtaPill>{cta}</CtaPill>
+          </div>
+        </TextBlock>
+        <div className="cs-in cs-vis" style={{ ...PANEL, padding: "26px 20px", ...d(0.25) }}>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 18px", borderRadius: 999, background: "#f6efe6", color: "#171514", fontWeight: 700, fontSize: 14 }}>
+              <ThreadsLogo size={18} /> {t.traffic.center}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+            {t.traffic.targets.map((x, i) => (
+              <Appear key={x} show={i < shown}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 12px", borderRadius: 14, background: "rgba(255,255,255,0.05)", border: `1px solid ${LINE}`, fontSize: 13.5, fontWeight: 500 }}>
+                  <span style={{ color: ACC }}><Arrow size={14} /></span> {x}
+                </div>
+              </Appear>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Slide>
+  );
+}
+
+const SLIDES = [IntroSlide, SearchSlide, SelectSlide, CommentSlide, SignalsSlide, TelegramSlide, CrmSlide, TrafficSlide];
 
 export default function ThreadsFunnel({ lang }: { lang: Lang }) {
   const f = FUNNELS[lang];
