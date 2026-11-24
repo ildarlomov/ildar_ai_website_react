@@ -49,10 +49,11 @@ const L = {
     featured: {
       instagram: ["Автоворонка Instagram + Telegram", "Ключевое слово под Reels → бот → оплата"],
       threads: ["Автоворонка Threads", "ИИ находит клиентов и пишет им 24/7"],
-      memcircle: ["Кейс Memcircle", "AI-рекордер встреч на всех платформах"],
-      agent: ["Персональный ИИ-агент", "Настрою под ключ за 1–2 созвона · 400 €"],
+      memcircle: ["ИИ-ассистент для встреч", "Кейс Memcircle: запись, расшифровка и задачи"],
+      agent: ["Персональный ИИ-агент", "Настрою под ключ на Claude или ChatGPT"],
     },
     moreTitle: "Страницы",
+    featuredTitle: "Главное",
   },
   en: {
     sitemap: "Sitemap",
@@ -76,10 +77,11 @@ const L = {
     featured: {
       instagram: ["Instagram + Telegram auto-funnel", "Keyword under a Reel → bot → payment"],
       threads: ["Threads auto-funnel", "AI finds clients and messages them 24/7"],
-      memcircle: ["Memcircle case", "An AI meeting recorder on every platform"],
-      agent: ["Personal AI agent", "Done-for-you setup in 1–2 calls · €400"],
+      memcircle: ["AI meeting assistant", "Memcircle case: recording, transcript and tasks"],
+      agent: ["Personal AI agent", "Done-for-you setup on Claude or ChatGPT"],
     },
     moreTitle: "Pages",
+    featuredTitle: "Highlights",
   },
 } as const;
 
@@ -95,7 +97,7 @@ export function siteNav(lang: Lang) {
       { href: homeAnchor(lang, "about"), label: t.nav.about },
     ] as NavLink[],
     contact: homeAnchor(lang, "contact"),
-    labels: { search: l.search, nothing: l.nothing, sitemap: l.sitemap, menuMobile: l.menuMobile, close: l.close, cta: t.cta, homeTitle: l.homeTitle, pagesTitle: l.pagesTitle, moreTitle: l.moreTitle },
+    labels: { search: l.search, nothing: l.nothing, sitemap: l.sitemap, menuMobile: l.menuMobile, close: l.close, cta: t.cta, homeTitle: l.homeTitle, pagesTitle: l.pagesTitle, moreTitle: l.moreTitle, featuredTitle: l.featuredTitle },
     // Header "Sitemap" panel: four big tiles for the main things, then the rest as pills.
     featured: [
       { key: "instagram", href: homeAnchor(lang, "funnel-instagram"), label: l.featured.instagram[0], desc: l.featured.instagram[1], keys: KEYS["funnel-instagram"] },

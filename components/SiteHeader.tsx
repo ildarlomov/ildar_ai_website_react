@@ -6,21 +6,27 @@ import { LANG_COOKIE } from "@/lib/site";
 import { siteNav } from "@/lib/siteNav";
 import { InstagramLogo, TelegramLogo, ThreadsLogo } from "@/components/funnels/mocks";
 import { MemcircleGlyph } from "@/components/memcircle/MemcircleGlyph";
+import { BRAND_ICONS } from "@/lib/brandIcons";
 
-// Sitemap tiles wear their section's colours (rosy Instagram, dark Threads, sand Memcircle, accent agent).
+// Sitemap tiles: one warm dark family (graphite, plum-brown, black) plus the terracotta accent for
+// the AI-agent page, so the four read as a set; the platform logos bring the colour.
+const DISC = "flex h-7 w-7 items-center justify-center rounded-full bg-white";
 const TILE = {
-  instagram: { bg: "#f8e7e3", fg: "#1a1a1a", ring: "", icon: <><InstagramLogo size={22} /><TelegramLogo size={22} /></> },
-  threads: { bg: "#000000", fg: "#f6efe6", ring: "rgba(255,255,255,0.16)", icon: <ThreadsLogo size={22} color="#f6efe6" /> },
-  memcircle: { bg: "#f6e3cf", fg: "#1a1a1a", ring: "", icon: <MemcircleGlyph size={24} color="#1a1a1a" /> },
+  instagram: { bg: "#3a2622", fg: "#f6efe6", icon: <><InstagramLogo size={24} /><TelegramLogo size={24} /></> },
+  threads: { bg: "#0d0c0b", fg: "#f6efe6", icon: <ThreadsLogo size={22} color="#f6efe6" /> },
+  memcircle: { bg: "#2b2724", fg: "#f6efe6", icon: <MemcircleGlyph size={24} color="#f6efe6" /> },
   agent: {
     bg: "#b35d39",
     fg: "#ffffff",
-    ring: "",
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z" />
-        <path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z" />
-      </svg>
+      <>
+        <span className={DISC}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill={BRAND_ICONS.claude.hex} aria-hidden="true"><path d={BRAND_ICONS.claude.path} /></svg>
+        </span>
+        <span className={DISC}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#000000" aria-hidden="true"><path d={BRAND_ICONS.openai.path} /></svg>
+        </span>
+      </>
     ),
   },
 } as const;
@@ -164,6 +170,8 @@ export default function SiteHeader({ lang, switchHref }: { lang: Lang; switchHre
         </label>
 
         {featured.length > 0 && (
+        <>
+        <p className="mb-3 px-1 text-xs font-semibold uppercase tracking-[0.16em] text-cream/60">{nav.labels.featuredTitle}</p>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {featured.map((f) => {
             const tone = TILE[f.key];
@@ -172,9 +180,9 @@ export default function SiteHeader({ lang, switchHref }: { lang: Lang; switchHre
                 key={f.key}
                 href={f.href}
                 onClick={close}
-                // phones: compact rows (icon left); sm+: tall tiles
-                className="group flex items-center gap-3 rounded-2xl p-3.5 transition hover:-translate-y-0.5 sm:min-h-[9.5rem] sm:flex-col sm:items-start sm:justify-between sm:p-4"
-                style={{ background: tone.bg, color: tone.fg, boxShadow: tone.ring ? `inset 0 0 0 1px ${tone.ring}` : undefined }}
+                // phones: compact rows (icon left); sm+: tiles with the text right under the icons (top-aligned)
+                className="group flex items-center gap-3 rounded-2xl p-3.5 ring-1 ring-inset ring-white/10 transition hover:-translate-y-0.5 sm:min-h-[9.5rem] sm:flex-col sm:items-start sm:p-4"
+                style={{ background: tone.bg, color: tone.fg }}
               >
                 <span className="flex shrink-0 items-center gap-1.5">{tone.icon}</span>
                 <span>
@@ -185,6 +193,7 @@ export default function SiteHeader({ lang, switchHref }: { lang: Lang; switchHre
             );
           })}
         </div>
+        </>
         )}
 
         {featured.length === 0 && more.length === 0 && (
