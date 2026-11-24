@@ -3,12 +3,16 @@
 import type { Lang } from "@/lib/content";
 import { DICT, FACTS } from "@/lib/content";
 import { siteNav } from "@/lib/siteNav";
+import { PRIVACY_PATH } from "@/lib/site";
 import DiplomaPlate from "@/components/DiplomaPlate";
 
-// One footer for every page: identity + diploma plate + address, then the sitemap (home sections
-// and pages), then the copyright line. It is a stacked panel: overlaps the section above it.
+// One footer for every page: the original landing footer (identity + diploma plate + address,
+// copyright + privacy link) with the sitemap (home sections and pages) added above the copyright.
+// It is a stacked panel: overlaps the section above it.
 
+// PANEL and DARK copied verbatim from components/Landing.tsx (the original footer's classes).
 const PANEL = "relative -mt-10 rounded-t-[2.5rem] md:-mt-12 md:rounded-t-[3.5rem]";
+const DARK = "bg-[#171514] text-cream [--color-accent-ink:var(--color-accent-bright)]";
 
 export default function SiteFooter({ lang }: { lang: Lang }) {
   const t = DICT[lang];
@@ -17,7 +21,7 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
   const link = "text-sm text-cream/65 transition hover:text-cream";
 
   return (
-    <footer className={`${PANEL} bg-[#171514] py-12 text-cream [--color-accent-ink:var(--color-accent-bright)]`}>
+    <footer className={`${PANEL} ${DARK} py-12`}>
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 md:flex-row md:items-center md:justify-between">
         <div>
           <p className="font-display text-xl font-bold">
@@ -61,7 +65,10 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
       </nav>
 
       <p className="mx-auto mt-10 max-w-6xl px-5 text-xs text-cream/60">
-        © {new Date().getFullYear()} Ildar Lomov. {t.footer.rights}
+        © {new Date().getFullYear()} Ildar Lomov. {t.footer.rights}{" "}
+        <a href={PRIVACY_PATH[lang]} className="underline underline-offset-2 hover:text-cream">
+          {t.footer.privacy}
+        </a>
       </p>
     </footer>
   );

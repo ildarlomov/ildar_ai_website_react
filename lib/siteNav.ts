@@ -2,7 +2,8 @@
 // "Sitemap" panel and the footer both print. Home sections are anchors on the home page of the
 // current language; pages are separate routes.
 
-import type { Lang } from "@/lib/content";
+import { DICT, type Lang } from "@/lib/content";
+import { FUNNELS } from "@/lib/funnels";
 import { AI_AGENT_PATH, LANG_PATH, PRIVACY_PATH } from "@/lib/site";
 
 export type NavLink = { href: string; label: string };
@@ -12,11 +13,9 @@ const homeAnchor = (lang: Lang, id: string) => `${lang === "en" ? "/" : "/ru"}#$
 
 const L = {
   ru: {
-    menu: { funnels: "Воронки", cases: "Кейсы", services: "Услуги", about: "Обо мне" },
     sitemap: "Карта сайта",
     menuMobile: "Меню",
     close: "Закрыть",
-    cta: "Связаться",
     homeTitle: "Главная",
     pagesTitle: "Страницы",
     home: [
@@ -32,11 +31,9 @@ const L = {
     pages: { home: "Главная", agent: "Настройка ИИ-агента · консультация", privacy: "Политика конфиденциальности" },
   },
   en: {
-    menu: { funnels: "Funnels", cases: "Cases", services: "Services", about: "About" },
     sitemap: "Sitemap",
     menuMobile: "Menu",
     close: "Close",
-    cta: "Get in touch",
     homeTitle: "Home",
     pagesTitle: "Pages",
     home: [
@@ -55,16 +52,17 @@ const L = {
 
 export function siteNav(lang: Lang) {
   const l = L[lang];
+  const t = DICT[lang]; // menu + CTA labels come from the landing's own copy (same as the original header)
   return {
     // Header menu: 4 items + "Sitemap" (Ildar, 2026-11-24: hard cap 5, never add more).
     menu: [
-      { href: homeAnchor(lang, "cases"), label: l.menu.cases },
-      { href: homeAnchor(lang, "funnels"), label: l.menu.funnels },
-      { href: homeAnchor(lang, "services"), label: l.menu.services },
-      { href: homeAnchor(lang, "about"), label: l.menu.about },
+      { href: homeAnchor(lang, "cases"), label: t.nav.cases },
+      { href: homeAnchor(lang, "funnels"), label: FUNNELS[lang].nav },
+      { href: homeAnchor(lang, "services"), label: t.nav.services },
+      { href: homeAnchor(lang, "about"), label: t.nav.about },
     ] as NavLink[],
     contact: homeAnchor(lang, "contact"),
-    labels: { sitemap: l.sitemap, menuMobile: l.menuMobile, close: l.close, cta: l.cta, homeTitle: l.homeTitle, pagesTitle: l.pagesTitle },
+    labels: { sitemap: l.sitemap, menuMobile: l.menuMobile, close: l.close, cta: t.cta, homeTitle: l.homeTitle, pagesTitle: l.pagesTitle },
     // Sitemap groups, printed in the header panel and the footer.
     sections: l.home.map(([id, label]) => ({ href: homeAnchor(lang, id), label })) as NavLink[],
     pages: [
