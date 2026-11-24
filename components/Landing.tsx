@@ -133,14 +133,15 @@ export default function Landing({ lang }: { lang: Lang }) {
             Ildar Lomov<span className="text-accent">.</span>
           </a>
 
+          {/* Main menu: 4 items, hard cap 5 (Ildar, 2026-11-24). New sections do NOT get a menu
+              link by default; a section without a link is fine. "Contact" is left out because the
+              header already has the CTA button to #contact. */}
           <nav aria-label="Main" className="hidden items-center gap-1 text-sm md:flex">
             {[
               ["#cases", t.nav.cases],
               ["#funnels", FUNNELS[lang].nav],
               ["#services", t.nav.services],
-              ["#projects", t.nav.projects],
               ["#about", t.nav.about],
-              ["#contact", t.nav.contact],
             ].map(([href, label]) => (
               <a
                 key={href}
