@@ -99,6 +99,9 @@ export function Fit({ w, h, children }: { w: number; h: number; children: React.
   );
 }
 
+// Bottom padding includes the 40px (md: 48px) that the NEXT page panel overlaps (PANEL -mt-10/-mt-12
+// in Landing.tsx): the slide's own background then fills the area behind that panel's rounded corners,
+// instead of a flat section colour that didn't match gradient slides. The pager sits above that band.
 export function Slide({ active, bg, children }: { active: boolean; bg?: string; children: React.ReactNode }) {
   const th = useDeckTheme();
   return (
@@ -108,7 +111,7 @@ export function Slide({ active, bg, children }: { active: boolean; bg?: string; 
       // from tab order. aria-hidden over focusable content is a malformed accessibility tree
       // (flagged by Lighthouse "Agentic browsing" / a11y audits).
       inert={!active}
-      className="cs-slide relative flex w-full min-w-0 max-w-full shrink-0 snap-center flex-col justify-center overflow-hidden px-5 pb-20 pt-[88px] md:min-h-[100svh] md:px-14 md:pb-28 md:pt-28"
+      className="cs-slide relative flex w-full min-w-0 max-w-full shrink-0 snap-center flex-col justify-center overflow-hidden px-5 pb-[7.5rem] pt-[88px] md:min-h-[100svh] md:px-14 md:pb-40 md:pt-28"
       style={{ background: bg ?? th.pageBg }}
     >
       {/* soft glow behind every slide */}
@@ -207,7 +210,7 @@ export default function SlideDeck({ theme = LIGHT, label, prev, next, mark, rend
         </div>
 
         {/* pager controls */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex items-center justify-center px-5 pb-6 md:justify-between md:px-14">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex items-center justify-center px-5 pb-16 md:justify-between md:px-14 md:pb-[4.5rem]">
           <div className="pointer-events-auto flex items-center gap-4">
             <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.16em", textTransform: "uppercase", color: theme.fgMuted }}>
               {String(active + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
