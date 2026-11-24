@@ -152,20 +152,23 @@ export default function SiteHeader({ lang, switchHref }: { lang: Lang; switchHre
         </div>
 
         <p className="mt-5 px-1 text-xs font-semibold uppercase tracking-[0.16em] text-cream/60">{nav.labels.moreTitle}</p>
-        <div className="mt-3 flex flex-wrap gap-2">
+        {/* CSS columns: reads top-to-bottom, then the next column */}
+        <ul className="mt-2 columns-2 gap-x-6 sm:columns-3">
           {nav.more.map((m) => (
-            <a key={m.href} href={m.href} onClick={close} className="rounded-full bg-white/10 px-4 py-2 text-sm text-cream/85 transition hover:bg-white/20 hover:text-cream">
-              {m.label}
-            </a>
+            <li key={m.href} className="break-inside-avoid">
+              <a href={m.href} onClick={close} className="block rounded-lg px-1 py-1.5 text-sm text-cream/75 transition hover:text-cream">
+                {m.label}
+              </a>
+            </li>
           ))}
-          <a
-            href={nav.contact}
-            onClick={close}
-            className="rounded-full bg-accent-deep px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110 sm:hidden"
-          >
-            {nav.labels.cta}
-          </a>
-        </div>
+        </ul>
+        <a
+          href={nav.contact}
+          onClick={close}
+          className="mt-4 inline-flex rounded-full bg-accent-deep px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110 sm:hidden"
+        >
+          {nav.labels.cta}
+        </a>
       </div>
     </header>
     </>

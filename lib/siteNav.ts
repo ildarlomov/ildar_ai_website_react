@@ -35,7 +35,7 @@ const L = {
       memcircle: ["Кейс Memcircle", "AI-рекордер встреч на всех платформах"],
       agent: ["Персональный ИИ-агент", "Настрою под ключ за 1–2 созвона · 400 €"],
     },
-    moreTitle: "Ещё на сайте",
+    moreTitle: "Страницы",
   },
   en: {
     sitemap: "Sitemap",
@@ -60,7 +60,7 @@ const L = {
       memcircle: ["Memcircle case", "An AI meeting recorder on every platform"],
       agent: ["Personal AI agent", "Done-for-you setup in 1–2 calls · €400"],
     },
-    moreTitle: "Also on the site",
+    moreTitle: "Pages",
   },
 } as const;
 
@@ -84,8 +84,11 @@ export function siteNav(lang: Lang) {
       { key: "memcircle", href: homeAnchor(lang, "cases"), label: l.featured.memcircle[0], desc: l.featured.memcircle[1] },
       { key: "agent", href: AI_AGENT_PATH[lang], label: l.featured.agent[0], desc: l.featured.agent[1] },
     ] as (NavLink & { key: "instagram" | "threads" | "memcircle" | "agent"; desc: string })[],
+    // Full list under the tiles: every home section and every page, by name.
     more: [
-      ...l.home.filter(([id]) => !["funnel-instagram", "funnel-threads", "cases"].includes(id)).map(([id, label]) => ({ href: homeAnchor(lang, id), label })),
+      { href: LANG_PATH[lang], label: l.pages.home },
+      ...l.home.map(([id, label]) => ({ href: homeAnchor(lang, id), label })),
+      { href: AI_AGENT_PATH[lang], label: l.pages.agent },
       { href: PRIVACY_PATH[lang], label: l.pages.privacy },
     ] as NavLink[],
     // Sitemap groups, printed in the header panel and the footer.
