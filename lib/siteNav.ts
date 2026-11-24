@@ -14,7 +14,7 @@ const KEYS: Record<string, string> = {
   "funnel-instagram": "instagram инстаграм telegram телеграм reels рилс бот bot оплата payment воронка funnel курс",
   "funnel-threads": "threads тредс нейрокомментинг комментарии comments лиды leads воронка funnel crm",
   cases: "memcircle мемсеркл встречи meetings запись recorder транскрипт кейс case",
-  services: "услуги services боты bots crm сайт website tilda рассылки mailings приложения apps",
+  services: "услуги services сайт website tilda агенты agents crm рассылки mailings аутрич outreach боты bots приложения apps консультации consulting автоматизация automation",
   projects: "проекты projects walkie talkie context whisper приложение app ios macos windows chrome",
   integrations: "интеграции integrations битрикс bitrix amocrm hubspot stripe paypal оплата платежи payments whatsapp meta ads реклама seo google яндекс",
   about: "обо мне about диплом diploma вайбкодер vibe ильдар ildar",

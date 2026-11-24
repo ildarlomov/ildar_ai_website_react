@@ -52,22 +52,22 @@ export const FACTS = {
 };
 
 export type ServiceKey =
-  | "bots"
   | "tilda"
-  | "crm-integration"
   | "ai-agents"
+  | "crm-integration"
   | "mailings"
-  | "custom-crm"
-  | "apps";
+  | "bots"
+  | "consulting";
 
+// Order = order of the service cards and of the options in the lead form (Ildar, 2026-11-24).
+// Keys are stable ids (the lead form posts them); "tilda" is the websites card.
 export const SERVICE_KEYS: ServiceKey[] = [
-  "bots",
   "tilda",
-  "crm-integration",
   "ai-agents",
+  "crm-integration",
   "mailings",
-  "custom-crm",
-  "apps",
+  "bots",
+  "consulting",
 ];
 
 type Service = { title: string; text: string; tags: string[] };
@@ -243,23 +243,11 @@ export const DICT: Record<Lang, Dict> = {
       eyebrow: "Services",
       title: "What I can build for you",
       items: {
-        bots: {
-          title: "Messenger bots",
-          text:
-            "Bots that answer, qualify, book and sell — inside the apps your customers already use every day.",
-          tags: ["WhatsApp", "Telegram"],
-        },
         tilda: {
-          title: "Websites on Tilda",
+          title: "Websites",
           text:
-            "Fast, clean landing pages and multi-page sites with forms wired straight into your CRM and messengers.",
+            "Fast, clean landing pages and multi-page sites, on Tilda or custom code, with forms wired straight into your CRM and messengers.",
           tags: ["Tilda", "Landing pages", "Forms"],
-        },
-        "crm-integration": {
-          title: "CRM setup & integration",
-          text:
-            "Pipelines, automations and integrations in the CRM you already have, so no lead gets lost between tools.",
-          tags: ["Bitrix24", "amoCRM"],
         },
         "ai-agents": {
           title: "AI agents for business",
@@ -267,23 +255,29 @@ export const DICT: Record<Lang, Dict> = {
             "Agents that handle correspondence, outreach and routine assistant work — trained on your process, not on a generic script.",
           tags: ["LLM agents", "Outreach", "Assistants"],
         },
+        "crm-integration": {
+          title: "CRM setup & integration",
+          text:
+            "Pipelines, automations and integrations in the CRM you already have, or a custom CRM when off-the-shelf doesn't fit, so no lead gets lost.",
+          tags: ["Bitrix24", "amoCRM", "Custom CRM"],
+        },
         mailings: {
           title: "Mailings & outreach",
           text:
             "Structured WhatsApp and Telegram mailings: segmented, personalised and tracked, built to feel like a conversation.",
           tags: ["WhatsApp", "Telegram"],
         },
-        "custom-crm": {
-          title: "Custom CRM",
+        bots: {
+          title: "Bots & app development",
           text:
-            "When off-the-shelf doesn't fit: a CRM shaped around how your team really sells, with bots and AI built in.",
-          tags: ["Leads", "Pipelines", "Analytics"],
+            "Messenger bots that answer, qualify, book and sell, plus web apps, Telegram mini-apps and mobile apps — from idea to production.",
+          tags: ["Bots", "Mini-apps", "Web & mobile"],
         },
-        apps: {
-          title: "App development",
+        consulting: {
+          title: "Consulting",
           text:
-            "Web apps, Telegram mini-apps and mobile apps — from the first idea to a product in production.",
-          tags: ["Web", "Mini-apps", "Mobile"],
+            "Where and how to automate your business processes and your own routine: an audit, a clear plan and the tools that fit.",
+          tags: ["Business processes", "Personal routine", "AI"],
         },
       },
       moreTitle: "Something else in mind?",
@@ -477,23 +471,11 @@ export const DICT: Record<Lang, Dict> = {
       eyebrow: "Услуги",
       title: "Что я могу сделать для вас",
       items: {
-        bots: {
-          title: "Боты для мессенджеров",
-          text:
-            "Боты, которые отвечают, квалифицируют, записывают и продают — в тех приложениях, где ваши клиенты и так сидят каждый день.",
-          tags: ["WhatsApp", "Telegram"],
-        },
         tilda: {
-          title: "Сайты на Tilda",
+          title: "Сайты",
           text:
-            "Быстрые аккуратные лендинги и многостраничные сайты, а формы сразу попадают в CRM и мессенджеры.",
+            "Быстрые аккуратные лендинги и многостраничные сайты на Tilda или на своём коде, а формы сразу попадают в CRM и мессенджеры.",
           tags: ["Tilda", "Лендинги", "Формы"],
-        },
-        "crm-integration": {
-          title: "Настройка и интеграция CRM",
-          text:
-            "Воронки, автоматизации и интеграции в той CRM, что у вас уже есть, чтобы ни один лид не терялся между сервисами.",
-          tags: ["Битрикс24", "amoCRM"],
         },
         "ai-agents": {
           title: "ИИ-агенты для бизнеса",
@@ -501,23 +483,29 @@ export const DICT: Record<Lang, Dict> = {
             "Агенты, которые ведут переписку, делают аутрич и берут на себя рутину ассистента — обученные на вашем процессе, а не на шаблоне.",
           tags: ["LLM-агенты", "Аутрич", "Ассистенты"],
         },
+        "crm-integration": {
+          title: "Настройка и интеграция CRM",
+          text:
+            "Воронки, автоматизации и интеграции в той CRM, что у вас уже есть, или своя CRM, если готовые не подходят, — чтобы ни один лид не терялся.",
+          tags: ["Битрикс24", "amoCRM", "CRM под ключ"],
+        },
         mailings: {
           title: "Рассылки и аутрич",
           text:
             "Системные рассылки в WhatsApp и Telegram: сегментация, персонализация, аналитика — и ощущение живого диалога.",
           tags: ["WhatsApp", "Telegram"],
         },
-        "custom-crm": {
-          title: "CRM под ключ",
+        bots: {
+          title: "Разработка ботов и приложений",
           text:
-            "Когда готовые решения не подходят: CRM под то, как ваша команда реально продаёт, со встроенными ботами и ИИ.",
-          tags: ["Лиды", "Воронки", "Аналитика"],
+            "Боты, которые отвечают, квалифицируют, записывают и продают, а также веб-приложения, мини-аппы для Telegram и мобильные приложения — от идеи до продакшена.",
+          tags: ["Боты", "Мини-аппы", "Web и Mobile"],
         },
-        apps: {
-          title: "Разработка приложений",
+        consulting: {
+          title: "Консультации",
           text:
-            "Веб-приложения, мини-аппы для Telegram и мобильные приложения — от идеи до продукта в продакшене.",
-          tags: ["Web", "Мини-аппы", "Mobile"],
+            "Где и как автоматизировать процессы вашего бизнеса и ваши личные задачи: разбор, понятный план и подходящие инструменты.",
+          tags: ["Бизнес-процессы", "Личные процессы", "ИИ"],
         },
       },
       moreTitle: "Нужно что-то другое?",
