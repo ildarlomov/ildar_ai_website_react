@@ -178,7 +178,7 @@ export const DICT: Record<Lang, Dict> = {
       title: "I build bots, AI agents and automation",
       titleAccent: "that make businesses run on their own.",
       text: [
-        "Messenger bots, CRM setups, mailings and custom apps. I'm Ildar — a technical entrepreneur with 7+ years in data science and AI, and the person who actually builds what you hire me for.",
+        "Former Head of AI at Emerging Travel Group. I'll hear out your request, suggest the most cost-effective technical solution, then build and support it end to end: Telegram bots and mini apps, websites on React, WordPress and Tilda, iOS and Android apps, CRM, AI agents for sales and call centres, SEO and GEO, AI commenting on Threads.",
       ],
       primary: "Leave a request",
       secondary: "See services",
@@ -405,8 +405,7 @@ export const DICT: Record<Lang, Dict> = {
       title: "Я Ильдар - технический директор и исполнитель",
       titleAccent: "для вашего бизнеса.",
       text: [
-        "Беру вашу идею и превращаю ее в работающее техническое решение для вашего бизнеса.",
-        "Бывший руководитель AI в Островке. В моем \"меню\" широкий список услуг, среди которых: создание ботов в телеграм, telegram mini apps, вебсайты на React, Wordpress и Tilda, SEO and GEO продвижение, приложения для IOS/Android, PWA, подключение CRM-систем, подключение ИИ-агентов, в том числе менеджеров по продажам и специалистов колл-центров которые работают в чатах и с ip-телефонией, также предлагаю услуги продвижения вашего бизнеса в соц сети Threads через нейрокомментинг. За мной можно следить в социальных сетях по ссылкам внизу.",
+        "Бывший руководитель AI в Островке. Выслушаю ваш запрос, подскажу оптимальное по бюджету техническое решение и закрою его реализацию и поддержку под ключ: боты и mini apps в Telegram, сайты на React, WordPress и Tilda, приложения для iOS и Android, CRM, ИИ-агенты для продаж и колл-центров, SEO и GEO, нейрокомментинг в Threads.",
       ],
       primary: "Оставить заявку",
       secondary: "Смотреть услуги",
