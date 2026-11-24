@@ -111,7 +111,8 @@ export default function AiAgentPage({ lang }: { lang: Lang }) {
                       <span className="absolute left-0 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-[#171514] font-display text-sm font-bold text-cream md:static">
                         {i + 1}
                       </span>
-                      {!last && <span aria-hidden="true" className="hidden h-px flex-1 bg-line md:block" />}
+                      {/* the line runs after every dot, the last one included */}
+                      <span aria-hidden="true" className="hidden h-px flex-1 bg-line md:block" />
                     </div>
                     <div className="md:mt-5">
                       <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">

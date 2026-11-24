@@ -389,7 +389,7 @@ export const DICT: Record<Lang, Dict> = {
       close: "Close",
     },
     footer: {
-      role: "Independent professional (Trabalhador Independente)",
+      role: "Entrepreneur",
       nifLabel: "NIF",
       rights: "All rights reserved.",
       privacy: "Privacy policy",
@@ -617,7 +617,7 @@ export const DICT: Record<Lang, Dict> = {
       close: "Закрыть",
     },
     footer: {
-      role: "Самозанятый специалист (Trabalhador Independente)",
+      role: "Предприниматель",
       nifLabel: "NIF",
       rights: "Все права защищены.",
       privacy: "Политика конфиденциальности",

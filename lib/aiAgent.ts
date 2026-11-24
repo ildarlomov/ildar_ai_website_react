@@ -114,7 +114,6 @@ export const AI_AGENT: Record<Lang, AiAgentCopy> = {
               points: ["Агент на Claude или ChatGPT", "Управление браузером", "Управление с телефона и голосом"],
             },
           ],
-          note: "По ходу разбираем ваши идеи, где применить агента. В 99% случаев ответ — можно.",
         },
         {
           badge: "Созвон 2",
@@ -131,9 +130,9 @@ export const AI_AGENT: Record<Lang, AiAgentCopy> = {
     result: {
       title: "Что у вас будет в итоге",
       items: [
+        "Понимание, что такое ИИ-агент, где он живёт и что он умеет",
         "Работающий ИИ-агент на вашем компьютере",
         "Управление им с телефона, текстом и голосом",
-        "Понимание, что агент умеет и где его пределы",
         "Список задач, которые можно отдать агенту уже сейчас",
         "Безлимитная поддержка в чате",
       ],
@@ -238,7 +237,6 @@ export const AI_AGENT: Record<Lang, AiAgentCopy> = {
               points: ["An agent on Claude or ChatGPT", "Browser control", "Control from your phone and by voice"],
             },
           ],
-          note: "Along the way we go through your ideas for using the agent. In 99% of cases the answer is yes.",
         },
         {
           badge: "Call 2",
@@ -255,9 +253,9 @@ export const AI_AGENT: Record<Lang, AiAgentCopy> = {
     result: {
       title: "What you end up with",
       items: [
+        "An understanding of what an AI agent is, where it lives and what it can do",
         "A working AI agent on your computer",
         "Control from your phone, by text and by voice",
-        "A clear picture of what the agent can do and where its limits are",
         "A list of tasks you can hand to the agent right away",
         "Unlimited chat support",
       ],
