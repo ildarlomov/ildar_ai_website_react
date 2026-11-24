@@ -178,7 +178,7 @@ export const DICT: Record<Lang, Dict> = {
       title: "I build bots, AI agents and automation",
       titleAccent: "that make businesses run on their own.",
       text: [
-        "Former Head of AI at Emerging Travel Group. I'll hear out your request, suggest the most cost-effective technical solution, then build and support it end to end: Telegram bots and mini apps, websites on React, WordPress and Tilda, iOS and Android apps, CRM, AI agents for sales and call centres, SEO and GEO, AI commenting on Threads.",
+        "Former Head of AI at Emerging Travel Group. I'll hear out your request, suggest the most cost-effective technical solution, then build and support it end to end: Telegram bots and mini apps, websites on React, WordPress and Tilda, iOS and Android apps, CRM, AI agents for sales and call centres, SEO and GEO, AI-powered lead generation from Threads, turnkey AI agent setup.",
       ],
       primary: "Leave a request",
       secondary: "See services",
@@ -405,7 +405,7 @@ export const DICT: Record<Lang, Dict> = {
       title: "Я Ильдар - технический директор и исполнитель",
       titleAccent: "для вашего бизнеса.",
       text: [
-        "Бывший руководитель AI в Островке. Выслушаю ваш запрос, подскажу оптимальное по бюджету техническое решение и закрою его реализацию и поддержку под ключ: боты и mini apps в Telegram, сайты на React, WordPress и Tilda, приложения для iOS и Android, CRM, ИИ-агенты для продаж и колл-центров, SEO и GEO, нейрокомментинг в Threads.",
+        "Бывший руководитель AI в Островке. Выслушаю ваш запрос, подскажу оптимальное по бюджету техническое решение и закрою его реализацию и поддержку под ключ: боты и mini apps в Telegram, сайты на React, WordPress и Tilda, приложения для iOS и Android, CRM, ИИ-агенты для продаж и колл-центров, SEO и GEO, лидогенерация из Threads при помощи ИИ, настройка ИИ-агента под ключ.",
       ],
       primary: "Оставить заявку",
       secondary: "Смотреть услуги",
