@@ -36,18 +36,18 @@ export default function AiAgentPage({ lang }: { lang: Lang }) {
 
   // Primary + secondary CTA, used in the hero and in the closing panel (no card around them).
   const Ctas = () => (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
       <a
         href={t.price.ctaHref}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full bg-accent-deep px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(196,106,68,0.35)] transition hover:brightness-110"
+        className="inline-flex items-center justify-center gap-2 rounded-full bg-accent-deep px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(196,106,68,0.35)] transition hover:brightness-110"
       >
         {t.price.cta} <Arrow />
       </a>
       <a
         href={formHref}
-        className="inline-flex items-center rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold text-cream transition hover:bg-white/10"
+        className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold text-cream transition hover:bg-white/10"
       >
         {t.price.ctaAlt}
       </a>
@@ -84,7 +84,7 @@ export default function AiAgentPage({ lang }: { lang: Lang }) {
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream/70">{t.lead}</p>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-7 backdrop-blur">
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 backdrop-blur sm:p-7">
             <div className="flex items-baseline gap-3">
               <span className="font-display text-5xl font-bold tracking-tight">{t.price.amount}</span>
               <span className="text-sm font-medium text-cream/60">{t.price.label}</span>
@@ -112,8 +112,7 @@ export default function AiAgentPage({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      {/* hyphenate body text on narrow screens, never headings */}
-      <main className="hyphens-auto [&_h2]:hyphens-manual [&_h3]:hyphens-manual">
+      <main>
         {/* ───── what the agent is (light): text + task pills, no cards ───── */}
         <section className={`${PANEL} bg-cream py-20 md:py-28`}>
           <div className={`${WRAP} grid gap-10 md:grid-cols-2 md:gap-16`}>
@@ -135,12 +134,12 @@ export default function AiAgentPage({ lang }: { lang: Lang }) {
         </section>
 
         {/* ───── how it goes (sand): one level of cards ───── */}
-        <section className={`${PANEL} bg-cream-2 py-20 md:py-28`}>
+        <section className={`${PANEL} py-20 md:py-28`} style={{ background: "#f3e2cb" }}>
           <div className={WRAP}>
             <h2 className="font-display text-3xl font-bold leading-tight sm:text-4xl">{t.how.title}</h2>
             <ol className="mt-10 grid gap-4 md:grid-cols-2">
               {t.how.steps.map((s, i) => (
-                <li key={s.title} className="rounded-3xl bg-paper p-7 shadow-[0_10px_30px_rgba(80,50,20,0.06)]">
+                <li key={s.title} className="rounded-3xl bg-paper p-5 shadow-[0_10px_30px_rgba(80,50,20,0.06)] sm:p-7">
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent-ink">
                     {String(i + 1).padStart(2, "0")} · {s.badge}
                   </p>
