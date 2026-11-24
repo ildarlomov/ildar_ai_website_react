@@ -35,7 +35,7 @@ export const AI_AGENT: Record<Lang, AiAgentCopy> = {
       includes: ["1–2 созвона, первый 1,5–3 часа", "Теория: как устроены ИИ-агенты", "Настройка на вашем компьютере при вас", "Агент в вашем телефоне", "Безлимитная поддержка в чате"],
       cta: "Записаться в Telegram",
       ctaHref: "https://t.me/ilomov",
-      ctaAlt: "или оставить заявку на сайте",
+      ctaAlt: "Оставить заявку на сайте",
     },
     what: {
       title: "Ваш личный сотрудник, который не спит",
@@ -117,7 +117,7 @@ export const AI_AGENT: Record<Lang, AiAgentCopy> = {
       includes: ["1–2 calls, the first one 1.5–3 hours", "Theory: how AI agents work", "Setup on your computer, with you", "The agent on your phone", "Unlimited chat support"],
       cta: "Book on WhatsApp",
       ctaHref: "https://wa.me/351912094137",
-      ctaAlt: "or leave a request on the site",
+      ctaAlt: "Leave a request on the site",
     },
     what: {
       title: "A personal employee who never sleeps",
