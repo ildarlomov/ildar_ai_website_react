@@ -343,14 +343,24 @@ export default function Landing({ lang }: { lang: Lang }) {
                 </p>
                 <p className="mt-2 text-lg leading-relaxed text-cream/70">{t.about.vibe.text}</p>
               </div>
-              <a
-                href={FACTS.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-cream transition hover:text-accent-bright"
-              >
-                LinkedIn <Arrow className="-rotate-45" />
-              </a>
+              {/* social channels: same pills as the hero, minus WhatsApp (that one is for contact) */}
+              <p className="mt-8 text-lg leading-relaxed text-cream/70">{t.about.social}</p>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {FACTS.socials.filter((s) => s.key !== "whatsapp" && !s.hideIn?.includes(lang)).map((s) => (
+                  <li key={s.key}>
+                    <a
+                      href={typeof s.url === "string" ? s.url : s.url[lang]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-white/12 px-3.5 py-1.5 text-xs font-medium text-cream/65 transition hover:border-white/30 hover:bg-white/10 hover:text-cream"
+                    >
+                      <SocialBadgeIcon name={s.key} />
+                      {s.label}
+                      {s.followers && <span className="text-cream/60">{s.followers}</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
             <DiplomaPlate lang={lang} variant="large" />
           </div>

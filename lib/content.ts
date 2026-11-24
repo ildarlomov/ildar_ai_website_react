@@ -125,6 +125,7 @@ export type Dict = {
     title: string;
     paragraphs: string[];
     vibe: { title: string; text: string }; // "not a vibe coder" note next to the diploma
+    social: string; // line above the social links (LinkedIn, YouTube, Telegram, Threads, Instagram)
   };
   contact: {
     eyebrow: string;
@@ -349,14 +350,14 @@ export const DICT: Record<Lang, Dict> = {
       eyebrow: "About",
       title: "Hi, I'm Ildar",
       paragraphs: [
-        "I'm a technical entrepreneur. For seven years I worked in data science, and I finished as Head of AI at Emerging Travel Group, a $1B+ travel-tech company, where I built and led the AI team.",
-        "Today I build my own products and take on client projects. I write the code, set up the infrastructure and connect the pieces myself, so you talk to one person from the first call to the launch.",
-        "My stack is Python (FastAPI, Django), React and Node.js, Docker, and LLMs wherever they genuinely help.",
+        "I'm a technical entrepreneur with about 10 years in software development, analytics and data science. I was Head of AI at Emerging Travel Group, a $1B+ travel-tech company, where I built and led the AI team.",
+        "Today I build my own products and take on client projects: I deliver development end to end and stay on as your partner and advisor on what today's technology can do for your business.",
       ],
       vibe: {
         title: "Not a vibe coder",
         text: "I actually studied this: a Master's in Applied Mathematics and Computer Science from HSE (2020). I understand every line of code I ship and I'm responsible for it, not just for what an AI happened to generate.",
       },
+      social: "I also run social channels for business owners who want to grow their business with technology:",
     },
     contact: {
       eyebrow: "Contact",
@@ -583,14 +584,14 @@ export const DICT: Record<Lang, Dict> = {
       eyebrow: "Обо мне",
       title: "Привет, я Ильдар",
       paragraphs: [
-        "Я технический предприниматель. Семь лет занимался data science, а последние годы был Head of AI в Островок.ру — travel-tech компании с оборотом $1B+, где построил и возглавил AI-команду.",
-        "Сейчас делаю собственные продукты и беру клиентские проекты. Код, инфраструктуру и интеграции собираю сам — вы общаетесь с одним человеком от первого звонка до запуска.",
-        "Мой стек: Python (FastAPI, Django), React и Node.js, Docker и LLM — везде, где они действительно полезны.",
+        "Я технический предприниматель, около 10 лет в разработке, аналитике и data science. Был Head of AI в Островок.ру — travel-tech компании с оборотом $1B+, где построил и возглавил AI-команду.",
+        "Сейчас делаю собственные продукты и беру клиентские проекты: закрываю разработку под ключ и остаюсь вашим партнёром и советником в том, что сегодня доступно на рынке технологий.",
       ],
       vibe: {
         title: "Не вайбкодер",
         text: "Я этому реально учился: магистратура «Прикладная математика и информатика» в НИУ ВШЭ, 2020. Я понимаю каждую строчку кода, который отдаю, и отвечаю за неё, а не просто за то, что сгенерировала нейросеть.",
       },
+      social: "Ещё веду соцсети для предпринимателей, которым интересно развивать бизнес через технологии:",
     },
     contact: {
       eyebrow: "Контакты",
