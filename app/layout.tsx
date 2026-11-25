@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   verification: {
     google: "MZ0qcrwWwEeEKWd9gPHqo-Vm5XWM-yGtjEGylFPzPfI",
     yandex: "6aa8571de83ee5d9",
+    // Bing Webmaster Tools (ildarlomov.public Google login). Keep: removing it unverifies the site.
+    other: { "msvalidate.01": "2959FC41E36A888A8D0980D278ECACD2" },
   },
   robots: {
     index: true,
