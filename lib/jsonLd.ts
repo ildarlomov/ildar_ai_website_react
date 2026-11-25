@@ -63,7 +63,6 @@ function service(lang: Lang) {
     email: "ildarlomov.f@gmail.com",
     address: { "@type": "PostalAddress", streetAddress: "Rua Martins Barata 3", postalCode: "1400-247", addressLocality: "Lisbon", addressCountry: "PT" },
     areaServed: "Worldwide",
-    availableLanguage: ["English", "Russian"],
     founder: { "@id": PERSON_ID },
     sameAs: SAME_AS,
   };
