@@ -2,7 +2,7 @@
 
 export type Lang = "en" | "ru";
 
-export type SocialKey = "threads" | "telegram" | "whatsapp" | "instagram" | "youtube" | "linkedin";
+export type SocialKey = "threads" | "telegram" | "whatsapp" | "instagram" | "youtube" | "linkedin" | "habr";
 
 // `url` may differ per language; `hideIn` removes the badge on those language versions.
 export type Social = {
@@ -35,6 +35,8 @@ export const FACTS = {
     { key: "instagram", label: "Instagram", url: "https://www.instagram.com/ildar.ai", followers: "" },
     { key: "youtube", label: "YouTube", url: "https://www.youtube.com/@ildarai", followers: "" },
     { key: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/ildarlomov/", followers: "" },
+    // Russian-language articles: shown on /ru only.
+    { key: "habr", label: "Хабр", url: "https://habr.com/ru/users/ilomov/", followers: "", hideIn: ["en"] },
   ] as Social[],
   nif: "316456124",
   addressLines: ["Rua Martins Barata 3", "1400-247 Lisbon, Portugal"],

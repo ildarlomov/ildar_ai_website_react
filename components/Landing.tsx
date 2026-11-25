@@ -65,6 +65,13 @@ function SocialIcon({ name }: { name: SocialKey }) {
           <path d="m10 9.5 5 2.5-5 2.5z" fill="currentColor" />
         </svg>
       );
+    case "habr":
+      // Habr's mark is a bold "Х" on its blue-grey tile (SOCIAL_BRAND).
+      return (
+        <svg width={14} height={14} viewBox="0 0 24 24" aria-hidden="true">
+          <text x="12" y="17.5" textAnchor="middle" fontSize="17" fontWeight="800" fontFamily="Arial, sans-serif" fill="currentColor">Х</text>
+        </svg>
+      );
     case "linkedin":
       return (
         <svg {...common}>
@@ -92,6 +99,7 @@ const SOCIAL_BRAND: Record<SocialKey, { bg: string; fg: string }> = {
   },
   youtube: { bg: "#FF0000", fg: "#ffffff" },
   linkedin: { bg: "#0A66C2", fg: "#ffffff" },
+  habr: { bg: "#65A3BE", fg: "#ffffff" },
 };
 
 function SocialBadgeIcon({ name }: { name: SocialKey }) {

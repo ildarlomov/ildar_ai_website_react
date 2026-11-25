@@ -10,7 +10,7 @@ const PERSON_ID = `${SITE_URL}/#person`;
 const SERVICE_ID = `${SITE_URL}/#service`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 
-// His own public profiles (checked 2026-11-25). Add Habr here once there's a profile URL.
+// His own public profiles (checked 2026-11-25).
 export const SAME_AS = [
   "https://www.linkedin.com/in/ildarlomov/",
   "https://www.youtube.com/@ildarai",
@@ -18,6 +18,7 @@ export const SAME_AS = [
   "https://www.instagram.com/ildar.ai",
   "https://t.me/ilomov",
   "https://github.com/ildarlomov",
+  "https://habr.com/ru/users/ilomov/",
 ];
 
 const NAME = { en: "Ildar Lomov", ru: "Ильдар Ломов" } as const;
