@@ -14,6 +14,8 @@ export type FactoryCopy = {
   prev: string;
   next: string;
   cta: string;
+  call: string; // "book a call with the team" button
+  callHref: string; // Ildar's own messenger (white-label: never the partners' calendar)
   slides: SlideText[]; // 7
   facts: { value: string; label: string }[]; // intro
   hooks: { title: string; text: string; views: string }[]; // trendwatching mock
@@ -56,6 +58,8 @@ export const FACTORY: Record<Lang, FactoryCopy> = {
     prev: "Предыдущий слайд",
     next: "Следующий слайд",
     cta: "Хочу контент-завод",
+    call: "Записаться на звонок с командой",
+    callHref: "https://t.me/ilomov",
     slides: [
       {
         tag: "Контент-завод видеоконтента",
@@ -128,6 +132,8 @@ export const FACTORY: Record<Lang, FactoryCopy> = {
     prev: "Previous slide",
     next: "Next slide",
     cta: "I want a content factory",
+    call: "Book a call with the team",
+    callHref: "https://wa.me/351912094137?text=Hi%20Ildar%21%20I%27d%20like%20to%20book%20a%20call%20with%20the%20team%20about%20the%20video%20content%20factory.",
     slides: [
       {
         tag: "Video content factory",

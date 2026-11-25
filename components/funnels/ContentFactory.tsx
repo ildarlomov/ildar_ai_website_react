@@ -11,7 +11,6 @@ import { FACTORY, type FactoryCopy } from "@/lib/contentFactory";
 import { BRAND_ICONS } from "@/lib/brandIcons";
 import SlideDeck, { LIGHT, FD, Slide, TextBlock, d, split, type DeckTheme } from "@/components/SlideDeck";
 import { Appear, InstagramLogo, useStagger } from "@/components/funnels/mocks";
-import { CtaPill } from "@/components/funnels/ThreadsFunnel";
 
 type T = FactoryCopy;
 type P = { active: boolean; t: T };
@@ -64,6 +63,39 @@ function PlatformChips() {
   );
 }
 
+// "Book a call with the team" (Ildar's messenger, new tab): on every slide of the deck.
+function CallButton({ t }: { t: T }) {
+  return (
+      <a
+        href={t.callHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-accent-deep px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(196,106,68,0.35)] transition hover:brightness-110"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="16" rx="3" />
+          <path d="M3 10h18M8 3v4M16 3v4" />
+        </svg>
+        {t.call}
+      </a>
+  );
+}
+
+// First and last slide: the call button + the site form.
+function CallCtas({ t }: { t: T }) {
+  return (
+    <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+      <CallButton t={t} />
+      <a
+        href="#contact"
+        className="inline-flex items-center justify-center rounded-full border border-ink/15 bg-white/60 px-6 py-3.5 text-sm font-semibold text-ink transition hover:bg-white"
+      >
+        {t.cta}
+      </a>
+    </div>
+  );
+}
+
 /* ───────── 0 · intro: fan of real reels ───────── */
 
 function IntroSlide({ active, t, cta }: P & { cta: string }) {
@@ -83,7 +115,7 @@ function IntroSlide({ active, t, cta }: P & { cta: string }) {
             ))}
           </div>
           <div className="cs-in mt-8" style={d(0.42)}>
-            <CtaPill>{cta}</CtaPill>
+            <CallCtas t={t} />
           </div>
         </TextBlock>
         <div className="cs-in cs-vis relative mx-auto flex w-full max-w-[520px] items-center justify-center py-6" style={d(0.25)}>
@@ -103,7 +135,11 @@ function TrendSlide({ active, t }: P) {
   return (
     <Slide active={active}>
       <div className={split}>
-        <TextBlock s={t.slides[1]} />
+        <TextBlock s={t.slides[1]}>
+          <div className="cs-in mt-7" style={d(0.4)}>
+            <CallButton t={t} />
+          </div>
+        </TextBlock>
         <div className="cs-in cs-vis mx-auto w-full max-w-[540px]" style={{ ...CARD, padding: 22, ...d(0.25) }}>
           <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: COOL.fgMuted, marginBottom: 12 }}>{t.hooksTitle}</div>
           {t.hooks.map((h, i) => (
@@ -136,6 +172,9 @@ function AvatarSlide({ active, t }: P) {
               <span key={x} className="rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-ink shadow-[0_4px_14px_rgba(20,20,60,0.08)]">{x}</span>
             ))}
           </div>
+          <div className="cs-in mt-7" style={d(0.4)}>
+            <CallButton t={t} />
+          </div>
         </TextBlock>
         <div className="cs-in cs-vis mx-auto grid w-full max-w-[460px] grid-cols-2 gap-4" style={d(0.25)}>
           {[t.accounts[0], t.accounts[1]].map((a, i) => (
@@ -163,6 +202,9 @@ function ProductionSlide({ active, t }: P) {
               <span key={x} className="rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-ink shadow-[0_4px_14px_rgba(20,20,60,0.08)]">{x}</span>
             ))}
           </div>
+          <div className="cs-in mt-7" style={d(0.4)}>
+            <CallButton t={t} />
+          </div>
         </TextBlock>
         <div className="cs-in cs-vis mx-auto grid w-full max-w-[520px] grid-cols-3 gap-3" style={d(0.25)}>
           {REELS.map((src, i) => (
@@ -188,7 +230,11 @@ function PublishSlide({ active, t }: P) {
   return (
     <Slide active={active}>
       <div className={split}>
-        <TextBlock s={t.slides[4]} />
+        <TextBlock s={t.slides[4]}>
+          <div className="cs-in mt-7" style={d(0.4)}>
+            <CallButton t={t} />
+          </div>
+        </TextBlock>
         <div className="cs-in cs-vis mx-auto grid w-full max-w-[520px] grid-cols-3 gap-4" style={d(0.25)}>
           {phones.map((p, i) => (
             <Appear key={p.name} show={i < shown}>
@@ -216,7 +262,11 @@ function GrowthSlide({ active, t }: P) {
   return (
     <Slide active={active}>
       <div className={split}>
-        <TextBlock s={t.slides[5]} />
+        <TextBlock s={t.slides[5]}>
+          <div className="cs-in mt-7" style={d(0.4)}>
+            <CallButton t={t} />
+          </div>
+        </TextBlock>
         <div className="cs-in cs-vis mx-auto w-full max-w-[520px]" style={{ ...CARD, padding: "24px 22px", ...d(0.25) }}>
           <div className="flex h-44 items-end gap-3">
             {t.growth.map((g, i) => (
@@ -257,7 +307,7 @@ function AccountsSlide({ active, t, cta }: P & { cta: string }) {
       <div className={split}>
         <TextBlock s={t.slides[6]}>
           <div className="cs-in mt-8" style={d(0.34)}>
-            <CtaPill>{cta}</CtaPill>
+            <CallCtas t={t} />
           </div>
         </TextBlock>
         <div className="cs-in cs-vis grid gap-4 sm:grid-cols-2" style={d(0.25)}>
