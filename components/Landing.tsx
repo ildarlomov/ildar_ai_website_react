@@ -79,6 +79,14 @@ function SocialIcon({ name }: { name: SocialKey }) {
           <path d="M8 10.5V16M8 7.8v.1M12 16v-5.5M12 13c0-1.7 1-2.6 2.3-2.6S16.5 11.3 16.5 13V16" />
         </svg>
       );
+    case "github":
+      // Octocat silhouette in the same line style as the other badges.
+      return (
+        <svg {...common}>
+          <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+          <path d="M9 18c-4.51 2-5-2-7-2" />
+        </svg>
+      );
     case "threads":
       return (
         <svg {...common}>
@@ -99,6 +107,7 @@ const SOCIAL_BRAND: Record<SocialKey, { bg: string; fg: string }> = {
   },
   youtube: { bg: "#FF0000", fg: "#ffffff" },
   linkedin: { bg: "#0A66C2", fg: "#ffffff" },
+  github: { bg: "#181717", fg: "#ffffff" },
   habr: { bg: "#65A3BE", fg: "#ffffff" },
 };
 
@@ -383,7 +392,7 @@ export default function Landing({ lang }: { lang: Lang }) {
               {/* social channels: same pills as the hero, minus WhatsApp (that one is for contact) */}
               <p className="mt-8 text-lg leading-relaxed text-cream/70">{t.about.social}</p>
               <ul className="mt-4 flex flex-wrap gap-2">
-                {FACTS.socials.filter((s) => s.key !== "whatsapp" && !s.hideIn?.includes(lang)).map((s) => (
+                {FACTS.socials.filter((s) => s.key !== "whatsapp" && s.key !== "github" && !s.hideIn?.includes(lang)).map((s) => (
                   <li key={s.key}>
                     <a
                       href={typeof s.url === "string" ? s.url : s.url[lang]}
