@@ -8,6 +8,7 @@ import LeadForm from "@/components/LeadForm";
 import CaseSlides from "@/components/CaseSlides";
 import ThreadsFunnel from "@/components/funnels/ThreadsFunnel";
 import InstagramFunnel from "@/components/funnels/InstagramFunnel";
+import ContentFactory from "@/components/funnels/ContentFactory";
 import ContactPopup from "@/components/ContactPopup";
 import DiplomaPlate from "@/components/DiplomaPlate";
 import SiteHeader from "@/components/SiteHeader";
@@ -201,7 +202,10 @@ export default function Landing({ lang }: { lang: Lang }) {
         </section>
 
         {/* ───── Funnels: social-media auto-funnels. Order is for colour contrast:
-             dark hero → rosy Instagram → dark Threads → sand Memcircle case ───── */}
+             dark hero → cool content factory → rosy Instagram → dark Threads → sand Memcircle case ───── */}
+        <section id="content-factory" className={`${PANEL} overflow-hidden`} style={{ background: "#eaecf6" }}>
+          <ContentFactory lang={lang} />
+        </section>
         <section id="funnel-instagram" className={`${PANEL} overflow-hidden`} style={{ background: "#f8e7e3" }}>
           <InstagramFunnel lang={lang} />
         </section>

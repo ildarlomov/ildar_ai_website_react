@@ -11,6 +11,7 @@ export type NavLink = { href: string; label: string; keys?: string };
 // Extra search words for the sitemap search (both languages; matched case-insensitively).
 const KEYS: Record<string, string> = {
   home: "главная home старт",
+  "content-factory": "контент завод content factory видео video ии инфлюенсер ai influencer аватар avatar reels tiktok youtube ролики",
   "funnel-instagram": "instagram инстаграм telegram телеграм reels рилс бот bot оплата payment воронка funnel курс",
   "funnel-threads": "threads тредс нейрокомментинг комментарии comments лиды leads воронка funnel crm",
   cases: "memcircle мемсеркл встречи meetings запись recorder транскрипт кейс case",
@@ -36,6 +37,7 @@ const L = {
     homeTitle: "Главная",
     pagesTitle: "Страницы",
     home: [
+      ["content-factory", "Контент-завод видеоконтента"],
       ["funnel-instagram", "Автоворонка Instagram + Telegram"],
       ["funnel-threads", "Автоворонка Threads"],
       ["cases", "Кейс Memcircle"],
@@ -64,6 +66,7 @@ const L = {
     homeTitle: "Home",
     pagesTitle: "Pages",
     home: [
+      ["content-factory", "Video content factory"],
       ["funnel-instagram", "Instagram + Telegram auto-funnel"],
       ["funnel-threads", "Threads auto-funnel"],
       ["cases", "Memcircle case"],
