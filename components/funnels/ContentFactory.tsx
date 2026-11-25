@@ -47,22 +47,6 @@ function Reel({ src, className = "", style }: { src: string; className?: string;
   );
 }
 
-function PlatformChips() {
-  return (
-    <div className="flex flex-wrap gap-2">
-      {[
-        { k: "ig", el: <InstagramLogo size={16} />, n: "Instagram" },
-        { k: "tt", el: <Glyph name="tiktok" color="#111" />, n: "TikTok" },
-        { k: "yt", el: <Glyph name="youtube" />, n: "YouTube" },
-      ].map((p) => (
-        <span key={p.k} className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-ink shadow-[0_4px_14px_rgba(20,20,60,0.08)]">
-          {p.el} {p.n}
-        </span>
-      ))}
-    </div>
-  );
-}
-
 // "Book a call with the team" (Ildar's messenger, new tab): on every slide of the deck.
 function CallButton({ t }: { t: T }) {
   return (
@@ -201,10 +185,7 @@ function IntroSlide({ active, t, cta }: P & { cta: string }) {
     <Slide active={active} bg={HERO_BG}>
       <div className={split}>
         <TextBlock s={t.slides[0]}>
-          <div className="cs-in mt-6" style={d(0.3)}>
-            <PlatformChips />
-          </div>
-          <div className="cs-in mt-7 grid max-w-md grid-cols-3 gap-4" style={d(0.36)}>
+          <div className="cs-in mt-8 grid max-w-md grid-cols-3 gap-4" style={d(0.3)}>
             {t.facts.map((f) => (
               <div key={f.label}>
                 <div style={{ fontFamily: FD, fontSize: 30, fontWeight: 600, letterSpacing: "-0.02em", color: COOL.fg }}>{f.value}</div>
