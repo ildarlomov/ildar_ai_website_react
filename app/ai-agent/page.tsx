@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AiAgentPage from "@/components/AiAgentPage";
+import JsonLd from "@/components/JsonLd";
 import { AI_AGENT } from "@/lib/aiAgent";
 import { AI_AGENT_PATH } from "@/lib/site";
 
@@ -16,5 +17,10 @@ export const metadata: Metadata = {
 };
 
 export default function AiAgentEn() {
-  return <AiAgentPage lang="en" />;
+  return (
+    <>
+      <JsonLd lang="en" page="ai-agent" />
+      <AiAgentPage lang="en" />
+    </>
+  );
 }

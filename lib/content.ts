@@ -23,8 +23,8 @@ export const FACTS = {
   linkedin: "https://www.linkedin.com/in/ildarlomov/",
   // Hero social badges. Empty followers = no count shown.
   socials: [
-    { key: "threads", label: "Threads", url: "https://www.threads.net/@ildar.ai", followers: "1 650" },
-    { key: "telegram", label: "Telegram", url: "https://t.me/+GFsl8836IWQzZWIy", followers: "415", hideIn: ["en"] },
+    { key: "threads", label: "Threads", url: "https://www.threads.net/@ildar.ai", followers: "" },
+    { key: "telegram", label: "Telegram", url: "https://t.me/+GFsl8836IWQzZWIy", followers: "", hideIn: ["en"] },
     // EN → Portuguese number, RU → Kazakhstan number.
     {
       key: "whatsapp",

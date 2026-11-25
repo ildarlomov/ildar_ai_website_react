@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Landing from "@/components/Landing";
+import JsonLd from "@/components/JsonLd";
 import { DESCRIPTION_RU, LANG_PATH, SITE_NAME, SITE_URL, TITLE_RU } from "@/lib/site";
 
 // Russian version of the landing. Same component, own URL, so search engines index it.
@@ -30,5 +31,10 @@ export const metadata: Metadata = {
 };
 
 export default function RuHome() {
-  return <Landing lang="ru" />;
+  return (
+    <>
+      <JsonLd lang="ru" page="home" />
+      <Landing lang="ru" />
+    </>
+  );
 }
