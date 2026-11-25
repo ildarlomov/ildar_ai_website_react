@@ -81,20 +81,6 @@ function CallButton({ t }: { t: T }) {
   );
 }
 
-// First and last slide: the call button + the site form.
-function CallCtas({ t }: { t: T }) {
-  return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-      <CallButton t={t} />
-      <a
-        href="#contact"
-        className="inline-flex items-center justify-center rounded-full border border-ink/15 bg-white/60 px-6 py-3.5 text-sm font-semibold text-ink transition hover:bg-white"
-      >
-        {t.cta}
-      </a>
-    </div>
-  );
-}
 
 /* ───────── 0 · intro: 3D cylinder of real accounts ───────── */
 
@@ -111,23 +97,22 @@ const WALL = [
   { handle: "@ai.akshu", img: "acc-ai_akshu" },
 ];
 
-// A ring of account cards on a cylinder: rotates slowly on its own, drag (mouse or finger) to spin,
-// a flick keeps some momentum. Pauses on hover; reduced motion = no auto-rotation (drag still works).
-function AccountCylinder({ hint }: { hint: string }) {
+// A ring of account cards on a cylinder: always rotates slowly on its own (~40 s per turn, Ildar wants
+// it moving by default: no pause on hover), drag (mouse or finger) to spin, a flick keeps some momentum.
+function AccountCylinder({ label }: { label: string }) {
   const n = WALL.length;
   const ring = useRef<HTMLDivElement>(null);
   const box = useRef<HTMLDivElement>(null);
-  const [w, setW] = useState(150); // card width, px
+  const [w, setW] = useState(195); // card width, px
   const angle = useRef(0);
   const vel = useRef(0);
   const drag = useRef<{ x: number; t: number } | null>(null);
-  const hover = useRef(false);
 
   // Card size follows the available width (phones get smaller cards).
   useEffect(() => {
     const el = box.current;
     if (!el) return;
-    const fit = () => setW(Math.max(96, Math.min(160, el.clientWidth / 3.4)));
+    const fit = () => setW(Math.max(125, Math.min(208, el.clientWidth / 2.6))); // 30% larger than v1
     fit();
     const ro = new ResizeObserver(fit);
     ro.observe(el);
@@ -135,7 +120,6 @@ function AccountCylinder({ hint }: { hint: string }) {
   }, []);
 
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let raf = 0;
     let last = performance.now();
     const tick = (now: number) => {
@@ -145,7 +129,7 @@ function AccountCylinder({ hint }: { hint: string }) {
         if (Math.abs(vel.current) > 0.5) {
           angle.current += vel.current * dt;
           vel.current *= Math.pow(0.04, dt); // momentum decays within ~1 s
-        } else if (!reduce && !hover.current) {
+        } else {
           angle.current -= 9 * dt; // ~40 s per turn
         }
       }
@@ -160,10 +144,8 @@ function AccountCylinder({ hint }: { hint: string }) {
   return (
     <div
       ref={box}
-      className="relative mx-auto w-full max-w-[560px] cursor-grab select-none touch-pan-y active:cursor-grabbing"
-      style={{ height: h + 70, perspective: 1100 }}
-      onPointerEnter={() => (hover.current = true)}
-      onPointerLeave={() => (hover.current = false)}
+      className="relative mx-auto w-full max-w-[720px] cursor-grab select-none touch-pan-y active:cursor-grabbing"
+      style={{ height: h + 32, perspective: 1300 }}
       onPointerDown={(e) => {
         drag.current = { x: e.clientX, t: performance.now() };
         vel.current = 0;
@@ -180,7 +162,7 @@ function AccountCylinder({ hint }: { hint: string }) {
       }}
       onPointerUp={() => (drag.current = null)}
       onPointerCancel={() => (drag.current = null)}
-      aria-label={hint}
+      aria-label={label}
       role="img"
     >
       <div className="absolute left-1/2 top-4" style={{ width: w, height: h, marginLeft: -w / 2, transformStyle: "preserve-3d" }}>
@@ -197,15 +179,14 @@ function AccountCylinder({ hint }: { hint: string }) {
                 boxShadow: "0 20px 50px rgba(20,20,60,0.25)",
               }}
             >
-              <Image src={`/content-factory/${a.img}.webp`} alt="" fill sizes="160px" className="pointer-events-none object-cover" draggable={false} />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-2.5 pb-2 pt-6 text-[11px] font-semibold text-white">
+              <Image src={`/content-factory/${a.img}.webp`} alt="" fill sizes="210px" className="pointer-events-none object-cover" draggable={false} />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-3 pb-2.5 pt-8 text-[13px] font-semibold text-white">
                 {a.handle}
               </figcaption>
             </figure>
           ))}
         </div>
       </div>
-      <p className="absolute inset-x-0 bottom-0 text-center text-xs" style={{ color: COOL.fgMuted }}>{hint}</p>
     </div>
   );
 }
@@ -232,11 +213,11 @@ function IntroSlide({ active, t, cta }: P & { cta: string }) {
             ))}
           </div>
           <div className="cs-in mt-8" style={d(0.42)}>
-            <CallCtas t={t} />
+            <CallButton t={t} />
           </div>
         </TextBlock>
         <div className="cs-in cs-vis" style={d(0.25)}>
-          <AccountCylinder hint={t.dragHint} />
+          <AccountCylinder label={t.wallLabel} />
         </div>
       </div>
     </Slide>
@@ -422,7 +403,7 @@ function AccountsSlide({ active, t, cta }: P & { cta: string }) {
       <div className={split}>
         <TextBlock s={t.slides[6]}>
           <div className="cs-in mt-8" style={d(0.34)}>
-            <CallCtas t={t} />
+            <CallButton t={t} />
           </div>
         </TextBlock>
         <div className="cs-in cs-vis grid gap-4 sm:grid-cols-2" style={d(0.25)}>
