@@ -34,7 +34,7 @@ export type FunnelCopy = {
   instagram: {
     label: string;
     slides: SlideText[]; // 8: intro + 7 steps
-    steps: { icon: "ig" | "tg" | "pay" | "crm"; text: string }[]; // intro step list
+    flow: { icon: "ig" | "tg" | "pay" | "crm"; title: string; sub: string }[]; // intro: 4 big steps
     handle: string; // the creator's Instagram handle in the mock-ups
     reel: { caption: string; comments: { author: string; text: string }[]; replied: string };
     dm: { name: string; msgs: { from: "me" | "them"; text: string; buttons?: string[] }[] };
@@ -232,15 +232,11 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
             "Все, кто прошёл воронку, попадают в CRM: переписка, оплаты, статусы. Писать клиентам можно прямо оттуда, делать рассылки по базе или подключить ИИ-агента, который будет вести её за вас.",
         },
       ],
-      steps: [
-        { icon: "ig", text: "Ключевое слово под Reels" },
-        { icon: "ig", text: "Агент отвечает в директ по скрипту" },
-        { icon: "tg", text: "Переход в Telegram-бота" },
-        { icon: "tg", text: "Подписка на канал и подарок" },
-        { icon: "tg", text: "Прогрев: 8 касаний за 72 часа" },
-        { icon: "pay", text: "Оплата в один клик" },
-        { icon: "tg", text: "Мини-продукт в боте" },
-        { icon: "crm", text: "CRM и работа с базой" },
+      flow: [
+        { icon: "ig", title: "Reels", sub: "ключевое слово в комментарии" },
+        { icon: "tg", title: "Telegram-бот", sub: "канал, подарок и прогрев" },
+        { icon: "pay", title: "Оплата", sub: "мини-продукт в один клик" },
+        { icon: "crm", title: "CRM", sub: "база клиентов и ИИ-агент" },
       ],
       handle: "your.blog",
       reel: {
@@ -490,15 +486,11 @@ export const FUNNELS: Record<Lang, FunnelCopy> = {
             "Everyone who goes through the funnel lands in a CRM: chats, payments, statuses. Message clients right from there, send broadcasts to your base, or plug in an AI agent to run it for you.",
         },
       ],
-      steps: [
-        { icon: "ig", text: "Keyword under a Reel" },
-        { icon: "ig", text: "Agent replies in DMs by script" },
-        { icon: "tg", text: "Move to the Telegram bot" },
-        { icon: "tg", text: "Channel subscription and a gift" },
-        { icon: "tg", text: "Warm-up: 8 touches over 72 hours" },
-        { icon: "pay", text: "One-click payment" },
-        { icon: "tg", text: "Mini-product in the bot" },
-        { icon: "crm", text: "CRM and your client base" },
+      flow: [
+        { icon: "ig", title: "Reels", sub: "keyword in the comments" },
+        { icon: "tg", title: "Telegram bot", sub: "channel, gift and warm-up" },
+        { icon: "pay", title: "Payment", sub: "one-click mini-product" },
+        { icon: "crm", title: "CRM", sub: "client base and an AI agent" },
       ],
       handle: "your.blog",
       reel: {

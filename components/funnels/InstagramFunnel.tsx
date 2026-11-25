@@ -62,7 +62,7 @@ function BlogAva({ size = 28 }: { size?: number }) {
 /* ───────── 0 · intro: the steps ───────── */
 
 function IntroSlide({ active, t, cta }: P) {
-  const shown = useStagger(active, t.steps.length, 170, 400);
+  const shown = useStagger(active, t.flow.length, 260, 300);
   return (
     <Slide active={active} bg={HERO_BG}>
       <div className={split}>
@@ -71,17 +71,23 @@ function IntroSlide({ active, t, cta }: P) {
             <CtaPill>{cta}</CtaPill>
           </div>
         </TextBlock>
-        <div className="cs-in cs-vis mx-auto w-full max-w-[520px]" style={{ ...CARD, padding: "18px 18px 14px", ...d(0.25) }}>
-          {t.steps.map((s, i) => (
-            <Appear key={s.text} show={i < shown}>
-              <div style={{ display: "grid", gridTemplateColumns: "28px 36px 1fr", alignItems: "center", gap: 10, padding: "7px 4px", borderBottom: i < t.steps.length - 1 ? "1px solid rgba(0,0,0,0.05)" : "none" }}>
-                <span style={{ fontFamily: FD, fontSize: 13, fontWeight: 600, color: ROSE.accent }}>{String(i + 1).padStart(2, "0")}</span>
-                <span style={{ width: 34, height: 34, borderRadius: 10, display: "grid", placeItems: "center", background: "#fff", border: "1px solid rgba(0,0,0,0.06)" }}>{STEP_ICON[s.icon]}</span>
-                <span style={{ fontSize: 14.5, lineHeight: 1.3, color: ROSE.fg }}>{s.text}</span>
-              </div>
-            </Appear>
+        {/* four big steps on a vertical line: Reels → bot → payment → CRM (the details live on the next slides) */}
+        <ol className="cs-in cs-vis relative mx-auto w-full max-w-[420px]" style={d(0.25)}>
+          <span aria-hidden="true" className="absolute bottom-8 left-8 top-8 w-px" style={{ background: "linear-gradient(180deg, #d62976, #2AABEE 40%, #b35d39)" }} />
+          {t.flow.map((s, i) => (
+            <li key={s.title} className="relative py-3">
+              <Appear show={i < shown} style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
+                <span className="relative z-[1] flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white shadow-[0_12px_30px_rgba(120,60,60,0.14)]">
+                  <span className="scale-[1.5]">{STEP_ICON[s.icon]}</span>
+                </span>
+                <span>
+                  <span className="block font-display text-2xl font-semibold leading-tight" style={{ color: ROSE.fg }}>{s.title}</span>
+                  <span className="mt-1 block text-[0.95rem]" style={{ color: ROSE.fgMuted }}>{s.sub}</span>
+                </span>
+              </Appear>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </Slide>
   );

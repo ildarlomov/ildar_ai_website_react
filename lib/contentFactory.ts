@@ -20,6 +20,7 @@ export type FactoryCopy = {
   facts: { value: string; label: string }[]; // intro
   hooks: { title: string; text: string; views: string }[]; // trendwatching mock
   hooksTitle: string;
+  dragHint: string; // under the account cylinder
   avatarTags: string[];
   production: { tags: string[] };
   publish: { device: string; geo: string; daily: string };
@@ -104,6 +105,7 @@ export const FACTORY: Record<Lang, FactoryCopy> = {
       { value: "0", label: "съёмок с вашей стороны" },
     ],
     hooksTitle: "Что залетает в нише на этой неделе",
+    dragHint: "Аккаунты с нашего контент-завода · покрутите",
     hooks: [
       { title: "«3 ИИ-инструмента, которые заменят ассистента»", text: "список · 30 сек", views: "2.1M" },
       { title: "«Я проверил это за вас»", text: "обзор · говорящая голова", views: "1.4M" },
@@ -178,6 +180,7 @@ export const FACTORY: Record<Lang, FactoryCopy> = {
       { value: "0", label: "shoots on your side" },
     ],
     hooksTitle: "What's taking off in the niche this week",
+    dragHint: "Accounts from our content factory · drag to spin",
     hooks: [
       { title: "\"3 AI tools that replace an assistant\"", text: "listicle · 30 sec", views: "2.1M" },
       { title: "\"I tested this so you don't have to\"", text: "review · talking head", views: "1.4M" },

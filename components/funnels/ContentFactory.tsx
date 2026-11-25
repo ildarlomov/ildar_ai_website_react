@@ -4,7 +4,7 @@
 // Trendwatching → AI avatar → production → publishing → growth & sales → live accounts.
 // Cool light deck: sits between the dark hero and the rosy Instagram deck. Copy: lib/contentFactory.ts.
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { Lang } from "@/lib/content";
 import { FACTORY, type FactoryCopy } from "@/lib/contentFactory";
@@ -96,7 +96,124 @@ function CallCtas({ t }: { t: T }) {
   );
 }
 
-/* ───────── 0 · intro: fan of real reels ───────── */
+/* ───────── 0 · intro: 3D cylinder of real accounts ───────── */
+
+// AI-influencer accounts from the factory (frames from their real reels).
+const WALL = [
+  { handle: "@ai.honeycove", img: "tw-05" },
+  { handle: "@drcintas", img: "show-drcintas" },
+  { handle: "@ai.with.andrew", img: "acc-ai_with_andrew" },
+  { handle: "@kathrynjcross", img: "acc-kathrynjcross" },
+  { handle: "@hackonomics.ai", img: "show-hack" },
+  { handle: "@assmooorre.ai", img: "show-assmo" },
+  { handle: "@zaraazuevvaa", img: "acc-zaraazuevvaa" },
+  { handle: "@vladojoinee", img: "show-vlad" },
+  { handle: "@ai.akshu", img: "acc-ai_akshu" },
+];
+
+// A ring of account cards on a cylinder: rotates slowly on its own, drag (mouse or finger) to spin,
+// a flick keeps some momentum. Pauses on hover; reduced motion = no auto-rotation (drag still works).
+function AccountCylinder({ hint }: { hint: string }) {
+  const n = WALL.length;
+  const ring = useRef<HTMLDivElement>(null);
+  const box = useRef<HTMLDivElement>(null);
+  const [w, setW] = useState(150); // card width, px
+  const angle = useRef(0);
+  const vel = useRef(0);
+  const drag = useRef<{ x: number; t: number } | null>(null);
+  const hover = useRef(false);
+
+  // Card size follows the available width (phones get smaller cards).
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const fit = () => setW(Math.max(96, Math.min(160, el.clientWidth / 3.4)));
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0;
+    let last = performance.now();
+    const tick = (now: number) => {
+      const dt = Math.min(64, now - last) / 1000;
+      last = now;
+      if (!drag.current) {
+        if (Math.abs(vel.current) > 0.5) {
+          angle.current += vel.current * dt;
+          vel.current *= Math.pow(0.04, dt); // momentum decays within ~1 s
+        } else if (!reduce && !hover.current) {
+          angle.current -= 9 * dt; // ~40 s per turn
+        }
+      }
+      if (ring.current) ring.current.style.transform = `translateZ(${-radius(w, n)}px) rotateY(${angle.current}deg)`;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [w, n]);
+
+  const h = w * 1.78;
+  return (
+    <div
+      ref={box}
+      className="relative mx-auto w-full max-w-[560px] cursor-grab select-none touch-pan-y active:cursor-grabbing"
+      style={{ height: h + 70, perspective: 1100 }}
+      onPointerEnter={() => (hover.current = true)}
+      onPointerLeave={() => (hover.current = false)}
+      onPointerDown={(e) => {
+        drag.current = { x: e.clientX, t: performance.now() };
+        vel.current = 0;
+        (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+      }}
+      onPointerMove={(e) => {
+        if (!drag.current) return;
+        const now = performance.now();
+        const dx = e.clientX - drag.current.x;
+        const deg = dx * 0.35;
+        angle.current += deg;
+        vel.current = (deg / Math.max(8, now - drag.current.t)) * 1000;
+        drag.current = { x: e.clientX, t: now };
+      }}
+      onPointerUp={() => (drag.current = null)}
+      onPointerCancel={() => (drag.current = null)}
+      aria-label={hint}
+      role="img"
+    >
+      <div className="absolute left-1/2 top-4" style={{ width: w, height: h, marginLeft: -w / 2, transformStyle: "preserve-3d" }}>
+        <div ref={ring} className="absolute inset-0" style={{ transformStyle: "preserve-3d" }}>
+          {WALL.map((a, i) => (
+            <figure
+              key={a.handle}
+              className="absolute inset-0 overflow-hidden rounded-[18px] bg-black"
+              style={{
+                transform: `rotateY(${(360 / n) * i}deg) translateZ(${radius(w, n)}px)`,
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+                border: "3px solid #111",
+                boxShadow: "0 20px 50px rgba(20,20,60,0.25)",
+              }}
+            >
+              <Image src={`/content-factory/${a.img}.webp`} alt="" fill sizes="160px" className="pointer-events-none object-cover" draggable={false} />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-2.5 pb-2 pt-6 text-[11px] font-semibold text-white">
+                {a.handle}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+      <p className="absolute inset-x-0 bottom-0 text-center text-xs" style={{ color: COOL.fgMuted }}>{hint}</p>
+    </div>
+  );
+}
+
+// Cylinder radius so that n cards of width w sit edge to edge with a small gap.
+function radius(w: number, n: number) {
+  return (w / 2 / Math.tan(Math.PI / n)) * 1.12;
+}
 
 function IntroSlide({ active, t, cta }: P & { cta: string }) {
   return (
@@ -118,10 +235,8 @@ function IntroSlide({ active, t, cta }: P & { cta: string }) {
             <CallCtas t={t} />
           </div>
         </TextBlock>
-        <div className="cs-in cs-vis relative mx-auto flex w-full max-w-[520px] items-center justify-center py-6" style={d(0.25)}>
-          <Reel src={REELS[1]} className="w-[34%] -rotate-6 translate-x-6 translate-y-4" />
-          <Reel src={REELS[0]} className="relative z-10 w-[38%]" />
-          <Reel src={REELS[2]} className="w-[34%] rotate-6 -translate-x-6 translate-y-4" />
+        <div className="cs-in cs-vis" style={d(0.25)}>
+          <AccountCylinder hint={t.dragHint} />
         </div>
       </div>
     </Slide>
