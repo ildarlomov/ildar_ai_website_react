@@ -1,0 +1,42 @@
+# Ildar Lomov (Ильдар Ломов)
+
+> Technical entrepreneur and former Head of AI at Emerging Travel Group (Ostrovok.ru), a $1B+ travel-tech company. Builds bots, AI agents and automation for businesses end to end: studies the task, recommends a budget-wise technical solution and delivers it turnkey. Based in Lisbon, Portugal; works with clients worldwide in English and Russian.
+
+Технический предприниматель, бывший руководитель AI в Островок.ру. Около 10 лет в разработке, аналитике и data science. Магистр «Прикладная математика и информатика», НИУ ВШЭ (2020). Делает под ключ ботов, ИИ-агентов и автоматизацию для бизнеса.
+
+## Services / Услуги
+
+- Websites (Tilda, React, WordPress) with forms wired into CRM and messengers / Сайты
+- AI agents for business: sales, support, call centres, outreach / ИИ-агенты для бизнеса
+- CRM setup and integration (Bitrix24, amoCRM, HubSpot, custom CRM) / Настройка и интеграция CRM
+- Mailings and outreach in WhatsApp and Telegram / Рассылки и аутрич
+- Telegram bots, Telegram mini apps, web and mobile apps (iOS, Android, PWA) / Разработка ботов и приложений
+- Consulting on automating business and personal processes / Консультации по автоматизации
+- Personal AI agent setup on Claude or ChatGPT: 1–2 calls + unlimited chat support, €400 / Настройка персонального ИИ-агента, 400 €
+- Auto-funnels: Instagram → Telegram bot with mini-products; AI lead generation from Threads / Автоворонки из Instagram и Threads
+- Video content factory: AI influencers, 60 videos a month per avatar / Контент-завод видеоконтента
+
+## Pages
+
+- [Home (English)](https://www.ildarlomov.com/): services, funnels, projects, integrations, about, contact
+- [Главная (русский)](https://www.ildarlomov.com/ru): услуги, автоворонки, проекты, интеграции, обо мне, контакты
+- [Personal AI agent setup](https://www.ildarlomov.com/ai-agent): what the consultation includes, format, price
+- [Настройка персонального ИИ-агента](https://www.ildarlomov.com/ru/ai-agent): консультация, формат, цена
+
+## Projects
+
+- Memcircle (https://memcircle.com): AI meeting recorder for web, macOS, Windows, iOS and Chrome
+- Walkie Talkie (https://walkietalkie.pro): English learning through conversation with an AI teacher
+- Context Whisper: AI-native CRM where AI agents find and follow up leads from Threads and Telegram
+
+## Contact / Профили
+
+- Telegram: https://t.me/ilomov
+- WhatsApp: https://wa.me/351912094137
+- Email: ildarlomov.f@gmail.com
+- LinkedIn: https://www.linkedin.com/in/ildarlomov/
+- YouTube: https://www.youtube.com/@ildarai
+- Threads: https://www.threads.net/@ildar.ai
+- Instagram: https://www.instagram.com/ildar.ai
+- Habr: https://habr.com/ru/users/ilomov/
+- GitHub: https://github.com/ildarlomov
