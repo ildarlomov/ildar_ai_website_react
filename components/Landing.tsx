@@ -21,7 +21,9 @@ const DARK = "bg-[#171514] text-cream [--color-accent-ink:var(--color-accent-bri
 
 // Sections are stacked panels: each one overlaps the previous by the same
 // amount and has rounded top corners, so the page reads as separate blocks.
-const PANEL = "relative -mt-10 rounded-t-[2.5rem] md:-mt-12 md:rounded-t-[3.5rem]";
+// "wallet" (globals.css): card edge — shadow cast on the card above, a glossy rim, a glow that follows
+// the cursor along the edge, and a slide-in as the card scrolls into view. Dark cards add "wallet-dark".
+const PANEL = "wallet relative -mt-10 rounded-t-[2.5rem] md:-mt-12 md:rounded-t-[3.5rem]";
 
 function Arrow({ className = "" }: { className?: string }) {
   return (
@@ -120,6 +122,29 @@ export default function Landing({ lang }: { lang: Lang }) {
     document.documentElement.lang = t.htmlLang;
   }, [t.htmlLang]);
 
+  // Wallet edges: when the cursor is just below a card's top edge, a glow follows it along the edge.
+  useEffect(() => {
+    if (!window.matchMedia("(hover: hover)").matches) return;
+    let raf = 0;
+    const onMove = (e: PointerEvent) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        document.querySelectorAll<HTMLElement>("main .wallet").forEach((el) => {
+          const r = el.getBoundingClientRect();
+          const dy = e.clientY - r.top;
+          const near = dy > -8 && dy < 140;
+          el.style.setProperty("--shine", near ? String(1 - Math.max(0, dy) / 160) : "0");
+          if (near) el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        });
+      });
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <div className="relative overflow-x-clip">
       <SiteHeader lang={lang} switchHref={LANG_PATH} />
@@ -209,7 +234,7 @@ export default function Landing({ lang }: { lang: Lang }) {
         <section id="funnel-instagram" className={`${PANEL} overflow-hidden`} style={{ background: "#f8e7e3" }}>
           <InstagramFunnel lang={lang} />
         </section>
-        <section id="funnel-threads" className={`${PANEL} overflow-hidden`} style={{ background: "#171514" }}>
+        <section id="funnel-threads" className={`${PANEL} wallet-dark overflow-hidden`} style={{ background: "#171514" }}>
           <ThreadsFunnel lang={lang} />
         </section>
 
@@ -267,7 +292,7 @@ export default function Landing({ lang }: { lang: Lang }) {
         </section>
 
         {/* ───── Projects (dark) ───── */}
-        <section id="projects" className={`${PANEL} ${DARK} py-20 md:py-28`}>
+        <section id="projects" className={`${PANEL} wallet-dark ${DARK} py-20 md:py-28`}>
           <div className="mx-auto max-w-6xl px-5">
             <Eyebrow>{t.projects.eyebrow}</Eyebrow>
             <h2 className="font-display max-w-2xl text-3xl font-bold leading-tight sm:text-5xl">
@@ -331,7 +356,7 @@ export default function Landing({ lang }: { lang: Lang }) {
         </section>
 
         {/* ───── About (dark: contrasts with the light Integrations and Contact around it) ───── */}
-        <section id="about" className={`${PANEL} ${DARK} py-20 md:py-28`}>
+        <section id="about" className={`${PANEL} wallet-dark ${DARK} py-20 md:py-28`}>
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 md:grid-cols-[1fr_0.85fr] md:gap-16">
             <div>
               <Eyebrow>{t.about.eyebrow}</Eyebrow>

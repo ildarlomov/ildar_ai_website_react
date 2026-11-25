@@ -191,3 +191,48 @@ body {
 /* Funnel decks (Threads, Instagram + Telegram): reveal animations twice as fast as the Memcircle case. */
 .fast-deck .cs-slide[data-active="true"] .cs-in { animation-duration: 0.3s; animation-delay: calc(var(--d, 0s) / 2); }
 .fast-deck .cs-slide[data-active="true"] .cs-vis { animation-duration: 0.45s; }
+
+/* ───── Home page "wallet" card edges (Landing.tsx PANEL) ─────
+   Cards stack like cards in a wallet: each one casts a soft shadow onto the card above, has a glossy
+   rim along its rounded top edge, a terracotta glow that follows the cursor along that edge, and slides
+   up into place as it scrolls into view (scroll-driven, progressive: no effect where unsupported). */
+.wallet { box-shadow: 0 -22px 44px -24px rgba(20, 14, 10, 0.5); }
+.wallet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border-top: 1px solid rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  z-index: 40;
+}
+.wallet-dark::before { border-top-color: rgba(255, 255, 255, 0.18); }
+.wallet::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 2.5rem;
+  right: 2.5rem;
+  height: 22px;
+  background: radial-gradient(260px 18px at var(--mx, 50%) 0, rgba(201, 118, 83, 0.85), transparent 72%);
+  opacity: var(--shine, 0);
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  z-index: 41;
+}
+@media (min-width: 768px) { .wallet::after { left: 3.5rem; right: 3.5rem; } }
+@supports (animation-timeline: view()) {
+  .wallet {
+    animation: wallet-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 35%;
+  }
+  @keyframes wallet-in {
+    from { transform: translateY(36px) scale(0.985); }
+    to { transform: none; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wallet { animation: none; }
+  .wallet::after { display: none; }
+}
