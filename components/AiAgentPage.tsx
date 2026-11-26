@@ -35,7 +35,7 @@ function Arrow() {
 export default function AiAgentPage({ lang }: { lang: Lang }) {
   const t = AI_AGENT[lang];
   const home = LANG_PATH[lang];
-  const formHref = `${home === "/" ? "" : home}/#contact`;
+  const formHref = `${home}#contact`; // "/#contact" or "/ru#contact" ("/ru/" would 308-redirect)
 
   return (
     <div lang={lang} className="relative overflow-x-clip bg-cream">
