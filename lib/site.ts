@@ -6,7 +6,7 @@ export const SITE_NAME = "Ildar Lomov";
 
 export const TITLE = "Ildar Lomov: Bots, AI agents & automation for business";
 export const DESCRIPTION =
-  "Messenger bots (WhatsApp, Telegram), AI agents, CRM setup (Bitrix24, amoCRM), mailings, Tilda websites and custom apps. Based in Lisbon, Portugal.";
+  "Messenger bots (WhatsApp, Telegram), AI agents, CRM setup (Bitrix24, amoCRM), mailings, Tilda websites and custom apps.";
 
 export const TITLE_RU = "Ильдар Ломов: боты, ИИ-агенты и автоматизация для бизнеса";
 export const DESCRIPTION_RU =

@@ -80,7 +80,6 @@ export type Dict = {
   nav: { cases: string; services: string; projects: string; about: string; contact: string };
   cta: string;
   hero: {
-    badge: string;
     title: string;
     titleAccent: string;
     text: string[];
@@ -177,7 +176,6 @@ export const DICT: Record<Lang, Dict> = {
     nav: { cases: "Cases", services: "Services", projects: "Projects", about: "About", contact: "Contact" },
     cta: "Get in touch",
     hero: {
-      badge: "Based in Lisbon · Working worldwide",
       title: "I build bots, AI agents and automation",
       titleAccent: "that make businesses run on their own.",
       text: [
@@ -404,7 +402,6 @@ export const DICT: Record<Lang, Dict> = {
     nav: { cases: "Кейсы", services: "Услуги", projects: "Проекты", about: "Обо мне", contact: "Контакты" },
     cta: "Связаться",
     hero: {
-      badge: "Живу в Лиссабоне · Работаю с клиентами по всему миру",
       title: "Технический партнёр для вашего бизнеса.",
       titleAccent: "ИИ-агенты и автоматизация под ключ, которые приводят вам клиентов.",
       text: [
